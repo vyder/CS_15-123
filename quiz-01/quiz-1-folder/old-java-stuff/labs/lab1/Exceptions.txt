@@ -1,0 +1,84 @@
+/* HERE IS THE CODE WE ENDED UP WITH AFTER OUR HANDS ON SESSION ON SATURDAY */
+
+private void readGraphFile( String fileName ) 
+{
+	FileReader fr=null;
+	StreamTokenizer st=null;
+	try
+	{
+		fr = new FileReader( fileName );  // char by char access to the file
+		st = new StreamTokenizer( fr ); // converts what fr gives it into tokens
+	}
+	catch (IOException e )
+	{
+		System.out.println("Can't open " + fileName + " Exiting program");
+		System.exit(0);
+	}
+	
+	int tokenType; //  EOF, WORD, NUMBER ?
+	
+	
+	int row, col, weight; // each line in the input file has this triplet
+	
+	tokenType=numNodes=row=col=weight=0;  // java wants everything initalized first (yes you *can* initialize like this)
+	
+	// File is open and read to read - give Tokenizer the command to read a token from the file
+	
+	try
+	{
+		st.nextToken(); // expecting a number (our n value)
+		numNodes = (int) st.nval; // we assumed we got our number and cast it to int
+	}
+	catch (Exception e)
+	{
+		System.out.println("Exception caught reading first # of " + fileName );
+		System.exit(0);
+	}
+	
+	g = new int[numNodes][numNodes]; // 2D array of zeros
+	for(int i=0 ; i<numNodes; ++i)
+		for (int j=0; j<numNodes ; ++j)
+			if (i!=j)
+				addEdge(i,j,NO_EDGE);
+	
+	numEdges=0;
+	
+	// you write a loop to put NO_EDGE at every non diagonal
+	
+	// g now contains 0s on the diagonal and NO_EDGE every elsewhere
+	
+	
+	// start reading the file
+	int lineNum=0;
+	do
+	{
+		try
+		{
+			++lineNum;
+			tokenType = st.nextToken(); // expecting row OR EOF 
+			if (tokenType==StreamTokenizer.TT_EOF)  break; // jump OUT of the loop
+			row =(int) st.nval;
+			
+			tokenType = st.nextToken(); // expecting col  	
+			col =(int) st.nval;
+			
+			tokenType = st.nextToken(); // expecting weight  
+			weight =(int) st.nval;
+		}
+		catch (Exception e)
+		{
+			System.out.println("Exception caught reading <src,dest,weight> triplet at on line # " + lineNum + " of " + fileName );
+			System.exit(0);
+		}
+		addEdge( row, col, weight ); // punch weight value into matrix
+		
+		// just for testing purposes - echo the row col and weight
+		// System.out.println( row + " " + col + " " + weight );
+		
+	}  while (true); // infinite loop - only way out is via  "break" statement 
+	
+	// break brings you *HERE* to next line of code AFTER the loop end
+	
+	System.out.println("\nGraph File '" + fileName + "' processed: " + numEdges + " Edges stored.\n");
+	
+}     // END readGraphFile	

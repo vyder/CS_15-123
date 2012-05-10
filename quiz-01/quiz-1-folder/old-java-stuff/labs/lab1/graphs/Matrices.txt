@@ -1,0 +1,147 @@
+/** 
+ * Demo of 2D Arrays of int 
+ * @author Tim Hoffman
+ * @date 17-jul-01
+ * @version 
+ */
+import javax.swing.JOptionPane;
+import java.util.Random;
+
+public class Matrices
+{
+	public static void main (String args[]) 
+	{
+		
+		int rows=5,cols=10,maxVal=100;
+				
+		int matrix[][]; // matrix is reference to a 2D array of ints
+						// no rows or columns yet
+		
+		matrix = new int[rows][]; // matrix has 5 empty rows in it
+		
+		System.out.println( "\nMatrix has: " + matrix.length + " empty rows");
+		
+		// FOLLOWING WILL THROW AN EXCEPTION FOR REFERENCING NULL ROWS
+		//for (int row=0 ; row<matrix.length ; ++row)  
+		//	System.out.println("The length of row " + row + " is " + matrix[row].length );
+		
+		initializeMatrix( matrix, cols, maxVal); // note we don't pass in rows WHY ?
+		// Now it's OK to look at each row
+		System.out.println("\nMatrix row lengths after complete initialization");
+		for (int row=0 ; row<matrix.length ; ++row)
+			System.out.println("The length of row " + row + " is " + matrix[row].length );
+		
+		System.out.println("\nContents of Matrix after complete initialization");
+		printMatrix( matrix );
+		
+		// Suppose you have a method that is expecting a 1D arrya of ints
+		// ?: How can we use that method to print individual rows of the 2D array?
+		// A: Simple just use syntax  matrix[ i ]  to specify i'th row of the matrix
+
+		System.out.println("\n1st row of matrix printed from printArray method");
+		printArray( matrix[ 0 ] );  // sends 1st row of matrix into print.
+									
+		// The above works fine because that 1st row is a 1D array of ints - 
+		// Which is just what printArray is expecting
+		// MORAL Of THE STORY: 2D arrays are just arrays of arrays
+		// i.e. every element of matrix is a 1D array of ints
+		
+		// ?: how do I refer to the jth element in the i'th row ?
+		// A: Simple just say   matrix[i][j]
+		
+		System.out.println("\nHere is the 3rd element of the 2nd row: " + matrix[1][2] );
+		
+		// ?: How can I use a nested for loop to print a 2D array ?
+		// A: Simple - just use the [][] syntax again
+		
+		System.out.println("\nPrinting matrix again.. BUT using nested for loop and [][] syntax");
+		for( int row=0 ; row < matrix.length ; ++row)
+		{
+			for (int col=0 ; col<matrix[row].length ; ++col)
+				System.out.print( matrix[row][col] + "  " );
+			
+			System.out.println();
+		}
+		
+		// Last ?:  In using the above syntax of [][]in a nested loop
+		// What potentially dangerous assumption are you making about
+		// every row in the matrix ?
+		
+		
+		System.exit(0);
+	} // END MAIN METHOD
+
+    
+	// ===================================================
+	
+	// Fills array with random ints from 1 to maxVal inclusive
+	
+	public static void initializeMatrix( int m[][], int cols, int maxVal )
+	{
+		Random r = new Random( 17 ); // 17 is just a seed value
+		
+			
+		// fill the rows of the matrix with integers
+		
+		for (int row=0 ; row < m.length ; ++row )  // put another row of ints into matrix
+		  m[row] = new int[cols]; // every row has length col 
+		
+		// now assign values into those ints in each row of the matrix
+
+		for (int row=0 ; row < m.length ; ++row ) // with each row
+			for (int col=0 ; col < m[row].length; ++col) // for each int in that row
+				m[row][col] = Math.abs( r.nextInt() ) % maxVal + 1;
+	
+	}
+	
+	// Method for printing the array
+	public static void printMatrix(int  m[][] )
+	{
+		for (int row=0; row < m.length; ++row)
+		{	
+			System.out.print("row[" + row + "]  " );
+			printArray( m[row] );
+		}
+	} // END method printMatrix
+	
+	// ....................................................
+	
+	// returns a value between 0 and length-1 if found
+	// else returns length to indicate failure
+	public static int binarySearch(int arr[], int targ ) 
+	{
+		return arr.length; // indicates failure -
+						   // you may remove this if you 
+						   // do your solution differently 
+	} // END method find
+
+	// Prints out emelents of a single D array 
+	public static void  printArray(int arr[] )
+	{
+		for (int col=0 ; col<arr.length ; ++col)
+			System.out.print( arr[col] + "  ");
+
+		System.out.println();
+	} // END method find
+
+} // EOF
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+

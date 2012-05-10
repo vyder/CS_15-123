@@ -1,0 +1,12 @@
+
+Searching for escape paths from swamp4.txt
+5X5 Origin: (2,2)
+0 0 0 0 0
+0 1 1 1 0
+0 0 1 0 0
+0 1 1 1 0
+0 0 0 0 0
+
+DEAD END SWAMP! NO PATH OUT
+
+Found 0 escape paths from (2,2) in swamp4.txt

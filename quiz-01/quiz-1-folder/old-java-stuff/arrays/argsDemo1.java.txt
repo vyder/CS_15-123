@@ -1,0 +1,29 @@
+/*
+	argsDemo1.java
+
+	- passing command line args to the main method
+	- args[] array: an array of Strings
+	- accessing the individual Strings in args[] array
+	- usage length method of Array class
+	- use of [] operator on Array object
+*/
+
+import java.io.*;
+
+public class argsDemo1
+{
+	public static void main( String args[] )
+	{
+		// check to see how man Strings the user entered on cmd line
+
+		if (args.length < 1)
+		{
+			System.out.println("Must enter one or more strings on the cmd line!");
+			System.exit(0); // terminate program
+		}
+
+		for (int i=0 ; i<args.length; ++i )
+			System.out.println("args["+i+"]= " + args[i] );
+
+	}
+} // EOF

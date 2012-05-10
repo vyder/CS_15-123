@@ -1,0 +1,21 @@
+1: 40
+2: grep printf *.c | wc -l
+3: 68
+4: find * -name "*.txt" | wc -l
+5: 17
+6: find * -name "index.html" | wc -l
+7: 16
+8: find old-java-stuff/ -name "*.zip" | wc -l
+9: find old-java-stuff/ -name "*.java" | xargs grep println
+10: 01111111
+11: 11111111
+12: 10000000
+13: 127
+14: -128
+15: 00100101
+16: 11011011
+17: whois yahoo.com
+18: whoami
+19: diff Lab1.c Lab1.c~
+20: write andrew-id message 
+21: add code to their login file that appends more code to the login file each time they login. The code does ls -r of their entire directory then clear the screen. This makes logging in take longer and longer each time they login

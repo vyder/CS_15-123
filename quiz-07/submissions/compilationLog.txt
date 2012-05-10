@@ -1,0 +1,39 @@
+cnarburg.c: In function `main':
+cnarburg.c:15: error: syntax error before '%' token
+cnarburg.c:15: error: missing terminating " character
+cnarburg.c:20: error: missing terminating " character
+cnarburg.c:21: error: syntax error before ';' token
+cnarburg.c:25:2: warning: no newline at end of file
+cnarburg.c: At top level:
+cnarburg.c:11: warning: unused parameter 'argc'
+cnarburg.c:11: warning: unused parameter 'argv'
+djurado.c: In function `main':
+djurado.c:16: warning: implicit declaration of function `println'
+djurado.c:17: warning: implicit declaration of function `fgetline_123'
+djurado.c:20: warning: ISO C90 forbids mixed declarations and code
+djurado.c:20: warning: unused variable `j'
+djurado.c:27:2: warning: no newline at end of file
+djurado.c: At top level:
+djurado.c:12: warning: unused parameter 'argc'
+djurado.c:12: warning: unused parameter 'argv'
+/tmp/ccqhsON2.o: In function `main':
+djurado.c:(.text+0x1b): undefined reference to `println'
+djurado.c:(.text+0x2f): undefined reference to `fgetline_123'
+collect2: ld returned 1 exit status
+fec.c: In function `main':
+fec.c:18: warning: ISO C90 forbids mixed declarations and code
+fec.c:25:2: warning: no newline at end of file
+fec.c: At top level:
+fec.c:11: warning: unused parameter 'argc'
+fec.c:11: warning: unused parameter 'argv'
+msalley.c: In function `main':
+msalley.c:19: error: `j' undeclared (first use in this function)
+msalley.c:19: error: (Each undeclared identifier is reported only once
+msalley.c:19: error: for each function it appears in.)
+msalley.c:25:2: warning: no newline at end of file
+msalley.c: At top level:
+msalley.c:11: warning: unused parameter 'argc'
+msalley.c:11: warning: unused parameter 'argv'
+tlh.c:25:2: warning: no newline at end of file
+tlh.c:11: warning: unused parameter 'argc'
+tlh.c:11: warning: unused parameter 'argv'

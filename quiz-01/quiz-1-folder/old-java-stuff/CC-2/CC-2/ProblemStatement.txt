@@ -1,0 +1,22 @@
+You are given an input file which consists of several lines. 
+Each line begins with the name of a Political Action Commitee 
+(PAC) follow by a list of people's names who belong to that group.
+
+You must tokenize each line as follows: Each line creates one entry into a HashMap. 
+The key is the PAC name, the associated value is a HashSet containing all 
+the people's names on the remainder of the line.
+
+After parsing the PAC name, and creating a HashSet of the names on the rest of the line, 
+put an entry into the HashMap that is < String, HashSet > where the string is the PACname and the 
+HashSet is all the names on the rest of the line. After building the HashMap you must print it out in 
+sorted order by keys. The names in that PAC need not be sorted though. 
+
+Next step is to read a file consisting of several lines. Each line will have 2 PAC group names on it.  
+As you read each line you must generate the intersection of the two PACs. 
+The intersection being all the people names in common to both PACs.  
+The easiest way to do this is to parse the 2 PAC names from the line then declare 2 HashSets. 
+
+Using the PACnames as keys, lookup the associated names and copy then into the 2 HashSets. 
+Then simply compute the intersection using the .retainAll() method of the HashSet class. 
+
+Then print that intersection.

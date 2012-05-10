@@ -1,0 +1,138 @@
+<html>
+<head>
+
+<title>F04 15200 11 OCT 2004 Lecture</title>
+
+<style type="text/css">
+<!--
+body
+{
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+	font-size: 14;
+}
+	-->
+</style>
+
+</head>
+
+<body bgcolor="dddccc" >
+<h1 align="center">Intro to Binary Search Trees (BST)</h1>
+
+<hr>
+<P>
+<OL>
+<LI>
+<B>The Binary Tree ADT (Abstract Data Type ) </B><P>
+
+A <EM>tree</EM>  differs from lists, stacks and queues in that it is non linear.
+Trees are <EM>hierarchical</EM>  and intrinsically <i>recursive</i> data structures.<P>A
+tree is hierarchical in the sense that nodes above are ancestors and nodes below
+are descendants. Trees thus resemble a family hierarchy.&nbsp;
+<BLOCKQUOTE><PRE>
+
+
+       10    &lt;-- root
+     /   \
+    5      15  &lt;-- children of root
+  /   \      \
+ 1     7      20    &lt;-- leaves
+</PRE></BLOCKQUOTE>
+
+
+<A NAME="vocab">
+<H4>Terminology&nbsp;</H4>
+</A>
+
+<ul>
+	<li>The topmost node is called <b>root</b>
+	<li>Nodes below other nodes are <b>descendents </b>of the nodes above them.
+	<li>The nodes above are <b>ancestors</b> to the nodes below
+	<li>Nodes <i>directly</i> below a node are <b>children </b>of the node
+	<li>The node <i>directly</i> above a child is its <b>parent</b>
+	<li>Nodes (other than root) having children are <b>interior </b>nodes
+	<li>Nodes with no children are <b>leaves</b>
+	<li>Nodes sharing the same parent are <b>siblings</b>
+   <li>A parent can have multiple children
+   <li>A child has exactly one parent
+</ul>
+
+<H4>Applications of the Tree ADT</H4>
+
+The file system on your PC's hard drive is a classic example of a tree structure. Directories represent roots and the files in them
+represent children.
+
+<BLOCKQUOTE><PRE>
+      C:   &lt;-- root
+     /
+    /     \
+  WINNT   DOS
+      /    \
+   SYSTEM  UTILS
+    /      /   |   \
+  <B>...</B>  TEMP SYS
+</PRE></BLOCKQUOTE>
+
+<P>
+Despite the hierarchical order of the <STRONG>structure</STRONG> of
+the tree, the order enforced on objects in the tree will depend on
+<STRONG>how we use the tree</STRONG>.  This just means that unlike
+a <EM>stack</EM> whose operations are usually limited to <EM>push</EM>
+and <EM>pop</EM>, there are many different kinds of trees and ways
+to use them.  Thus, this flexibility makes them more akin to linked
+lists.
+
+<P>
+Another reason to use a tree is because trees make some operations more
+efficient (we'll discuss that at some later time).
+
+<H4>Trees are intrinsically Recursive&nbsp;</H4>
+
+Trees are defined in terms of themselves. Every node under the root is itself a
+tree (or sub-tree).
+
+<H4>Binary Search Trees (BSTs)</H4>
+
+Binary Trees are just trees having the characteristic that no node has more than
+2 children.&nbsp; We typically refer to those children as RIGHT and LEFT.&nbsp;
+<p>BSTs also have the property that for every node in the tree, its left child
+is less in the ordering relation that it's parent, and the right child is
+greater than it's parent.</p>
+
+
+<P>
+<LI>
+<B>a few BST Tree operations:</B>
+<ul>
+	<li>insert - adds a new element into the tree in it's proper position such that ordering is preserved
+	<li>search - identical to insert except the operation merely stops when the node is reached - no element is inserted
+	<li>remove - removes an element from the tree and preserves ordering
+	<li>numNodes - counts the number of nodes on the tree including the root
+	<li>numLeaves - counts only the leaves
+	<li>numInteriorNodes - counts only interior nodes
+	<li>traversals - typically 3 operations inOrder, preOrder, and postOrder
+</ul>
+<P>
+<LI>
+<B>Other BST Tree terms:</B>
+<ul>
+	<li>Full BST - Every leaf has same depth and every non-leaf has 2 children
+	<li>Complete BST - Same as full BST except at the deepest level where some
+		nodes may missing on the right side of the last row.
+</ul>
+
+<hr>
+
+<h3>the Node class <a href="Node.java">Node.java</a> </h3>
+
+<h3>the Tree class  <a href="Tree.java">Tree.java</a> </h3>
+
+<hr>
+
+<h2>A small assignment due this Thursady in class</h2>
+
+<b>Fill in the search method and add a line of code in your main to search for a String.</b>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+/* KeyboardIO.java  (adapted from demo written by Joseph Farrell)
+
+*/
+import java.io.*;
+
+public class KeyboardIO
+{
+	public static void main (String[] args) throws IOException
+	{
+		BufferedReader kbd = new BufferedReader(new InputStreamReader(System.in));
+
+		String response; // stores user input from kbd
+
+		// we convert each user response into a specific data type and store it in variables
+		int i;
+		double d;
+		char c;
+		System.out.println("...How to read from kbd and convert into data types ");
+
+		// prompt for, read, and echo a String
+
+		System.out.print("\nEnter a word: ");
+		response = kbd.readLine();
+		System.out.println("You entered: " + response);
+
+		// prompt for, read, convert and echo an int
+
+		System.out.print("\nEnter an integer: ");
+		response = kbd.readLine();
+		i = Integer.parseInt( response );
+		System.out.println("You entered: " + i);
+
+		// prompt for, read, convert and echo a double
+
+		System.out.print("\nEnter a floating point value: ");
+		response = kbd.readLine();
+		d = Double.parseDouble( response );
+		System.out.println("You entered: " + d);
+
+		// prompt for, read, convert and echo a char
+
+		System.out.print("\nEnter a character: ");
+		response = kbd.readLine();
+		c = response.charAt(0);  // the Zero'th (first) element of the string is the char the user entered
+		System.out.println("You entered: " + c);
+
+		/* See what happens above if instead of typing in a single character you type in:
+			- an entire word
+			- just the RETURN key
+		*/
+	}
+
+} //EOF

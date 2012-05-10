@@ -1,0 +1,20 @@
+// trivial little program that declares a Graph object
+// and tests out its C'tor and print method
+
+// When you write your Lab 2 you will get the filename from the command line
+// and you will put try/catches in the readGraphFile so that you can remove ALL
+// the throws IOException clauses after our methods. But first I will explain
+// to you how to do this corrctly.
+//
+// You will add several new methods to the Graph class and to your GraphTester program
+// such as inDegree outDegree etc etc..
+import java.io.*;
+class GraphTester
+{
+   
+    public static void main( String args[] ) throws IOException // since Graph class doesn't handle them
+    {
+         Graph myGraph = new Graph( "graphdata.txt" );
+         myGraph.print();
+    }
+}

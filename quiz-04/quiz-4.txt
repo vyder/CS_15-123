@@ -1,0 +1,24 @@
+# Vidur Murali (vmurali@andrew.cmu.edu)
+Q1: This code is dangerous because if the string that is being fscanned is bigger than 80 characters, it'll cause a buffer overflow.
+Q2: This code snippet is vurnerable to a similar issue. If the input number is bigger than the size of an integer, the buffer will 
+overflow.
+Q3: 1004
+    1012
+    32
+    1008
+    12
+Q4: F F T
+Q5: F F F T
+Q6: 4
+Q7: F
+Q8: Did not free up the previous allocation of memory.
+Q9: First line. you can either declare an array as [int *arr = malloc(5*sizeof(int));] or [int arr[5];]. combining the two will not 
+compile.
+Q10: The memory address of num does is de-allocated after getInt() is done executing. So the value in that address may be overwritten 
+before main comes around to printing it out.
+Q11: word2 is only assigned 5 bytes of space because sizeof(word1) returns the sizeof the pointer and not the length of the char array.
+     output: word1: foobar, word2: foobar
+     however, strcopy has overflown word2's memory and written beyond the allocated number of bytes, hence potentially crashing the 
+     program.
+Q12: shallow copy just copies the address from one pointer to another -- shallow copy copies all the values in the array to new memory and 
+assigns that starting address into the other pointer (like in strcopy).

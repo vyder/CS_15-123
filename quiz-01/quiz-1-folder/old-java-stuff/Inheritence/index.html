@@ -1,0 +1,715 @@
+<html>
+<head><title>Object Oriented Programming</title></head>
+
+<body>
+<font face="verdana">
+<font color="green"><h1 align="center"><a name="OOP">Object Oriented Programming</a></h1></font>
+<hr>
+Object-Oriented Programming (OOP) is the design and use of classes plus the use
+of inheritance (more on inheritance very soon).&nbsp;
+<p>So we must first understand what a class is, then how to write and use
+one.&nbsp; Let's start with something we already understand, then explain what a
+class is by contrasting it with something we already understand.</p>
+<h4>The Primitive Types:&nbsp;</h4>
+<p>Java comes with many built in data types.&nbsp; The types int, float, double,
+char, boolean, etc., are know as the <b>primitive</b> <b>types</b>.&nbsp; One of
+the distinguishing characteristics of the primitive types is that they can store
+only one value at a time. When you declare a variable of a primitive type you
+know that variable can only store one value of the type at a time.&nbsp; You
+can't store the number 10 and the 8 at the same time in a single integer variable.</p>
+<h4>Classes: User Defined Data Types&nbsp;</h4>
+<p>The Java language allows programmers to get around the limitations of the primitive
+data types by allowing you to design you own data type.&nbsp; Java lets you write a
+class definition file which describes a new data type.&nbsp;</p>
+<p>So, when you write a class, you are writing a definition of a new data type. Once you have defined a new data type by writing a class
+definition, you can use that class name just as you would use the primitive type
+names to declare variables, pass parameters and so forth.</p>
+<p>In addition to allowing you to store multiple values in the same variable, a class definition allows us to store methods with those
+variables.&nbsp; The relationship between the methods of a class and the data
+(variables)&nbsp; in the class is simply that the methods operate on the&nbsp;
+data.</p>
+<p><b>Class Terminology:</b>&nbsp;&nbsp;</p>
+<p>The variables stored inside a class are sometimes called the <i>data</i>
+or&nbsp;<i>fields</i> or <i>properties</i> or <i>instance variables</i>of the class. 
+The term <i>instance variables</i> is often used because every time you create an object of the class 
+tyoe, you get are creating a separate instance of the class. Thus every object (instance) of the class gets it's separate 
+internal data variables. Thus the term <i>instance variables</i>. 
+</p>
+<p>
+The methods stored alongside the instance variables in the object are sometimes called the 
+<i>behaviors</i> of the class.
+</p>
+<h3>A Point2D class:&nbsp;</h3>
+
+<table bgcolor='khaki'>
+<tr><td><pre>/* 
+   Point2D class definition file
+   Describes a point in the 2D place
+
+   data members of this class are protected instead of private. Doing so
+   allows children of this class (inheritance) to directly access these
+   data members.
+*/
+
+class Point2D 
+{
+    protected int x;   
+    protected int y;
+
+    // DEFAULT C'TOR
+    public Point2D()
+    {
+      this( 0, 0 ); // calls the FULL C'TOR
+    }
+    // FULL C'TOR
+    public Point2D( int x, int y ) // notice we only call the setters in the FULL C'Tor
+    {
+       setX( x );
+       setY( y );
+    }
+    // SETX METHOD IS THE ONLY PIECE OF CODE THAT SHOULD EVER MODIFY X
+    public void setX( int x )
+    {
+       this.x = x;
+    }
+    // SETY METHOD IS THE ONLY PIECE OF CODE THAT SHOULD EVER MODIFY Y
+    public void setY( int y )
+    {
+       this.y = y;
+    }
+    public int getX( )
+    {
+       return x;
+    }
+    public int getY()
+    {
+       return y;
+    }
+    public String toString()
+    {
+       return &quot;(&quot; + x + &quot;,&quot; + y + &quot;)&quot;;  
+    }
+} // EOF</font></pre>
+</td></tr></table>
+ 
+&nbsp;
+<h3>Some rules of good class design:</h3>
+<ul>
+	<li>data fields should be private or protected (more on protected soon).
+	<li>provide a public set and/or get method if you want to give class users access to a private data field. 
+	<li>typically you should provide a default constructor and a full
+      constructor, although sometimes this is not practical or desirable.
+	<li>re-use code by having your default constructor use the full constructor to initialize data via a call to <b>this(..)</b>
+	<li>your <b>set_(..)</b> methods should be the only code that modifies your private data. 
+	<li>only one constructor should call your <b>set_(..)</b> methods. Typically the full constructor.
+</ul>
+
+<table bgcolor='khaki'><tr><td><pre>/* PointTester1.java
+   Tests Point2D class by exercising constructors, setters, getters and toString() methods.
+*/
+class PointTester1
+{
+   public static void main( String args[] )
+   {
+       Point2D p2 = new Point2D(); // test default C'tor
+       p2.setX( 22 );  // test setX
+       p2.setY( 7 );   // test setY
+       System.out.println( &quot;p2 = &quot; + p2.getX() + &quot;, &quot; + p2.getY() ); // test getX and getY
+       System.out.println( &quot;p2 = &quot; + p2 ); // test toString
+       
+       p2 = new Point2D( 1, 3 ); // test full C'tor (old p2 point destroyed)
+       System.out.println( &quot;p2 = &quot; + p2 ); // test toString
+   }
+} // EOF
+</pre></td></tr></table>
+
+<font face="Verdana">
+<p>
+Note the line of code that declares a variable of type Point2D.
+Notice that our default constructor was automatically called when we declared our Fraction in the 
+Tester program.
+</p>
+<p><i>Just to make a point</i>: Copy the Point2D.java and
+PointTest.java into a scratch directory and add a line of code to our 
+default constructor that prints:<b>&quot;Point2D's default C'Tor just executed"</b>
+ then recompile and execute the PointTest program.
+</p>
+<p>
+You never called any such method in the tester program, <i> or did you ?</i> Yes you actually did because the name 
+of that method is Point2D. You declared a variable of type Point2Dand thus <i> implicitly</i> called that method 
+to initialize the innards of your new Point2D.
+<p>
+It is customary (and good practice) to declare all class data (instance
+variables) as private or protected. The reason is that you don't 
+want to allow clients of your class (programs that declare Point2D variables) to be able to directly modify the data 
+of the class. Instead you want to force users of your class to go through proper channels, so to speak. 
+You want them to make a method call to change the value of data in your class rather than direct access.
+</p>
+<h3><font face="Verdana">Terminology Review</font><font face="Verdana"></h3>
+<p> Before going on it is time to state some commonly used terminology. The class definition
+file we wrote is called a <b>class</b>.  The variables we declared of that class (p2) in some program
+(PointTest1.java) 
+are called <b>references</b>.&nbsp; The actual chunks of memory that store the data and methods of the Point2D variables
+are called an <b>objects</b> of the Point2D class. The data lives in the object. Code that declares variables of the class type 
+is called client code, or a client of the class. PointTester1 is a client of the Point2D class.
+</p>
+<ul>
+	<li>A <b>class</b> is a description you write in a .java file that defines a new data type
+	<li>A <b>reference</b> is a named variable that is a pointer to a class
+		<ul>
+			<li><pre>Point p; // Point is the class name, <b>p</b> is the reference variable</pre>
+		</ul>
+	<li>An <b>object</b> is the chunk of memory whose address is stored in p <b>(the object is where the data lives)</b>
+		<ul>
+			<li><pre>Point p = new Point( 22, 7 ); //  p contains the address of a newly created Point object. 
+It is the object that contains the 22 and the 7 and the methods</pre>
+		</ul>
+	<li>The data members (fields) inside each object are often called <b>instance variables</b>
+		<ul>
+			<li>The <b>instance variables</b> of the Point2D class are <b>x</b> and <b>y</b>
+		</ul>
+	<li><b>Code written inside a class</b> description file is called <b>class code</b>
+	<li><b>Code written outside a class</b> description file <b> that uses that class</b> is called <b>client code</b>
+	<li>PointTest1.java (it's main method) is a <b>client</b> of the Point2D class because it
+      <b> declares and uses objects</b> of the <b> Point2D class</b>.
+</ul>
+
+<hr>
+
+<table bgcolor='khaki'></table>
+
+<h2>Inheritence</h2>
+
+<p>
+Inheritence is one of OOP's more important features. Inheritence is code re-use plus a lot more. 
+Inheritence is accomplished using the keyword <b>extends</b>.  When a class extends another class the 
+new class is said ot be a child of the class it extends, and that original clas is said to be the parent 
+of the extended class.
+</p>
+<p>Suppose we want to write a class that describes a point in 3D space. We could wrtie a class from scratch 
+that has an x,y and z coordinate. With inheritence we don;t have to to. Instead we define a Point3D clas as 
+extending the already exisiting Point2D class.  By doing so the Point3D clas inherits everything the Point2D 
+class has (except it's constructors).
+</p>
+
+<table bgcolor='khaki'><tr><td><pre>
+class Point3D extends Point2D
+{
+	// NOTHING INSIDE! EMPTY!
+}
+</pre></td></tr></table>
+
+<p>Notice above that the Point3D class has the words <b><i>extends Point2D</i></b> after it's class name in it's 
+class descriptor file.<p/>
+<ul>
+	<li>Point3D <b> IS-A</b> Point2D thing.
+	<li>Point3D inherits all of Point2D's instance variables (x and y) and all of Point2D's methods <b>except it's constructors.</b>
+</ul>
+
+<p>
+Just to prove the point (no pun intended) let's write a test progam that declares a Point3D object and then let's see if that 
+Point3D object has inherited Point2D's members.&nbsp;<br>
+Then put Point2D.java, Point3D.java and PointTester2.java in the same directory
+and compile &amp; run the Tester.
+</p>
+
+<table bgcolor='khaki'><tr><td><pre>/* PointTester2.java
+   Tests bare-bones Point3D class by exercising default C'tor (not inherited), 
+   setters, getters and toString() methods.
+*/
+class PointTester2
+{
+   public static void main( String args[] )
+   {
+       Point3D p3 = new Point3D(); // test default C'tor  NOT inherited from 2D
+       p3.setX( 22 );  // test setX
+       p3.setY( 7 );   // test setY
+       System.out.println( &quot;p3 = &quot; + p3.getX() + &quot;, &quot; + p3.getY() ); // test getX, getY
+       System.out.println( &quot;p3 = &quot; + p3 ); // test toString            
+   }
+} // EOF
+</pre></td></tr></table>
+
+<p>
+The result is proof that by extending a class, the child class inherits  everything from it's parent except it's constructors. 
+One more thing before we go on. Just to prove that the constructors are not inherited, try to construct a Point3D object passing in 2
+args.
+</p>
+
+<p>The above Point3D class proves that the keyword <b>extends</b> indeed causes
+the child class (Point3D)&nbsp; to inherit the members of its parent class
+(Point2D).&nbsp; However, this bare-bones example does not demonstrate the
+usefulness of inheritance.&nbsp; Inheritance becomes useful when we either add
+new members to the child class, and or override existing members of the
+parent.
+</p>
+<h4> A slightly more useful example of inheritance</h4>
+
+<table bgcolor='khaki'><tr><td><pre>class Point3D extends Point2D
+{
+   private int z; // we just added a new member 
+
+   public Point3D() // def C'Tor
+   {
+	  this( 0, 0 , 0 ); // call upon our Full C'tor to do the job
+   }
+
+   // Full C'Tor calls upon parent Full C'tor to init x,y
+   // this is good code reuse - the parent knows how to init x and y 
+   // never re-write tried and true logic! 
+   // But we init z ourselves since parent does not know about z
+   public Point3D( int x, int y, int z ) // full C'Tor
+   {
+	  super( x, y ); // super means call parent's C'Tor (2 arg ver)
+	  setZ( z );
+   }
+
+   public int getZ()
+   {
+	  return z;
+   }
+   public void setZ( int z )
+   {
+	  this.z = z;
+   }
+
+   // we OVERRIDE our parent's definition of toString since it cannot serve
+   // our purpose in its form 
+
+   // Notice in this toString code we reference x and y directly. It works 
+   // because our parent declared them protected rather than private. If
+   // parent had made them private, we would have to call getX and getY just
+   // any other client code out in main. The keyword protected sort of 
+   // keeps members &quot;in the family&quot;
+    
+   public String toString()
+   {
+     return &quot;(&quot; + x + &quot;,&quot; + y + &quot;,&quot; + z + &quot;)&quot;;  
+   }
+}</pre></td></tr></table>
+
+<p>Notice the keyword <b>super</b> in the Full C'tor of Point3D. This keyword is used to 
+call the parent C'Tor. Specifically the parent C'tor that takes 2 int args. This is desirable 
+because the parent knows about x and y and knows how they are to be initialized. We don't want to 
+rewrite tried and true logic that has been inherited from our parent. Instead we take
+advantage of it 
+(code re-use principle again!).  Notice also that we follow our good rules of class design by having our
+default C'Tor call on the full C'Tor and having the full C'Tor be the only code that calls the setters.
+Note also that only our setters ever modify our data members.
+</p>
+<h5>
+One last observation. Be sure you noticed the obvious. We did not write setters or
+getters for x and y because we inherited those&nbsp; from our parent.
+</h5>
+<h4>A third point tester program</h4>
+
+<table bgcolor='khaki'><tr><td><pre>/* PointTester3.java
+*/
+class PointTester3
+{
+   public static void main( String args[] )
+   {
+       Point3D p3 = new Point3D(); // test default C'tor  NOT inherited from 2D
+       p3.setX( 22 );  // test setX
+       p3.setY( 7 );   // test setY
+       System.out.println( &quot;p3 = &quot; + p3.getX() + &quot;, &quot; + p3.getY() ); // test getX, getY
+       System.out.println( &quot;p3 = &quot; + p3 ); // test toString    
+       
+       Point2D p2;
+       p2 = p3;  // LOOKS WRONG BUT IT's ACTUALLY A_OK
+       System.out.println( &quot;p3 = &quot; + p3 ); // p2 points to the 3D object        
+   }
+} // EOF
+</pre></td></tr></table>
+
+<p>
+Note in the above test program we assigned a child type reference into a parent type reference. 
+This is a preview of <i>polymorphism</i>. Simply put, a parent reference can point to one it's chilren's 
+objects but NOT visa versa.  We will see very soon that this fact allows us to design objects in 
+a very generic manner.
+</p>
+
+<hr>
+<h2>Polymorphism</h2>
+<p>Inheritance has more advantages than just code re-use.&nbsp; Inheritance
+allows binding of overwritten methods to be resolved dynamically at run-time.</p>
+
+<a href="examples/PolyTest.java"><font size='+2'><b>PolyTest.java</b></font></a>
+<table bgcolor='khaki'><tr><td><pre><font size='+1'>
+/* Polytest.java - demonstrates Polymorphism by deriving child and grandchild
+   classes, then overloading print method of child and grandchild.
+*/
+public class PolyTest // Polytest is out main Appp
+{
+	public static void main(String args[])
+	{
+		A a[] = { new A(), new B(), new C() };
+		for (int i = 0; i &lt; 3; i++)
+		a[i].print();
+	}
+} // END PolyTest app
+
+
+//------------------------------------------------------------------------
+// We combine our class definitions in same file as main App to save space
+
+class A 
+{
+	A() { }
+	void print(){System.out.println(&quot;A&quot;); }
+}
+class B extends A 
+{
+	B( ){ }
+	void print(){ System.out.println(&quot;B&quot;); }
+}
+class C extends B
+{
+	C(){}
+	void print(){ System.out.println(&quot;C&quot;);}
+}</font></pre></td></tr></table>
+
+<p><font face="Verdana">You may be looking at the above example and wondering &quot;Why do we need
+polymorphism? &quot; After all you could have just declared 3 totally unrelated
+classes, given them all print method and then invoked the print of each
+class.&nbsp; The convenience of Polymorphism is that all the classes share the
+is-a relationship to the base class. As such we can declare an array of these
+classes. Note, you can't declare an array of different types. Thus every element
+in the array is-a Type A object. It is not until it is referenced at runtime
+that the object is distinguished to be an A ,B or C object and the proper print
+method resolved.</font></p>
+<p><font face="Verdana">The advantages are numerous. You can pass a reference to any of the types
+into a method expecting the base type.</font></p>
+<p><font face="Verdana">&nbsp;</font></p>
+<h2><font face="Verdana">The Object Class</font></h2>
+<p><font face="Verdana">The Object class is the ancestor of all classes in Java. Every class in Java
+or every class you write, it is as if you wrote <b>extends Object </b>after
+every class prototype.</font></p>
+<p><font face="Verdana">Since all classes descend from Object, there are a few notable methods that
+all classes inherit from Object. The first two inherited methods need to be overwritten
+by your class definition if they are to have any functionality. The last one is implemented generically</font></p>
+<ul>
+	<li><font face="Verdana">public boolean equals( Object o)</font>
+	<li><font face="Verdana">public String toString()</font>
+	<li><font face="Verdana">public final native Class getClass()</font>
+</ul>
+
+<p><font face="Verdana">To overwrite equals and toString you simple write our
+own version of those those two methods in your class. definition.</font></p>
+<h2><font face="Verdana">Abstract Classes</font></h2>
+<p><font face="Verdana">Often a class is designed with the expectation that it only make sense to use
+this class to derive extended classes from but to instantiate classes directly
+from this type. Typically this base class characterizes behavior that derived
+classes will implement in their own special way.&nbsp; A <b>Shape</b> class
+could describe behavior for various different kinds of shapes, and each derived
+class such as <b>Circle,</b> <b>Square </b>and <b>Rectangle</b> would provide specific
+different methods to implement the behaviors.&nbsp;</font></p>
+<p><font face="Verdana"><b>An Abstract class provides a base class that is
+suitable for derivation but cannot be directly instantiated.</b></font></p>
+<table bgcolor="cccddd"><tr><td><pre><font size='+1'>	
+abstract class Shape
+{
+	public abstract double area();
+	public abstract double perimeter();
+}
+</font></pre></td></tr>
+</table>
+
+
+<font face="Verdana">
+
+Notice now that our abstract class also has abstract methods declared inside. This means that any class 
+designer than derives from Shape must also override area() and perimeter().  Not every abstract class 
+need have abstract methods, but if a class has abstract methods, those methods must be over written in the extended class.<br>
+</font>
+
+<table bgcolor="cccddd"><tr><td><pre><font size='+1'>
+Shape s = new Shape();  // ILLEGAL! Can't instantiate an abstract class
+</font></pre></td></tr>
+</table>
+<p>
+&nbsp
+</p>
+<a href="examples/TestShapes.java"><font size='+2'><b>TestShapes.java</b></font></a>
+<table bgcolor="cccddd"><tr><td><pre><font size='+1'>
+/* TestShapes.java defines an abstract Shape class then defines Circle and Square
+   classes based on Shape. 
+*/
+
+public class TestShapes
+{
+	public static void main(String args[])
+	{
+		Circle c = new Circle( 3.0 );
+		System.out.println(&quot;Circle C has area: &quot; + c.area() );
+		System.out.println(&quot;Circle C has perimeter: &quot; + c.perimeter() );
+		Square s = new Square( 10.0 );
+		System.out.println(&quot;Square S has area: &quot; + s.area() );
+		System.out.println(&quot;Square S has perimeter: &quot; + s.perimeter() );
+	} // END main
+} // END TestShapes
+
+// ----------------------------------------------------------------------------------
+// We define our Shape, Circle &amp; Square classes in the same file as our App
+// ----------------------------------------------------------------------------------
+
+// ..................................................................................
+abstract class Shape
+{
+	public abstract double area();
+	public abstract double perimeter();
+}
+
+//...................................................................................
+class Circle extends Shape  // OK - we derive from Shape 
+{
+	double radius;  // we added this data member to our abstract base defintion - OK
+	Circle( double radius )
+	{
+		this.radius = radius;
+	}
+	public double area() //  REQURIED  override of abstract parent's area
+	{
+		return( Math.PI * radius*radius );  
+	} 
+	public double perimeter()  // REQUIRED override of  abstract parent's perimeter
+	{
+		return( 2.0 * Math.PI * radius );
+	} 
+}
+	
+// ..................................................................................
+class Square extends Shape  // OK - we derive from Shape 
+{
+	private double side;  // we added this data member to our abstract base defintion - OK
+	Square( double side )
+	{
+		this.side = side;
+	}
+	public double area() //  REQURIED  override of abstract parent's area
+	{
+		return( 2.0 * side );  
+	} 
+	public double perimeter()  // REQUIRED override of  abstract parent's perimeter
+	{
+		return( 4.0 * side );
+	} 
+}</font></pre></td></tr>
+</table>
+
+
+<h2><font face="Verdana">Static members</font></h2>
+<p><font face="Verdana">Often is is needful to define data in a class that serves the class at large rather than
+any particular object of the class.&nbsp;&nbsp;The <b>static</b> keyword
+overrides the separate storage of data for each object and causes only one
+instance of the member to be created.&nbsp; This static&nbsp; member (data or
+method) exists at runtime even before any object&nbsp; of the class has been
+instanced.</font></p>
+
+<a href="examples/StaticTest.java"><font size='+2'><b>StaticTest.java</b></font></a>
+<table bgcolor="khaki"><tr><td><pre><font size='+1'>
+/* StaticTest.java defines a class with a static data member which gets incremented
+   every time an object of the class is constructed.
+  
+   *Note: we get to the static variable in foo class via the classname foo
+		NOT via a ref var of the class
+*/
+
+public class StaticTest
+{
+	public static void main(String args[] )
+	{
+		System.out.println(&quot;numObjects before any created: &quot; + foo.numObjects );
+
+		foo f1 = new foo();
+		foo f2 = new foo();
+		foo f3 = new foo();
+		foo f4 = new foo();
+	
+		System.out.println(&quot;numObjects after some objects created: &quot; + foo.numObjects );
+	} // END main
+}
+
+// we put our class defintion inside our app file again
+
+class foo
+{
+	public static int numObjects;
+  
+	foo()
+	{
+		++numObjects; // increment static object counter
+		System.out.println(&quot;Just constructed foo object &quot; + foo.numObjects );
+	}
+}
+</pre></font></td></tr></table>
+
+
+<p>&nbsp;</p>
+
+
+<h2><font face="Verdana">Interfaces</font></h2>
+
+
+<p><font face="Verdana">In C++ a class definition can inherit from multiple
+parents. This is multiple inheritance and it is not directly supported in
+Java.&nbsp; Java does however have the <b>interface</b> keyword which provides a
+way to inherite the interface from more than one parent.</font></p>
+
+
+<p><font face="Verdana">An interface is like an abstract class except it cannot
+have any code bodies for methods. Instead we see what looks like C or C++ style
+function prototypes. The class that implements this interface must provide real
+code for those prototypes.</font></p>
+
+
+<p><font face="Verdana">A class can implement multiple interfaces.</font></p>
+
+
+<a href="examples/TestDrawable.java"><font size='+2'><b>TestDrawable.java</b></font></a>
+<table bgcolor="khaki"><tr><td><pre><font size='+1'>
+/* TestDrawable.java
+   define an inteface and implement that interface in a class
+*/
+
+interface Drawable 
+{
+	public final static int BLUE = 1, RED = 2;
+	void setColor(int c);
+	void setPosition(double x, double y);
+	void draw();
+} //END interface Drawable
+
+
+// by implementing Drawable we are required to define the code bodies for 
+// setColor, setPosition, and draw inside this class
+
+class DrawableCircle extends Circle implements Drawable 
+{
+	private int color;
+	private double xpos, ypos;
+	public DrawableCircle(int radius)   
+	{
+		super(radius); // just called our Parent (Circle's) C'Tor
+		System.out.println(&quot;Just constructed Drawable Circle&quot;);
+	}
+	public void setColor(int c)  
+	{
+		color = c;
+		System.out.println(&quot;set Color&quot;);
+	}
+	
+	public void setPosition(double x, double y) 
+	{
+		xpos = x; ypos = y;
+		System.out.println(&quot;Set Position&quot;);
+	}
+	
+	public void draw()   
+	{
+		System.out.println(&quot;Draw&quot;);
+	}
+
+} // END DrawableCircle class
+
+// ================ App with Main method ==================
+
+public class TestDrawable 
+{
+  public static void main(String args[])   
+  {
+	DrawableCircle c = new DrawableCircle(5);
+	System.out.println(c.area());
+	System.out.println(c.perimeter());
+	c.setColor(Drawable.BLUE);
+	c.setPosition(1.5, 2.5);
+	c.draw();
+  }
+}
+</pre></font></td></tr></table>
+
+
+<h2><font face="Verdana">Inner Classes</font></h2>
+<p>I<font face="Verdana">nner classes are nested classes that server the class
+they are enclosed in. They have access to all the members of the class they live
+in because they typically are created to server the enclosing class. Inner
+classes can be static or non-static. Static inner classes have access to only
+static members, while non static have access to all members of the enclosing
+class.</font></p>
+<p>&nbsp;</p>
+<a href="examples/Top.java"><font size='+2'><b>Top.java</b></font></a>
+<table bgcolor="khaki"><tr><td><pre><font size='+1'>
+public class Top  // this is the TOP level class
+{
+	private int j = 5; // note this is non-static variable
+	
+	public static void main(String[] args)
+	{
+		Top.Static sic = new Top.Static();
+		Top tl = new Top();
+		Top.NonStatic nsc = tl.new NonStatic();
+	}
+	public static class Static  // static Inner class
+	{
+   		static int x = 6;
+		Static() 
+    		{
+			System.out.println(&quot;Static Constructor just fired&quot;);
+   			// Can't access non static 'j'
+		}
+  	}
+	public class NonStatic // non static Inner class
+	{
+   		NonStatic()
+		{
+   			System.out.println(&quot;Value: &quot; + j);
+   		}
+  	}
+	
+}
+</pre></font></td></tr></table>
+
+
+
+<hr>
+<h1 align="center"><font face="Verdana">Summary</font></h1>
+<hr>
+
+
+
+<h2>&nbsp;</h2>
+<h4><font face="Verdana">A typical class definition follows these rules:&nbsp;</font></h4>
+<ul>
+	<li><font face="Verdana">contained in a file of same name as the class but with ".java" added</font>
+   <li><font face="Verdana">has 1 or more private data fields</font>
+   <li><font face="Verdana">has 1 or more public constructors to initialize objects of the class</font>
+   <li><font face="Verdana">has a copy constructor to allow initialization to a value of another object of the type</font>
+   <li><font face="Verdana">has a set and get method for each private field</font>
+   <li><font face="Verdana">has a toString method for convenient print of the object state</font>
+</ul>
+
+<h4><font face="Verdana">Once a class definition file has been written - the class name represents a new data type.</font></h4>
+<ul>
+	<li><font face="Verdana">the class name becomes another data type name and objects (variables) of the class type can be declared just like with other data types</font>
+	<li><font face="Verdana">the <b>new</b> keyword must be used to call the object's constructor</font>
+	<li><font face="Verdana">more than 1 object of the class type may be declared - just like with other data types</font>
+   <li><font face="Verdana">each object constructed gets its own copy of the fields and methods</font>
+</ul>
+
+<p><font face="Verdana">Classes can inherit from classes via the keyword extend<br>
+Classes can declare member in 1 or 4 access modes: public, private, protected,
+package<br>
+Inheritance enables polymorphism which is runtime binding of reference to
+overridden methods<br>
+Java supports interfaces to effect multiple inheritance</font></p>
+
+<p>
+
+<font face="Verdana">
+
+**For further reference see Sun's tutorial on 
+<a href="http://java.sun.com/docs/books/tutorial/java/concepts/">Object Oriented Programming</a>
+</font>
+</p>
+&nbsp;
+</body>

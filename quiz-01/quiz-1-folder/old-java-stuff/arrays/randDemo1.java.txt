@@ -1,0 +1,39 @@
+/*
+	randDemo1.java
+
+	- java.util package
+	- Random class
+	- seeding the Random variable 
+	- using the nextInt method
+*/
+
+import java.io.*;
+import java.util.Random; // needed to declare a Random variable
+public class randDemo1
+{
+	public static void main( String args[] ) throws IOException
+	{
+		Random r;  // a variable which can produce a sequence of random integers
+		final int MAX_VAL = 99; 
+
+		BufferedReader kbd = new BufferedReader( new InputStreamReader(System.in) );
+
+		r = new Random(); // create an instance of the Random class
+
+		// declare some arrays
+
+		int arr1[] = new int[10];  // use keyword "new" and constant dimension
+
+		// fill the array with random numbers between 0 and 99
+		
+		for (int i=0 ; i<arr1.length; ++i ) // *Note difference between String's length() - NO ()'s
+			arr1[i] = r.nextInt( MAX_VAL+1 ); // produces random # in range 0..99 inclusive
+
+		// ECHO arr2
+		System.out.print("\narr1: ");
+		for (int i=0 ; i<arr1.length; ++i ) // *Note difference between String's length() - NO ()'s
+			System.out.print(arr1[i] + " ");
+		System.out.println("\n");
+
+	} //END main
+} // EOF

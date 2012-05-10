@@ -1,0 +1,660 @@
+<HTML><HEAD><TITLE>PGSS 2006 LAB #1 </TITLE>
+<STYLE type=text/css>BODY
+{
+	COLOR: #000066; FONT-FAMILY: "verdana"; BACKGROUND-COLOR: #ffffff; serif:
+}
+</STYLE>
+</HEAD>
+<BODY bgColor=#dddccc>
+<HR>
+
+<H1 align=center>PGSS LAB #1 &nbsp;&nbsp;&nbsp;&nbsp; 27 Jun 2006</H1>
+<HR>
+<B>Tim Hoffman</B>
+<HR>
+
+<h1 align ='center'><a name="applets">Basic GUI Components</a>: <a href="Applets.zip">Applets</a></h1>
+<p>
+Before venturing into full blown Application GUIs it is best to
+learn the fundamentals using Applets. Applets are simple, quick-n-dirty
+containers for learning most of the GUI components. As simple as they are,
+Applets provide a good foundation for learning the Swing component set,
+interfaces, event handling and the container hierarchy. For all our examples
+we will use the JApplet class rather than the older plain Applet class to
+write our Applets. **If you are running a version of the JDK older than 1.4 you
+should download the <a href="Applets.zip">Applets.zip</a> directory and compile all
+the Applet source code with your version of the JDK on your own desktop.
+</p>
+The reasons for favoring JApplet over Applet are:
+<ul>
+  <li>the old Applet class lives in the AWT (Abstract Windows Toolkit) package.
+  <li>old Applet can only contain old style AWT components which call upon the
+      underlying platform's component set to draw controls etc.
+  <li>JApplet relies on the new (JDK1.2 and newer) Swing component set which is
+      not platform dependent (<i>almost</i> all of it anyway).
+  <li>Swing components are improvements over the old AWT components.
+</ul>
+
+<h3>What is an Applet?</h3>
+<p>An Applet is a Java program that executes under control of your browser and and thus
+displays itself on an HTML page.  To execute an applet inside an HTML page you follow these easy steps
+</p>
+
+
+<ul>
+<li>write an Java Applet program and compile it on the server or your PC
+<table bgcolor="silver"><tr><td><pre>
+import javax.swing.*;     // access to all the swing components widgets, dialogs etc.
+import java.awt.Graphics; // access to the Graphics object (circles, lines, graphics)
+public class JApplet0 extends JApplet
+{
+  public void paint( Graphics g )  // override inherited paint method
+  {
+     g.drawString(&quot;Saying 'Hello' at x=100  y=200&quot;,100,200 );
+  }
+}</pre></td></tr></table>
+
+  <li>write an HTML page that 'tags' that applet: <a href="JApplet0.html" target='external'>JApplet0.html</a>
+  <li>Load that HTML page to cause your browser to load and execute the Applet
+
+
+<p>
+If we view source on the Applet0.html page we just loaded we see the Applet tag syntax
+that causes the client's browser to load the Applet into the HTML page. Note also that
+the Applet is displayed much like an image. When an image is loaded the browser looks
+at the image tag to see what size of a rectangle the HTML programmer wants assigned to that
+image. Likewise the applet tag allows the HTML programmer to specify the rectangle
+size
+in which the Applet is to execute and display itself. Our applet tag in Applet0.html
+specified that
+Applet0 run in a 400 x 400 window. Where that window appears on the HTML page depends on
+the usual factors such as what other text or graphics has been already displayed on the HTML page.
+</p>
+<p>
+Since our Applet was given a 400 X 400 pixel window on the HTML page, a coordinate system
+is automatically defined over that window. The coordinates are (0,0) starting at the upper
+left corner of the Applet rectangle and extending to (400,400) at the lower right corner.
+Note that out the first character of Hello World appears at x=50 y=200. To be precise it
+is the lower left corner of the first font character that is rooted at (50,200) in the Applet
+coordinate system. This can be easily verified by changing the drawString y coordinate to 0
+and then observe that the text disappears except for the chars that have pieces falling below the
+baseline.
+</p>
+
+<h3>Other kinds of things can you can place on an Applet</h3>
+<p>Applets allow you to place 3 categories of visible objects on it:
+<ul>
+  <li>text: i.e. "Hello World" etc.
+  <li>graphics: i.e. circles, lines, rectangles, panels, 3D shapes etc.
+  <li>controls: i.e. buttons, labels, textboxes, scrollbars, sliders, checkboxes etc.
+</ul>
+<p>
+As we will see in later lessons, layout managers and layout containers such as
+Panels are used for grouping and presentation control. Our next Applet will
+demonstrate text and graphics. In doing so we illustrate the basic coordinate
+system of an Applet.
+</p>
+<a href="JApplet1.html" target='external'><b><font size='+1'>JApplet1.html</a></font></b> <font size=-1>< -- click me</font>
+
+<table bgcolor="cccddd"><tr><td>
+<pre>/* JApplet1.java demonstrates the coordinate system allocated to an Applet
+   inside an HTML window, and some simple output operations on that coord system.
+   my HTLM file is JApplet1.html
+*/
+
+import javax.swing.*; // access to all the swing components widgets, dialogs etc.
+import java.awt.Graphics; // access to the Graphics object (cirles, lines, graphics)
+
+public class JApplet1 extends JApplet
+{
+  public void paint( Graphics g )  // inherited (a do-nothing version) from JApplet but we  override
+  {
+     String msg = new String(&quot;Hello Java!&quot;);
+     int xStart,yStart;    // in pixels relative to 0,0 (the upper left origin)
+     int yTall, xWide;     // in absolute pixels
+     xStart = 10;
+     yStart = 40;
+     yTall = 50;
+     xWide = 100;
+
+     g.drawString(msg,xStart,yStart );
+     g.drawRect( xStart/2, yStart/2, xWide, yTall ); // first pair of args are position, 2nd pair are size
+     g.drawOval( xStart/2, yStart/2, xWide, yTall ); // Note that params define &quot;bounding rectangle&quot;
+  }
+}</pre>
+</td></tr></table>
+<h3><a name="init-paint">Overriding init(), paint()</a> and writing new methods in an Applet</h3>
+<p>
+Our next applet example demonstrates some of the other methods our Applet has
+inherited from JApplet, and demonstrates how we can override those inherited
+methods and write totally new methods.
+</p>
+
+<a href="JApplet2.html"  target='external'><font size='+1'><b>JApplet2.html</b></font></a>  <font size=-1>< -- click me</font>
+
+<table bgcolor="cccddd"><tr><td>
+<pre>
+/* JApplet2.java demonstrates the coordinate system allocated to an Applet
+   inside an HTML window via the drawLine method and demonstrates the use of
+   the init method override and the writing of new methods.
+   my HTLM file is JApplet2.html
+*/
+
+import javax.swing.*; // access to all the swing components widgets, dialogs etc.
+import java.awt.Graphics; // access to the Graphics object (circles, lines, graphics)
+
+public class JApplet2 extends JApplet
+{
+    // vars or objects declared here are &quot;global&quot; to the whole JApplet2 class
+
+    int startX, stopX, startY, stopY, numLines;
+
+    /* When your Applet loads into the Browser. The Browser immediately declares
+       an object of type JApplet2 (your Applet definition) then it does the following:
+       1) call init()
+       2) call paint()
+       if your Applet gets hidden or minimized the browser calls the stop() method.
+       if the Applet is then uncovered or un-minimized repaint is called
+       if your HTML page gets closed the broswer calls dispose.
+    */
+
+    // inherited from JApplet - we override
+    public void init() // called 1st by browser
+    {
+       startX = 100;
+       stopX = 300;
+       startY = 75;
+       stopY = 350;
+       numLines=10;
+    }
+
+    // paint is called right after init. It gets re-called every time the Applet region
+    // needs redrawn due to an overlapping window covering a portion etc.
+
+    // inherited from JApplet - we override
+    public void paint( Graphics g ) // // called 2nd by browser
+    {                               //
+       g.drawString( &quot;Calling method DrawSomeLines(..)&quot;, 25, 25);
+       // these lines calls takes 2 pairs of coords.
+       // the first is the  start point:  100,25
+       // the 2nd pair is the end point: 172, 25
+
+       drawSomeLines( g, startX, startY, stopX, stopY, numLines );
+    } // END paint
+
+    // drawLines takes 2 pairs of coords. The first is the  start point: x,y
+    // the 2nd pair is the end point: x,y
+    public void drawSomeLines( Graphics g, int x1, int y1, int x2, int y2, int numL )
+    {
+       for (int i= 0 ; i &lt; numL; ++i )
+       {
+           g.drawLine( x1 + i*10, y1 + i*(-10), x2 + i*(-20), y2 + i*10 );
+       }
+    } //END drawSomeLines
+} //EOF</pre>
+</td></tr></table>
+
+<h3><a name="repaint">A demonstration of repaint()</a></h3>
+<p>Our next Applet has a little bug in it. This bug serves to demonstrate how the
+browser automatically calls paint() to refresh the Applet every time something
+writes over top of the Applet area. It also demonstrate another Swing component.
+</p>
+
+<a href="JApplet3.html" target='external'><font size='+1'><b>JApplet3.html</b></font></a>  <font size=-1>< -- click me  **Warning you will have to ALT-CTRL-DEL and kill your browser :(</font>
+
+<table bgcolor="cccddd"><tr><td>
+<pre>
+/* JApplet3.java demonstrates the browser's automatic repaint of the Applet
+   when the page is refreshed of if some other object overwrites any part
+   of the Applet.
+   my HTLM file is JApplet3.html
+*/
+
+import javax.swing.*; // access to all the swing components widgets, dialogs etc.
+import java.awt.Graphics; // access to the Graphics object (cirles, lines, graphics)
+import java.util.Random;
+public class JApplet3 extends JApplet
+{
+	Random r = new Random();
+	public void paint( Graphics g )  // inherited (a do-nothing version) from JApplet but we  override
+	{
+		String msg = JOptionPane.showInputDialog(&quot;Enter a message&quot;);
+		g.drawString(msg, r.nextInt(100)+50, r.nextInt(250)+50 );
+	}
+}
+</pre>
+</td></tr></table>
+<h3>Ok. pop quiz: What caused the problem? How can we fix it?</h3>
+<hr>
+<h2 align='center'>Putting active components on an Applet</h2>
+<p>
+So far we have demonstrated that we can draw text and graphics
+directly on an Applet via the Graphics object through methods such as
+<i>drawString()</i>, <i>drawOval()</i>, <i>drawLine()</i>, etc. Since GUIs are
+all about interaction with a user the next logical step is putting interactive
+components (controls or widgets) on our Applet. Most of those components recognize
+being clicked or slected or typed into etc. Such user actions taken on these widget
+produce <b>events</b>. The programmer must provide code that defines how the each
+widget is to respond to these events.
+</p>
+<p>Since we are using JApplet exclusively we now begin our survey of the various
+kinds of Swing components that can be placed on a JApplet. For each component in
+the Swing component set - there is an associated event handling mechanism. That
+mechanism is an interface, and where there are interfaces there are methods that
+must be overridden by the programmer to define the specific behavior or "reaction"
+of a widget to an event on that widget.
+</p>
+<p>
+There mapping from components to event handling interfaces is many to one.
+Each event handing interface usually handles more than one component. Besides
+giving a programmer interfaces for programming events, Swing provides Layout
+Managers and grouping containers to allow control over how widgets are positioned,
+grouped and displayed on the Applet or Application.
+</p>
+<p>
+We start with a simple JApplet with some JButtons. This JApplet uses FlowLayout,
+the simplest of all to determine placement of the JButtons. This JApplet also
+implements ActionListener, an interface whose <i>actionPerformed()</i> method must
+be overridden to define each JButton's response to it's click event.
+</p>
+<a href="JApplet4.html" target='external'><font size='+1'><b>JApplet4.html</b></font></a>  <font size=-1>< -- click me</font>
+<table bgcolor="cccddd"><tr><td>
+<pre>
+/*  JApplet4.java demonstrates the following Swing concetps:
+- the JButton widget
+- the Applet's contentPane
+- FlowLayout
+- inerface ActionListener and it's method actionPerformed
+- an inner class to implement the ActionListener interface
+- registering  widgets ( <i>add()</i> ) with their associated event handler class
+- distinguishing which button on the content pane was clicked
+- modiying the background color of the contentPane
+ */
+import java.awt.*;  // basic graphics: draw Color etc.
+import java.awt.event.*; // events
+import javax.swing.*; // the Swing widgets: JButton etc.
+public class JApplet4 extends JApplet implements ActionListener
+{
+    // declare JButtons at this level so we don't have to pass them around.
+    // we need access to these names in multiple scopes
+
+    private JButton jbRed, jbGreen, jbYellow, jbBlue; // need access in init() and in handler
+    private Container content;   // need access in init() and in handler
+
+    public void init()
+    {
+        // you can't add widgets directly onto a JApplet - you add them to the ContentPane
+        content = getContentPane();
+
+        content.setBackground(Color.white);  // set ContentPane's background to white
+        content.setLayout(new FlowLayout()); // widgets bubble to top, centered
+
+        jbRed = new JButton("Red");  // button is created with caption "Red"
+        jbGreen = new JButton("Green"); // button with caption "Green"
+        jbYellow = new JButton("Yellow");
+        jbBlue = new JButton("Blue");
+
+        jbRed.setBackground(Color.red); // button face is all red
+        jbGreen.setBackground(Color.green); // button face all green
+        jbYellow.setBackground(Color.yellow);
+        jbBlue.setBackground(Color.blue);
+
+        // order of adding is important, bubble to top, left to right, centered
+        content.add(jbRed);
+        content.add(jbGreen);
+        content.add(jbYellow);
+        content.add(jbBlue);
+
+        // finally add each button to the listener so that when you click
+        // on it, that click wil be recognized
+
+        jbRed.addActionListener(this);
+        jbGreen.addActionListener(this);
+        jbBlue.addActionListener(this);
+        jbYellow.addActionListener(this);
+
+    }// END init
+
+
+    public void actionPerformed( ActionEvent e ) // actionPerformed is the interface method we MUST override
+    {
+            // unfortunately you CAN'T CASE out test for buttons - use IFs
+       Object whichButton = e.getSource();
+       if (whichButton == jbRed)
+            content.setBackground(Color.red); // whole content pane same color as button face
+       else if (whichButton == jbGreen)
+            content.setBackground(Color.green); // whole content pane same color as button face
+       else if (whichButton == jbBlue)
+            content.setBackground(Color.blue); // whole content pane same color as button face
+       else if (whichButton == jbYellow)
+           content.setBackground(Color.yellow); // whole content pane same color as button face
+       else
+       {
+                // we omitted a test for one of our buttons. programmer error
+                // handle as you will
+       }
+    } // END actionPerformed
+} //EOF
+</pre>
+</td></tr></table>
+<h3><a name="syncAsync">Synchronous vs. Asynchronous programming</a></h3>
+<p>Before going on it should be noted that a GUI is either executing some code
+behind the interface or it is waiting for the next event. The implications are
+that if the code associated with an event takes a long time to complete, the
+GUI will not respond to the next event until that code completes and  control
+is sent back to the GUI interface. To illustrate this you can perform a simple
+experiment. In the code for one of our colored buttons, add a loop that spins
+2 billion times and put that loop just before the line to change the color.
+As soon as you click that button, try to click other buttons on the interface.
+The interface will not respond until the event currently executing is handled
+and control returns back to the surface of the GUI. The OS will however cache
+those ignored keystrokes and process them when control returns to the surface
+of the GUI</p>
+<p>
+There is of course a way around this strict serial execution. The use of threads
+to fork some handler code out to it's own process will circumvent this. Threads
+however introduce new issues such as thread safe-ness and synchronization. This
+additional overhead is often worth it so that your GUI stays responsive. You never
+want your GUI to appear to lock up because some handler code just started executing
+some time consuming code.
+</p>
+<p>Most GUIs do fine without threads because the handler code is usually trivial or
+fast. It's only when the handlers take a long time to execute that threads become
+useful in GUIs.
+</p>
+<h3><a name="panelGrid">More widgets and their interfaces</a></h3>
+<p>Our next JApplet introduces more Swing widgets, JPanel and  another Layout
+Manager to control grouping, size and appearance of the widgets. This JApplet
+again impliments the ActionListener interface to handle it's events.
+</p>
+
+<a href="JApplet5.html" target='external'><font size='+1'><b>JApplet5.html</b></font></a>  <font size=-1>< -- click me</font>
+
+<table bgcolor="cccddd"><tr><td>
+<pre>
+/*  JApplet5.java demonstrates the following Swing concepts:
+- the JButton, JTextField, JPanel
+- the Applet's contentPane
+- GridLayout
+- inerface ActionListener and it's method actionPerformed
+- an inner class to implement the ActionListener interface
+- registering  widgets ( <i>add()</i> ) with their associated event handler class
+- distinguishing which button on the content pane was clicked
+- modifying the contents of a JTextField via it's setText() and getText() methods
+ */
+
+import java.awt.*;  // basic graphics: draw Color etc.
+import java.awt.event.*; // events
+import javax.swing.*; // the Swing widgets: JButton etc.
+
+public class JApplet5 extends JApplet implements ActionListener
+{
+    // declare refs to these components up here so we don't have to pass them around
+    private JTextField jtxtFirst, jtxtSecond, jtxtAnswer;
+    private JButton jbPlus, jbMinus, jbMulti, jbDivide, jbRemainder, jbClear;
+    private JPanel jp1, jp2, jp3, jp4;
+    private Container content; // ref to the JApplet's content pane
+
+    public void init()
+    {
+        content = getContentPane(); // ref to this JApplet's content pane
+
+        /* assign a GridLayout (NOT FlowLayout anymore) to our content pane.
+        Entire JApplet face divied into 4 row, 5 cols, 5 pixels space between cells
+        Analogous to HTML table except no padding between cells and outer border
+         */
+
+        content.setBackground(Color.white);  // set ContentPane's background to white
+        content.setLayout( new GridLayout(4, 1, 5, 5) );
+
+        jbPlus = new JButton("+");
+        jbMinus = new JButton("-");
+        jbMulti = new JButton("*");
+        jbDivide = new JButton("/");
+        jbRemainder = new JButton("%");
+        jbClear = new JButton("Clear");
+
+        jtxtFirst = new JTextField();
+        jtxtSecond = new JTextField();
+        jtxtAnswer = new JTextField();
+        jtxtAnswer.setEditable(false); // user CANNOT edit this field but GUI code CAN via setText()
+
+        // Panels allow for our widgets to be grouped
+
+        jp1 = new JPanel(new GridLayout(1,2,5,5));
+        jp2 = new JPanel(new GridLayout(1,1,5,5));
+        jp3 = new JPanel(new GridLayout(1,3,5,5));
+        jp4 = new JPanel(new GridLayout(1,3,5,5));
+
+        // Add each JButton or JTextField to a grouping Panel, NOT directly to content pane
+
+        jp1.add(jtxtFirst); jp1.add(jtxtSecond);
+        jp2.add(jtxtAnswer);
+        jp3.add(jbPlus); jp3.add(jbMinus); jp3.add(jbMulti);
+        jp4.add(jbDivide); jp4.add(jbRemainder); jp4.add(jbClear);
+
+        content.add(jp1);
+        content.add(jp2);
+        content.add(jp3);
+        content.add(jp4);
+
+        // all our widgets are initialized and grouped on Panels. The stage is set
+        // Now declare a ref to our event handler and register those widgets with their listener
+
+
+        jbPlus.addActionListener(this);
+        jbMinus.addActionListener(this);
+        jbMulti.addActionListener(this);
+        jbDivide.addActionListener(this);
+        jbRemainder.addActionListener(this);
+        jbClear.addActionListener(this);
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+      Object whichButton = e.getSource(); // ref to JButton that got clicked
+
+      double dblFirst, dblSecond, dblAnswer=0.0;
+      dblFirst	= new Double(jtxtFirst.getText()).doubleValue();
+      dblSecond = new Double(jtxtSecond.getText()).doubleValue();
+
+      if (whichButton == jbPlus)
+      {
+         dblAnswer = dblFirst + dblSecond;
+      }
+      else if (whichButton == jbMinus)
+      {
+         dblAnswer = dblFirst - dblSecond;
+      }
+      else if (whichButton == jbMulti)
+      {
+         dblAnswer = dblFirst * dblSecond;
+      }
+      else if (whichButton == jbDivide)
+      {
+         dblAnswer = dblFirst / dblSecond;
+      }
+      else if (whichButton == jbRemainder)
+      {
+         dblAnswer = dblFirst % dblSecond;
+      }
+      else if (whichButton == jbClear)
+      {
+         jtxtFirst.setText("");
+         jtxtSecond.setText("");
+         jtxtAnswer.setText("");
+         return;
+      }
+      else
+      {
+         // we omitted a test for one of our buttons. programmer error
+         // handle as you will
+      }
+
+      jtxtAnswer.setText(dblAnswer + "");
+    }
+}
+</pre>
+</td></tr></table>
+<p>Note that the JApplet5 example will crash if you type bad or missing inputs into
+the text boxes and then click an operator button. As an exercise you should modify
+this code an add exception handling to each parse attempt
+</p>
+<p>
+Our next JApplet illustrates the <a name="jScrollBar">JScrollBar</a> control. JScrollBar allows us to use the
+mouse to move a sliding block to produce a varying integer value in some specified range.
+The interface that monitors JScrollBar is the adjustmentListener.
+</p>
+<a href="JApplet6.html" target='external'><font size='+1'><b>JApplet6.html</b></font></a>  <font size=-1>< -- click me</font>
+
+<table bgcolor="cccddd"><tr><td>
+<pre>
+/*  JApplet6.java demonstrates the following Swing concepts:
+- the JScrollBar control
+- the Applet's contentPane
+- inerface AdjustmentListener and it's method adjustmentValueChanged
+- an inner class to implement the AdjustmentListener interface
+- registering  widgets ( <i>add()</i> ) with their associated event handler class
+
+ */
+
+import java.awt.*;  // basic graphics: draw Color etc.
+import java.awt.event.*; // events
+import javax.swing.*; // the Swing widgets: JButton etc.
+
+public class JApplet6 extends JApplet implements AdjustmentListener
+{
+    // declare refs to these components up here so we don't have to pass them around
+    private JScrollBar slider;  // a standard Java control
+    private int sliderValue;   // to save the current value of the sliderValue
+    private Container content; // ref to the JApplet's content pane
+
+    public void init()
+    {
+        content = getContentPane();
+        content.setBackground(Color.white);  // set ContentPane's background to white
+        content.setLayout( new FlowLayout() );
+
+        int initVal, extent, minVal, maxVal;
+        initVal=50 ; extent=0; minVal=0; maxVal=100;
+
+        // slider produced values from 0 to 100 in increments of 1, jump of 0 defaults to 10
+        slider = new JScrollBar( JScrollBar.HORIZONTAL, initVal, extent, minVal, maxVal );
+        content.add( slider );
+
+        slider.addAdjustmentListener( this );
+
+    }
+
+    public void adjustmentValueChanged( AdjustmentEvent ae )
+    {
+       sliderValue = slider.getValue();
+       showStatus("Current value is " + sliderValue );
+    }
+
+}
+</pre>
+</td></tr></table>
+
+<p>
+Our next JApplet applies the MouseListener and various mouse events to simulate
+an Etch-A-Sketch toy and dropping of a window blind.
+</p>
+<a href="EtchSketch.html" target='external'><font size="+1"><b>EtchSketch.html</b></font></a>  <font size=-1>< -- click me</font>
+
+<table bgcolor="cccddd"><tr><td>
+<pre>
+import java.awt.*;
+import java.awt.event.*;
+import java.applet.*;
+import javax.swing.*;
+
+public class EtchSketch extends JApplet
+	implements MouseListener, MouseMotionListener
+{
+	String msg = &quot;&quot;;
+	int mouseX=0,mouseY=0;
+	int oldX=0, oldY=0;
+
+	public void init()
+	{
+		addMouseListener(this);
+		addMouseMotionListener(this);
+	}
+
+	// Handles mouse pressed
+	public void mousePressed( MouseEvent me)
+	{
+		mouseX = me.getX();
+		mouseY = me.getY();
+		showStatus(&quot;Mouse Pressed at: &quot; +
+			mouseX + &quot;,&quot; + mouseY );
+		//repaint();
+	}
+
+	public void mouseDragged( MouseEvent me)
+	{
+		mouseX = me.getX();
+		mouseY = me.getY();
+
+		if (oldX ==0 )
+		{
+			oldX=mouseX;
+			oldY=mouseY;
+			return;
+		}
+		// drawPoint( x,y );
+		Graphics g = getGraphics();
+		g.drawLine( oldX,oldY, mouseX, mouseY );
+		oldX = mouseX;
+		oldY = mouseY;
+		showStatus(&quot;Mouse Dragged at: &quot; +
+			mouseX + &quot;,&quot; + mouseY );
+		//repaint();
+	}
+	public void mouseMoved( MouseEvent me)
+	{
+		mouseX = me.getX();
+		mouseY = me.getY();
+		showStatus(&quot;Mouse Moved at: &quot; +
+			mouseX + &quot;,&quot; + mouseY );
+		//repaint();
+	}
+	public void mouseClicked( MouseEvent me)
+	{
+		mouseX = me.getX();
+		mouseY = me.getY();
+		showStatus(&quot;Mouse clicked at: &quot; +
+			mouseX + &quot;,&quot; + mouseY );
+		//repaint();
+	}
+	public void mouseReleased( MouseEvent me)
+	{
+		mouseX = me.getX();
+		mouseY = me.getY();
+		showStatus(&quot;Mouse released at: &quot; +
+			mouseX + &quot;,&quot; + mouseY );
+		//repaint();
+	}
+	public void mouseExited( MouseEvent me)
+	{
+		mouseX = me.getX();
+		mouseY = me.getY();
+		showStatus(&quot;Mouse exited at: &quot; +
+			mouseX + &quot;,&quot; + mouseY );
+		//repaint();
+	}
+	public void mouseEntered( MouseEvent me)
+	{
+		mouseX = me.getX();
+		mouseY = me.getY();
+		showStatus(&quot;Mouse Entered at: &quot; +
+			mouseX + &quot;,&quot; + mouseY );
+		//repaint();
+	}
+}//EOF</pre>
+</td></tr></table>
+
+
+</body>
+</html>

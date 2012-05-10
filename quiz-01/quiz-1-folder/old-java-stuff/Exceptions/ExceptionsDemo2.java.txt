@@ -1,0 +1,33 @@
+/*
+	ExceptionsDemo2.java
+
+	- illustrates a checked exception
+		* FileReader() C'Tor throws IOException
+		* IOException is a checked exception
+		* checked exceptions must either be
+		  - handled with try/catch
+		  - or be advertised with a throws IOException clause in the
+		    signature of the enclosing method
+*/
+
+import java.io.*;
+
+public class ExceptionsDemo2
+{
+	public static void main( String args[] ) throws IOException
+	{
+		// the following statement could throw a checked exception
+		// since it is a checked exception we must "advertise"
+		// the fact that we are not handling this exception in our code.
+		// Instead we "throw" the Exception. Thus the clause
+		// "throws IOException" after the main method's signature.
+
+		FileReader fr = new FileReader( "input.txt" ); // FileReader's C'Tor throws IOException
+		BufferedReader infile = new BufferedReader( fr );
+
+		String line = infile.readLine(); // radLine() throws IOException too
+		System.out.println("First line of input file:\n" + line );
+
+	} //END main
+} //EOF
+

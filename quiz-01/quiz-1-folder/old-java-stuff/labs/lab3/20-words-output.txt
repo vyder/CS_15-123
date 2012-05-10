@@ -1,0 +1,51 @@
+
+Reading: 20-words.txt into myTree
+Each '*' == 1000 words inserted into Tree...
+
+
+Done. MyTree read and built in 0.016 sec.
+
+
+Pre Order print of myTree:
+lighted groundworks forthrights carboys arbitrament ailurophiles autobahns curtail conductivity detractive immanentisms jalop preformatting virginalist reapplication preschedules scanter unreasoning thumbscrews unfeminine
+
+
+In Order print of myTree:
+ailurophiles arbitrament autobahns carboys conductivity curtail detractive forthrights groundworks immanentisms jalop lighted preformatting preschedules reapplication scanter thumbscrews unfeminine unreasoning virginalist
+
+
+Post Order print of myTree:
+ailurophiles autobahns arbitrament conductivity detractive curtail carboys forthrights jalop immanentisms groundworks preschedules unfeminine thumbscrews unreasoning scanter reapplication virginalist preformatting lighted
+
+
+myTree has 20 nodes
+myTree has 7 leaves
+myTree has depth: 8
+
+Level Counts
+
+level 0: 1
+level 1: 2
+level 2: 3
+level 3: 3
+level 4: 4
+level 5: 5
+level 6: 1
+level 7: 1
+
+--------------------------------------------
+Enter 'S'earch, 'I'nsert, 'P'rint, 'Q'uit: S
+Enter word to search for: foobar
+foobar NOT found
+Enter 'S'earch, 'I'nsert, 'P'rint, 'Q'uit: S
+Enter word to search for: lighted
+lighted found
+Enter 'S'earch, 'I'nsert, 'P'rint, 'Q'uit: I
+Enter word to insert: foobar
+Enter 'S'earch, 'I'nsert, 'P'rint, 'Q'uit: I
+Enter word to insert: foobar
+Ignoring insertion of duplicate data: foobar
+Enter 'S'earch, 'I'nsert, 'P'rint, 'Q'uit: S
+Enter word to search for: foobar
+foobar found
+Enter 'S'earch, 'I'nsert, 'P'rint, 'Q'uit:

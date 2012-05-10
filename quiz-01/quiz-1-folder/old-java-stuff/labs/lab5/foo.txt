@@ -1,0 +1,138 @@
+RECURSION + A STACK to find all the paths out of a grid from a given starting coordinate
+
+
+      0 1 2 3 4
+     ----------
+  0 : 0 0 1 0 1
+  1 : 0 1 0 1 0
+  2 : 0 0 1 1 0
+  3 : 0 1 0 1 0
+  4 : 0 1 0 0 1
+
+We start at origin (2,2)
+
+Our first algorithm will use a single stack to record each path we take through the grid. 
+Our first operation in to push the origin (2,2) onto the stack.
+
+STACK:
+(2,2) <- stack_top
+
+We now begin our orderly search from our current origin (top of stack) for a neighbor with a 1. 
+Of course our search always begins with a base case test. Is the coordinate on the top of the stack 
+and escape step (i.e. at the edge of the grid). If not we then begin an orderly scan of our neighbors. 
+Our search ordering is arbitrary so we will examine our neighbors in the following order 
+(clockwise starting North) N, NE, E, SE, S, SW, W, NW. We only push a neighbor on top the stack if 
+the neighbor is a "1" and the neighbor is not already in the stack. This second condition avoids cycles.
+
+push NE (1,3) followed by a recursive call (top is now our curr origin)
+STACK:
+(2,2) (1,3) :stack_top
+
+push NE (0,4) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (1,3) (0,4) :stack_top  (Solution! - PRINT/POP/RETURN)
+
+We have a solution. (0,4) is on the edge of the grid so we reverse print the stack and pop the stack, 
+and return from our recursion to resume our clockwise scan from our stack top (1,3 ) with our E neighbor
+
+STACK:
+(2,2) (1,3) :stack_top 
+
+push S (2,3) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (1,3) (2,3)  :stack_top
+
+push S (3,3) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (1,3) (2,3) (3,3)  :stack_top
+
+push SE (4,4) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (1,3) (2,3) (3,3) (4,4) :stack_top (Solution! - PRINT/POP/RETURN)
+
+We have a solution. (0,4) is on the edge of the grid so we reverse print the stack and pop the stack, 
+and return from our recursion to resume at origin (3,3) our clockwise scan (S)
+
+STACK:
+(2,2) (1,3) (2,3) (3,3) :stack_top
+
+Since we have no other eligible neighbors around (3,3) we POP our stack 
+
+STACK:
+(2,2) (1,3) (2,3)  :stack_top
+
+and return from our recursive call.
+When we return we resume our clockwise scan from our stack top (2,3) with our SW neighbor
+
+
+
+Since we have no other eligible neighbors around (2,3) we POP our stack and return from our recursive call.
+When we return we resume our clockwise scan from our stack top (1,3) with our SW neighbor
+
+STACK:
+(2,2) (1,3) :stack_top
+
+push NW (0,2) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (1,3) (0,2) :stack_top (Solution! - PRINT/POP/RETURN)
+
+We have a solution. (0,2) is on the edge of the grid so we reverse print the stack, pop the stack, 
+
+STACK:
+(2,2) (1,3) :stack_top
+
+and return from our recursion to resume at origin (1,3) our clockwise scan (S)
+
+Since there are no more neighbors to examine from this origin we pop 
+
+STACK:
+(2,2) :stack_top
+
+and return back to (2,2) and resume the clockwise scan of neighbors with its E neighbor
+
+
+
+push E (2,3) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (2,3) :stack_top
+
+push N (1,3) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (2,3) (1,3) :stack_top
+
+push NW (0,4)) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (2,3) (1,3) (0,4) :stack_top 
+
+We have a solution. (0,4) is on the edge of the grid so we reverse print the stack and pop the stack, 
+
+STACK:
+(2,2) (2,3) (1,3)  :stack_top 
+
+then from our recursion to resume at origin (,3) our clockwise scan (E)
+
+
+
+Since we have no other eligible neighbors around (3,3) we POP our stack and return from our recursive call.
+When we return we resume our clockwise scan from our stack top (2,3) with our N neighbor
+
+STACK:
+(2,2) (2,3)   :stack_top 
+
+push N (2,1) followed by a recursive call (top is now our curr origin)
+
+STACK:
+(2,2) (2,3) (2,1) :stack_top
+
+
+
+
+

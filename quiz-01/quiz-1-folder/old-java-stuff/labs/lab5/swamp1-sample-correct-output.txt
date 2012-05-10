@@ -1,0 +1,14 @@
+
+Searching for escape paths from swamp1.txt
+7X7 Origin: (2,4)
+0 0 0 0 0 0 0
+0 1 0 1 0 1 0
+0 1 0 0 1 0 0
+0 0 1 0 0 1 0
+0 0 0 0 1 0 0
+0 1 1 1 0 0 0
+1 0 0 0 0 0 0
+
+PATH FOUND: (2,4) --> (3,5) --> (4,4) --> (5,3) --> (5,2) --> (5,1) --> (6,0) --> FREEDOM
+
+Found 1 escape paths from (2,4) in swamp1.txt

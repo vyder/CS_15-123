@@ -1,0 +1,123 @@
+<html>
+<head>
+	<title>Lab5 15200 </title>
+    <style type="text/css">
+<!--
+body
+{
+	margin-top: 20px;
+	margin-right: 15px;
+	margin-bottom: 20px;
+	margin-left: 15px;
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+-->
+</style>
+</head>
+
+<body>
+<h2 align="center"><font color="green">Lab 5: The Swamp</font></h2>
+<hr>
+<h4>Due Date: Thu 23 Mar 2006 by 11:59pm</h4>
+<hr>
+<font size=-1>
+<h4>Background:</h4>
+
+<p>Lab5 is a warm-up for a more interesting problem coming next. Lab5 requires you to
+apply what you know about 2D arrays, recursion and/or lists, stacks queues to find your
+way out of a swamp.
+
+The swamp is a 2D array of ones and zeros. Each "1" is a step of solid ground,
+while each "0" is a step of quicksand. Each input file will have a line at the top
+of the file that has the square dimensions of the matrix followed by the drop point.
+The drop point is the row/col pair indicating where you are dropped into the swamp.
+You escape the swamp by taking one step at a time to any adjacent square that is
+a 1. You are not allowed to step on Quicksand (a zero). You must somehow remember
+which squares you have already stepped on in a path so that you don't get into
+an infinite loop.
+</p>
+<h4>Here is an example of an input file that represents a swamp having multiple escape
+paths and some cycles. An escape path is a path from the drop point to the edge of the swamp.</h4>
+
+<pre><font size=+2>
+10 2 1
+0 0 0 0 0 0 0 0 <b>1</b> 0
+0 0 <b>1</b> 0 0 0 <b>1</b> <b>1</b> 0 0
+0 <b>1</b> 0 <b>1</b> 0 <b>1</b> 0 0 0 <b>1</b>
+0 0 0 <b>1</b> <b>1</b> 0 <b>1</b> 0 0 0
+0 0 0 0 <b>1</b> 0 0 <b>1</b> 0 0
+0 <b>1</b> <b>1</b> <b>1</b> 0 <b>1</b> 0 0 <b>1</b> 0
+0 0 0 0 <b>1</b> 0 <b>1</b> 0 0 <b>1</b>
+<b>1</b> 0 0 <b>1</b> 0 0 <b>1</b> 0 0 0
+0 0 <b>1</b> 0 <b>1</b> <b>1</b> 0 0 0 0
+0 <b>1</b> 0 0 0 0 <b>1</b> <b>1</b> 0 0
+</font></pre>
+<p>
+The first row has 3 values:
+<ul>
+	<li>10 - the matrix is 10 x 10
+	<li>2 1 - you are dropped into the swamp at row 2 col 1
+</ul>
+The next 10 rows represent the square stepping stones or quicksand of the swamp.
+You may make 1 step in any direction to find your way out of the swamp.
+
+<hr>
+<h4>What You'll Need</h4>
+
+<h4>Here are your input files and <b><i>sample</i></b> correct outputs: (I may add some more by the weekend)</h4>
+<ul>
+	<li><a href="swamp1.txt" target="external"><font size=+1>swamp1.txt</font></a> one path out - no cycles
+	<li><a href="swamp1-sample-correct-output.txt" target="external"><font size=+1>swamp1-sample-correct-output.txt</font></a>
+	<li>
+	<li><a href="swamp2.txt" target="external"><font size=+1>swamp2.txt</font></a> 2 paths out - no cycles
+	<li><a href="swamp2-sample-correct-output.txt" target="external"><font size=+1>swamp2-sample-correct-output.txt</font></a>
+	<li>
+	<li><a href="swamp3.txt" target="external"><font size=+1>swamp3.txt</font></a> 50 paths out - many cycles
+	<li><a href="swamp3-sample-correct-output.txt" target="external"><font size=+1>swamp3-sample-correct-output.txt</font></a>
+	<li>
+	<li><a href="swamp4.txt" target="external"><font size=+1>swamp4.txt</font></a> many cycles - no path out
+	<li><a href="swamp4-sample-correct-output.txt" target="external"><font size=+1>swamp4-sample-correct-output.txt</font></a>
+</ul>
+
+<h4>These sample outputs are only representative of the format you must print out. The order of the escape paths and the
+wording/format need not be identical but:</h4>
+<ol>
+	<li>You must echo the swamp file and point of origin
+	<li>You must print out every escape path on its own line
+	<li>You must report the exact number of escape paths found and it must match the number reported by the sample output.
+	<li>Your paths may appear in a different order than but there must be a 1-1 mapping of identical paths from your solution to mine.
+</ol>
+
+<h4>The Assignment</h4>
+
+<h4>You are given no starter files and you must write the entire program from scratch.</h4>
+<ul>
+	<li>It must take the input file on the command line.
+	<li>You must try catch ALL exceptions in your code.
+	<li>The clause "throws Exception" must not appear ANYWHERE in any of your code.
+	<li>An escape path is a sequence of moves from the drop point to the edge of the swamp.
+    <li>Your program must find and print <b>ALL</b> the escape paths - each on its own line.
+	<li>DO NOT PRINT ANY DEAD END STEP YOU TAKE - ONLY THE SUCCESSFUL PATHS OUT!
+	<li>If there are no escape paths you must print a message something like: "DEAD END SWAMP! NO PATH OUT".
+	<li>You must report the exact number of escape paths found. That number must of course match the number of paths printed.
+</ul>
+
+<ul>
+	<li>100% credit if you solve using extra data structures
+	<li>120% credit if you solve using recursion only
+</ul>
+
+<h2>You may solve it any way you want.</h2>
+
+Use recursion, iteration, a stack, a queue, hybrid data structure and you may use that
+data structure any way you wish. Also you may use any of the built in Java data structures
+in the java util package. You given <b>no starter files</b> and you must write the entire program from scratch.
+
+<p>
+I suggest you write a method to read and echo the input file first.
+Verify its correctness before searching for escape paths
+</p>
+
+</html>

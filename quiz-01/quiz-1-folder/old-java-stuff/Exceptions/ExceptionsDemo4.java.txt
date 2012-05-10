@@ -1,0 +1,63 @@
+/*
+	ExceptionsDemo4.java
+
+	- illustrates Stacking catch blocks
+	- Stream objects
+*/
+import java.io.*;
+
+public class ExceptionsDemo4
+{
+	public static void main( String args[] )
+	{
+
+		// we declare our stream outside the try block
+		// other wise they become local vars
+		// we also have to initialize since possible exception
+		// will abort assignment statement and compiler will know the
+		// vars might not get initialized, and refuse to compile code
+
+		BufferedReader infile = null;
+		FileReader fr = null;
+
+		try
+		{
+			infile =  new BufferedReader( new FileReader( "input.txt" ) );
+		}
+		catch (IOException ioe)
+		{
+			System.out.println("Caught Exception: " + ioe );
+		}
+
+		// NOTE THE MULTIPLE CATCH BLOCKS : ONLY 1 CAN EXECUTE
+		// THE FIRST EXCPTION DETECTED WILL JUMP TO ITS MATCHING BLOCK.
+		// THE EXCEPTION CLASS IS THE GENERAL CASE AND WILL CATCH ANY EXCEPTION
+		// THAT DOES NOT HAVE  A SPECIFIC MATCHING BLOCK.
+		// ALWAYS PUT THE PLAIN EXCEPTION CASE LAST AS A CATCH ALL.
+		// IF YOU PUT IT ANYWHERE ELSE THEN SPECIFIC EXCEPTIONS WILL GO INTO THE
+		// GENERAL EXCEPTION BLOCK BEFORE GETTING TO MATCH ON THEIR SPECIFIC CASES.
+
+		System.out.println("calling foo1()");
+		try
+		{
+			String line = infile.readLine();
+			System.out.println("1st line of infile was: " + line );
+			int num = Integer.parseInt( line );
+			System.out.println("the int conversion: " + num );
+		}
+		catch ( NumberFormatException nfe ) // a specific Exception
+		{
+			System.out.println("Caught NumberFormatException: " + nfe );
+		}
+		catch( IOException ioe ) // a specific Exception
+		{
+			System.out.println("Caught IOException: " + ioe );
+		}
+		catch (Exception e ) // catch-all  Exception is the most general Exception type
+		{
+			System.out.println("Caught General Exception: " + e );
+		}
+
+		System.out.println("returning from main()");
+	} //END main
+} //EOF

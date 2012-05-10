@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>15-111/200 Final Exam: Boiler Plate</title>
+</head>
+<body bgcolor="white">
+<p>
+<center><h1>15-111/200 Final Exam<br>Overview</h1></center>
+
+<h3>Overview of What to Know</h3>
+For problems in this exam suite, you must be familiar with the Java interfaces
+  for <b>Set</b>, <b>Map</b>, <b>List</b>, <b>Iterator</b>, and
+  <b>Comparable</b> (you may use the <b>Comparator</b> interface as well).
+In addition, you must understand the use of the classes <b>HashSet</b>,
+  <b>HashMap</b>, <b>ArrayList</b>, and <b>LinkedList</b>, which implement
+  these collections, as well as <b>StringTokenizer</b>, including its
+  two-parameter constructor whose signature is <b>(String,String)</b>.
+You must also understand the use of the <b>static</b> sort methods defined in
+  the <b>Arrays</b> and <b>Collections</b> classes, which use the
+  <b>Comparable</b> (and optionally <b>Comparator</b>) interface: to use
+  the <b>Arrays</b> class you must be able to convert between collections
+  and arrays.
+Finally, you should be familiar with casting generic (<b>Object</b>)
+  references, when necessary.
+<i>You must not use either the <b>TreeSet</b> or <b>TreeMap</b> classes when
+  solving these problems.</i>
+<p>
+The following line of code prompts the user for a file name and stores
+  into <b>allLines</b> an iterator whose <b>next</b> method is used to
+  produce a <b>String</b> containing the next line in the file.
+When necessary, tokens in each line can be extracted sequentially by using
+  an object constructed from the <b>StringTokenizer</b> class.
+All file input on the exam is handled in this way.
+<b><pre>  Iterator allLines = ExamIO.readFile("Enter a file name");</pre></b>
+
+
+<h3>Qualifications</h3>
+For full credit on this exam you must (a) use exactly the required collection
+  classes (and possibly the specified arrays) in the problem statement and
+ (b) use no other collections or arrays.
+By following this guideline, your solution should be compact, elegant, and 
+ efficient.
+Of course, your program should be general: it must work on the tested data
+  and should work on other similar data as well.
+<p>
+Programs typically read one file of data first, and use it to construct a large
+  data structure.
+Then they use this data structure to perform some task.
+Each of these two parts is worth 4 points of the total 8 points for this
+  problem.
+This is the only partial credit allowed for this exam: unless a part
+  works completely, no credit is awarded for that part.
+<p>
+You can read the Javadoc for Sun's API for details on the relevant interfaces
+  and classes used in these problems.
+
+
+<h3>Code</h3>
+You can write all your code in <b>main</b> or optionally write <b>static</b>
+  methods.
+Optimal code in this context is code that you can write and debug quickly.
+Most programs can be written in 50 lines of code (not counting imports, blank
+  lines, nor lines with only opening/closing braces on them).
+This number is offered only as a ball-park estimate, to give you some idea
+  of how much code you should be writing: a program will NOT be graded on
+  its size.
+But, if you are grossly exceeding this number of lines, you might be
+  overlooking some way to simplify your code and might not have enough time
+  to write/debug that much code and still solve the other problems on the exam.
+<p>
+
+<a href="problem statement.html">
+<h3>Problem Statement (Including Input and Output)</h3></a>
+
+</body>
+</html>

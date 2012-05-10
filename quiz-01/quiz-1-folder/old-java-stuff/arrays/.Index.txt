@@ -1,0 +1,5 @@
+WAR-FTPD 1.67-05 3
+argsDemo1.java.txt 0666 hoffman Guest 0 0 (null)
+arrDemo1.java.txt 0666 hoffman Guest 0 0 (null)
+Aug-27.html 0666 hoffman Guest 0 0 (null)
+randDemo1.java.txt 0666 hoffman Guest 0 0 (null)

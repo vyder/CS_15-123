@@ -1,0 +1,51 @@
+<html>
+<head>
+	<title>Lab4 S06-15200</title>
+</head>
+
+<body>
+<h1 align="center">Lab4: Binary Search Trees - Part II</h1>
+
+<hr color="green" size="5">
+<h3>Due Date: 2 Mar 2006  by 11:59pm</h3>
+<hr>
+<h3>Background:</h3>
+Lab4 will rewquire you to implement the last of the operations we discussed in class this week.
+The level order traversal (and pretty print if you try it) will require the use of a Queue.
+You are to write your own Queue class based on the Priority Queue Lab you did. Remember
+that a Queue is just a simpler version of a Priority Queue. A plain Queue just does insert
+at end instead of insertInOrder. Lab4 uses a plain Queue and each list element will store a Node pointer.
+<hr>
+
+<hr size="10", color="green">
+<h3>The Assignment: </h3>
+<p>Lab4 requires you fill in al the methods in the BST class definition
+file.&nbsp; We will discuss esch of these methods in class.</p>
+<h3>Here is the main tester program <a href="Lab4.java">Lab4.java</a> It is your job to examine the calls
+in the main and reverse engineer the code you need to put into the Tree.java file to satisfy all those calls</h3>
+<ul>
+	<li>Copy Constructor:<br>
+      &nbsp;&nbsp; Tree t2 = new Tree( t1 );&nbsp;&nbsp; // where t1 is already built
+	<li>levelOrderPrint() - Prints node strings in level order.
+	<li>remove() - Prompt user for a string to delete from the tree.
+      you must confirm that it was either deleted or not found
+    <li>isEqual() -  a boolean method that satisfies syntax :  if (t2.isEqual(t1)) { print they are equal etc }
+    <li>prettyPrint( t1 ): I will post a sample output of this over the weekend.
+        Only do this for X/Credit after all other methods are working
+</ul>
+<hr size="10" color="green">
+<h3>Handing in your Solution</h3>
+<p>
+Your solution should be in the form of a.ZIP file.<b> Zip and hand-in:
+<ul>
+	<li>Tree.java
+	<li>Node.java
+	<li>Queue.java
+	<li>ListElement.java
+</ul> </b>Don't hand in&nbsp; input files or .class files.&nbsp;
+<p>Use <a href="http://handin.intro.cs.cmu.edu"><font size=+2><b>Handin</b></font></a>
+to submit your ZIP file
+
+
+</body>
+</html>

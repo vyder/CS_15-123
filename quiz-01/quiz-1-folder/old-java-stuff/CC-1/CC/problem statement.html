@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Random Sentence Generation</title>
+</head>
+<body bgcolor="white">
+<p>
+<center><h1>15-111/200 Final Exam<br>Random Sentence Generation</h1></center>
+
+
+<h3>Problem Statement (Including Input and Output)</h3>
+First, read a file of words one line at a time, building a <b>Map</b> whose key
+  is the first word on the line and whose value is a <b>List</b> of all
+  subsequent words on that line: from each <b>category</b> word to a
+ <b>List</b> of all its <b>exemplar</b> words.
+All words are separated by one semi-colon character.
+For example, the input file <b>substitutions.txt</b> contains the following
+  lines:
+<b><pre>  name;Fred;Bob;Mary
+  verb;throws;eats;chases;breaks
+  article;a;the;this
+  adj;big;red;small;blue
+  do;wagon;ball;hot-dog</pre></b>
+Here, for example, the <b>category</b> word <b>verb</b> is associated with the
+  <b>List</b> of <b>exemplar</b> words <b>throws</b>, <b>eats</b>,
+  <b>chases</b>, and <b>breaks</b>.
+<p>
+Second, print a sorted version of this <b>Map</b>: the <b>category</b> words
+  must be printed in alphabetical order, one per line, each followed -on the
+  same line- by its <b>List</b> of <b>exemplar</b> words, which must also
+  printed in alphabetical order.
+For the input file shown above, the program should print the following lines:
+<b><pre>  Map (sorted alphabetically by Category and by Exemplars)
+    adj can be replaced by [big, blue, red, small]
+    article can be replaced by [a, the, this]
+    do can be replaced by [ball, hot-dog, wagon]
+    name can be replaced by [Bob, Fred, Mary]
+    verb can be replaced by [breaks, chases, eats, throws]</pre></b>
+<p>
+If you finish this part correctly, you will at least be awarded 4 points of
+  the total 8 points that this entire problem is worth.
+<p>
+Third, read a line of <b>category</b> words from a file and build a sentence
+  (store it in a <b>List</b>) by selecting one random <b>exemplar</b> word for
+  each <b>category</b> word that is read.
+All words are separated by one semi-colon character.
+For example, the input file <b>sentence.txt</b> contains the following
+  line:
+<b><pre>  name;verb;article;adj;do</pre></b>
+It indicates a <b>name</b> is to be followed by a <b>verb</b>, which is
+  followed by an <b>article</b>, etc.
+<p>
+Finally, print the generated sentence that was stored in the <b>List</b> of 
+ <b>exemplar</b> words.
+For example, with these input files the program might print the following line:
+<b><pre>  [Fred, chases, this, big, ball]</pre></b>
+Of course, other sentences are just as likely to occur.
+Running the program more than once should produce different results (try it),
+   but always using appropriate <b>exemplar</b> words selected from these
+  five <b>category</b> words.
+Note that all the input files will be perfect: the right size, with no 
+ misspellings, etc.
+
+
+<h3>Details</h3>
+The following details describe more precisely the program that you are to
+  write.
+If you don't understand the description above, or just need more details to
+  compose your solution, read here for more information.
+<ol>
+<li>Create the <b>Map</b> while processing the input file using the standard
+      call to <b>ExamIO.readFile</b> and the <b>StringTokenizer</b> class.
+Note that the <b>category</b> word will appear first on the line and it will be
+  followed by one or more different <b>exemplar</b> words (there will be no
+  duplicate <b>exemplar</b> words in a <b>category</b>, and no duplicate
+  <b>category</b> words in the file).
+The semi-colon character (<b>;</b>) is used to separate all these tokens.
+<p>
+<li> There are many ways to sort the <b>Map</b> and print it.
+One suggestion is to put all the <b>category</b> words (the <b>Map</b>'s keys)
+  into a <b>List</b> and sort it (note that the <b>String</b> class already
+  implements the <b>Comparable</b> interface) then you can iterate over this
+  <b>List</b>, printing each of these <b>category</b> words followed by a
+  sorted (by similar means) <b>List</b> of its <b>exemplar</b> words.
+<p>
+<li>When printing the sorted <b>List</b> of <b>exemplar</b> words for each
+  <b>category</b>, and the <b>List</b> of words in the sentence (see below),
+  use a single line of Java code each time, which calls the standard
+  <b>toString</b> method on the collection being printed.
+Printing the <b>Map</b> requires an iterator.
+<p>
+<li>You MUST build a <b>List</b> that is the sentence; to do so, select a
+  random <b>examplar</b> word for each <b>category</b> word.
+The <b>randomWord</b> method is provided in the Java file that you are to
+   edit; its parameter is a <b>List</b> of <b>String</b> and its result is
+   some <b>String</b> selected randomly from the <b>List</b>.
+Call this method as appropriate.
+After you have built the entire <b>List</b>, print it.
+</ol>
+
+
+<h3>Sample Interaction</h3>
+The program, as specified, will have the following interaction:
+  user-typed information appears in <i>italics</i>.
+Your output should "match" this one exactly.
+Notice that the <b>category</b> words are sorted, as are the <b>exemplar</b>s
+ in each <b>List</b>.
+<b><pre>  Enter Category Word file name: <i>substitutions.txt</i>
+  Map (sorted alphabetically by <B>Category</B> then Word)
+    adj can be replaced by [big, blue, red, small]
+    article can be replaced by [a, the, this]
+    do can be replaced by [ball, hot-dog, wagon]
+    name can be replaced by [Bob, Fred, Mary]
+    verb can be replaced by [breaks, chases, eats, throws]
+
+  Enter sentence generation file name: <i>sentence.txt</i>
+
+  Generated Sentence using the pattern: name;verb;article;adj;do
+    [Fred, chases, this, big, ball]</pre></b>
+Of course, other sentences are just as likely to occur.
+Running the program more than once should produce different results (try it),
+   but always using <b>exemplar</b> words selected from these five
+   <b>category</b> words.
+
+</body>
+</html>

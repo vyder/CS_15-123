@@ -1,0 +1,8 @@
+Analysis of signal file: sine-2.dat
+
+Sample#        Value       Detected
+ 53:            -102       End of wave #1  PD: 37   Peak:2047  Nadir:-2015
+ 90:              -2       End of wave #2  PD: 37   Peak:2047  Nadir:-2046
+126:            -148       End of wave #3  PD: 36   Peak:2047  Nadir:-2041
+
+3 Full Waves detected

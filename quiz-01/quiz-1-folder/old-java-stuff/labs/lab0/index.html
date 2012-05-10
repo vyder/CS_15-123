@@ -1,0 +1,119 @@
+<html>
+<head>
+
+<title>15200</title>
+
+<style type="text/css">
+<!--
+body
+{
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+-->
+</style>
+
+</head>
+<body bgcolor="dddccc" >
+<hr>
+<h1 align="center">Lab 0: Reverse engineering a class</h1>
+<hr>
+
+<p>
+	The purpose of this assignment is to measure your competency with class design. You are given a main program
+	that declares an instance of the Coin class. The coin class is not from the the API. It is something I wrote.
+	The main program then exercises that class by making various calls to its  methods.  You are shown the output
+	produced by the program and asked to write the source code for the Coin class.  You will do so by noting the names
+	of the methods called, the data type those methods return and the behaviour of the program.  Thus - you must reverse
+	engineer the Coin class and write the source code for Coin.java.
+</p>
+
+<p>
+	Be sure to name and prototype all your class members correctly. If you observe the main program you
+	can deduce precisely their names and prototypes.
+</p>
+
+<p>
+	Note that when a coin object is created, it's internal head and tail counts are initialized to zero.
+	Each time a coin is <b>.flip()</b>'d that flip increments that coin's heads or tails counts with
+	a 50% each probability. Thus, you must use a Random variable inside your Coin class to get a 50/50
+	chance of getting a head or tail. Once the flip method decided that a head or tail was rolled,
+	the flip method increments the appropriate counter and then returns the String "H" or "T".
+	The reset() method starts that coin's H/T counters back at 0.
+</p>
+
+<h3>Download: <a href="CoinTester.java"><b><font size=+1>CoinTester.java</font><b></a> to your desktop</h3>
+<table bgcolor='khaki'><tr><td><pre><font size="+2" face="Courier New">/*
+	CoinTester.java - tests the Coin class by
+	constructing variables and calling it's methods
+*/
+public class CoinTester
+{
+  public static void main( String args[] )
+  {
+    Coin coin1 = new Coin();
+    Coin coin2 = new Coin();
+
+	// FLIP COIN1, PRINT RESULTS
+
+    System.out.println(&quot;\nFlipping Coin1 20 times.&quot;);
+    for (int i=0 ; i&lt;20 ; ++i)
+        System.out.print( coin1.flip() + &quot; &quot; ); // Equal chance of head or tail
+    System.out.println();
+
+    System.out.println(&quot;# heads: &quot; + coin1.getNumHeads() +
+    		 &quot;  # tails: &quot; + coin1.getNumTails() );
+    coin1.reset(); // sets numHeads and numTails back to zero;
+
+	// FLIP COIN2, PRINT RESULTS
+
+    System.out.println(&quot;\nFlipping Coin2 10 times.&quot;);
+    for (int i=0 ; i&lt;10 ; ++i)
+        System.out.print( coin2.flip() + &quot; &quot; ); // Equal chance of head or tail
+    System.out.println();
+
+    System.out.println(&quot;# heads: &quot; + coin2.getNumHeads() +
+    		&quot;  # tails: &quot; + coin2.getNumTails() );
+    coin2.reset(); // sets numHeads and numTails back to zero;
+
+	// FLIP COIN2 AGAIN, PRINT RESULTS
+
+    System.out.println(&quot;\nFlipping Coin1 again 35 times.&quot;);
+    for (int i=0 ; i&lt;35 ; ++i)
+       System.out.print( coin1.flip() + &quot; &quot; ); // Equal chance of head or tail
+    System.out.println();
+
+    System.out.println(&quot;# heads: &quot; + coin1.getNumHeads() +
+    		&quot;  # tails: &quot; + coin1.getNumTails() );
+    coin1.reset(); // sets numHeads and numTails back to zero;
+  }// END main
+}//EOF
+</font></pre></td></tr></table>
+
+<h4>Here is the output of a <b>sample run</b> of CoinTester.java</h4>
+<p>
+I did NOT seed the Random object in my Coin.java class definition file. As a result, <b>this program
+and yours will give slightly different results every time</b>. Over the long run though, you should see about equal
+numbers of heads an tails.
+</p>
+
+<table bgcolor='black'><tr><td><pre><font color='white' size="+2" face="Courier New">
+Flipping Coin1 20 times.
+T T T T H H H H T H H T H T T H H T T T
+# heads: 9  # tails: 11
+
+Flipping Coin2 10 times.
+T T T T H H H H T H
+# heads: 5  # tails: 5
+
+Flipping Coin1 again 35 times.
+T H H T H T H H T T T H T H H T H H T T H H T H T H T T T H H T T T T
+# heads: 16  # tails: 19
+Press any key to continue . . .
+</font></pre></td></tr></table>
+
+<hr>
+
+</body>
+</html>

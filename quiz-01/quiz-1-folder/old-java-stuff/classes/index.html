@@ -1,0 +1,760 @@
+<html>
+<head>
+
+<title>15200 Lecture</title>
+
+<style type="text/css">
+<!--
+body
+{
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+	-->
+</style>
+
+</head>
+<body bgcolor="dddccc" >
+<hr>
+<h1 align="center">Designing, writing and using Classes</h1>
+<hr>
+<b>Tim Hoffman</b>
+<hr>
+
+<h1 align="center"><font color="green">Writing your own classes</font></h1>
+<p>
+Object-Oriented Programming (OOP) is the use of objects to combine variables and methods in a single unit of
+abstraction. More concretely, OOP is the writing and use of classes. A class in Java is simply a definition
+of a data type where that description weds variables and methods which in turn manipulate those variables.
+We begin with a simple example.
+</p>
+<p>We want to represent a rational number - a <b>fraction</b> in our program. We want to store a numerator
+and denominator for our fraction and perform operations such as addition, subtraction,
+multiplication etc on different variables of our Fraction data type.
+</p>
+<h4>How do we represent a Fraction in our program?</h4>
+We have several possibilities. The 2 simplest are:
+<ol>
+	<li> declare 2 ints named numer and denom, then pass them around to various methods from main
+	<li> declare an array of 2 ints and just remember that arr[0] is numerator and arr[1] is denominator
+</ol>
+<p>The second attempt is actually a&nbsp; little better than the first. At least
+it achieves the bundling together
+of the numerator and denominator into one single object - an array object.&nbsp; It is still a very poor
+solution. It would be much better if we could bundle the two values into one container but still call
+the 2 values by meaningful names like numer and denom rather than arr[0] and arr[1].
+</p>
+
+<h4>A better solution:&nbsp;&nbsp;&nbsp;&nbsp; Write a class definition file named "Fraction.java"</h4>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/* Fraction.java  A class (data type) definition file
+   This file just defines what a Fraction is
+   This file is NOT a program
+*/
+public class Fraction
+{
+	public int numer;
+	public int denom;
+}// EOF</font></pre></td></tr></table>
+
+<p>As soon as we have written the above Fraction class definition file that describes what a Fraction is, we can then
+do the following:&nbsp;
+</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/*
+	FractionTester.java  A program that declares Fraction variables
+*/
+public class FractionTester
+{
+	public static void main( String args[] )
+	{
+		// use the word Fraction as if were a Java data type
+		Fraction f1 = new Fraction();  // create an object of the fraction type
+
+		f1.numer = 22; // use dot operator to access numer or denom
+		f1.denom=7;
+		System.out.println(&quot;f1=&quot; + f1.numer + &quot;/&quot; + f1.denom); // outputs: &quot;f1=22/7&quot;
+	} // END main
+} // EOF</font></pre></td></tr></table>
+
+<h4>
+You are now a class designer. You just invented your own new data type - the Fraction type (or <i>class</i>) and
+now must learn the rules of good class design and some terminology.
+</h4>
+<p>We start with some terminology to describe what we have already done.
+<ul>
+	<li><b>class</b> - a.k.a data type, our new class is named <b>the Fraction class</b>
+	<li>class definition file - the source code file named "Fraction.java" it contains the definition of what a Fraction is
+	<li><b>object</b> - the chunk of memory allocated by a statement like: <b>Fraction f1=new Fraction();</b>.
+	The object is where the actual data is stored in memory
+	<li><b>reference</b> variable - in our case, <b>f1</b> is the reference&nbsp;by which we
+      access the object
+	<li><b>members</b> - our Fraction class has two members: numer and denom
+</ul>
+<p>So.. the&nbsp; important terms we must understand completely before moving on are:
+<i> class, members, object and reference</i>. Our object is of class (type) Fraction, and
+we can only access it's members via it's reference variable f1.</p>
+
+<h2>Classes can have methods</h2>
+<p>It is often useful to initialize an object at the time of it's creation. In the case of our FractionTester program we would
+like to be able to do the following:</p>
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/*
+	FractionTester.java  A program that declares Fraction variables
+*/
+public class FractionTester
+{
+	public static void main( String args[] )
+	{
+		Fraction f1 = new Fraction( 22, 7 );  // 22/7 gets stored in the object
+		System.out.println(&quot;f1=&quot; + f1.numer + &quot;/&quot; + f1.denom); // outputs: &quot;f1=22/7&quot;
+	} // END main
+} // EOF</font></pre></td></tr></table>
+
+<p>Notice how intuitive and elegant <i>Fraction f1 = new Fraction( 22, 7 );</i> is. It is obvious to the reader what the
+intent of that declaration is. Our Fraction class needs to have a special method added to it's
+definition file. This method
+is called a <b>constructor</b>. It's job is to receive initial values for the object from the declaration statement and copy those
+values into their respective member variables.</p>
+
+<p>Our Fraction class definition file after adding our constructor method.</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/* Fraction.java class (data type) definition file
+   This file just defines what a Fraction is
+   This file is NOT a program
+*/
+public class Fraction
+{
+	public int numer;
+	public int denom;
+
+	// CONSTRUCTOR method - initializes object
+	// via values passed in from the object's declaration
+	public Fraction( int n, int d )
+	{
+		numer = n;
+		denom = d;
+	}
+}// EOF</font></pre></td></tr></table>
+
+<p>Notice this method is peculiar in 2 ways. First it does not have a return type. It is not void, it simply
+has no return type at all. Secondly, it is named after the class. The class is
+named Fraction and the
+constructor method is named Fraction. <b> Contstructors&nbsp; can be overloaded</b>. In other
+words <b> you can have multiple constructor&nbsp;methods</b> -
+all named Fraction in your Fraction class. They must however differ in their parameter list. Either they
+must take
+a different number of args or take different data type args.
+</p>
+<p>
+Notice how we construct several different Fraction objects in our main program and how each one takes a different
+number of args. Then look at what we did to our Fraction definition file to accommodate
+those different forms of declaration in main.
+</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/*
+	FractionTester.java  A program that declares Fraction variables
+*/
+public class FractionTester
+{
+	public static void main( String args[] )
+	{
+		Fraction f1 = new Fraction( 22, 7 );  // 22/7 gets stored in the object
+		Fration f2 = new Fraction(); // 0/1 gets stored
+		Fraction f3 = new Fraction( 5 ); // 5/1 gets stored
+		System.out.println(&quot;f1=&quot; + f1.numer + &quot;/&quot; + f1.denom); // outputs: &quot;f1=22/7&quot;
+		System.out.println(&quot;f2=&quot; + f2.numer + &quot;/&quot; + f2.denom); // outputs: &quot;f2=0/1&quot;
+		System.out.println(&quot;f3=&quot; + f3.numer + &quot;/&quot; + f3.denom); // outputs: &quot;f3=5/1&quot;
+	} // END main
+} // EOF</font></pre></td></tr></table>
+
+<p>
+And here is the modified Fraction.java file that has those 2 additional constructors written inside.
+</p>
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/* Fraction.java class (data type) definition file
+   This file just defines what a Fraction is
+   This file is NOT a program
+*/
+public class Fraction
+{
+	public int numer;
+	public int denom;
+
+	// DEFAULT CONSTRUCTOR - no args passed in
+	public Fraction(  )
+	{
+		numer = 0;
+		denom = 1; // don't put a ZERO here
+	}
+
+	// 1 arg CONSTRUCTOR - 1 arg passed in
+	// assume user wants whole number
+	public Fraction( int n )
+	{
+		numer = n;
+		denom = 1; // don't put a ZERO here
+	}
+
+	// FULL CONSTRUCTOR - an arg for each class data member
+	public Fraction( int n, int d )
+	{
+		numer = n;
+		denom = d;
+	}
+}// EOF</font></pre></td></tr></table>
+
+<h2>Encapsulation and Data Hiding</h3>
+</h2>
+<p>The above Fraction class achieves one of the important advantages of using classes known as <b>encapsulation</b>.
+</p>
+<p>
+Encapsulation means the bundling together or data (variables) and methods.
+However, our Fraction class falls short&nbsp; of achieving the second important
+advantage called <b>data hiding</b>.<p>Data hiding means that we should now
+allow the users of our class (a.k.a clients of our class) such as the code in
+main, to directly access the members of the class (numer and denom).&nbsp;<p>The following code illustrates the vulnerability of having
+our data members declared public in our class definition.
+</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/*
+	FractionTester.java  A program that declares Fraction variables
+*/
+public class FractionTester
+{
+	public static void main( String args[] )
+	{
+		// use the word Fraction as if were a Java data type
+		Fraction f1 = new Fraction();  // create an object of the fraction type
+
+		f1.numer = 22; // use dot operator to access numer or denom
+
+		<b>f1.denom=0; // BAD! But possible because numer is public !!</b>
+
+		System.out.println(&quot;f1=&quot; + f1.numer + &quot;/&quot; + f1.denom); // outputs: &quot;f1=22/7&quot;
+	} // END main
+} // EOF</font></pre></td></tr></table>
+
+<h4>Data Hiding is achieved by declaring class data members private instead of public</h4>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">
+/* Fraction.java  A class (data type) definition file
+   This file just defines what a Fraction is
+   This file is NOT a program
+   ** data members are PRIVATE
+   ** method members are PUBLIC
+*/
+public class Fraction
+{
+	<b>private</b> int numer;
+	<b>private</b> int denom;
+
+	// DEFAULT CONSTRUCTOR - no args passed in
+	public Fraction(  )
+	{
+		numer = 0;
+		denom = 1; // don't put a ZERO here
+	}
+
+	// 1 arg CONSTRUCTOR - 1 arg passed in
+	// assume user wants whole number
+	public Fraction( int n )
+	{
+		numer = n;
+		denom = 1; // don't put a ZERO here
+	}
+
+	// FULL CONSTRUCTOR - an arg for each class data member
+	public Fraction( int n, int d )
+	{
+		numer = n;
+		denom = d;
+	}
+}// EOF</font></pre></td></tr></table>
+
+
+<p>Now any attempts by the code in main to directly access numer or denom via the dot
+operator will be caught by the compiler at compile time. Class member data is
+thus protected
+from direct access because we declared it as <b>private</b> instead of public.
+</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">public class FractionTester
+{
+	public static void main( String args[] )
+	{
+		// use the word Fraction as if were a Java data type
+		Fraction f1 = new Fraction();  // create an object of the fraction type
+
+		f1.numer = 22;
+
+		f1.denom=0;
+
+	} // END main
+} // EOF</font></pre></td></tr></table>
+
+<p>Compiling the above FractionTester program thus produces the following expected compilation errors:</p>
+
+<table bgcolor='black'>
+<tr><td>
+<pre><font color='white' size="+2" face="Courier New">
+C:\Temp&gt; javac FractionTester.java
+
+C:\Temp\FractionTester.java:8:
+     numer has private access in Fraction
+          f1.numer = 22;
+            ^
+C:\Temp\FractionTester.java:10:
+    denom has private access in Fraction
+          f1.denom = 0;
+            ^
+2 errors</font></pre></td></tr></table>
+
+<h4>We have now written our class to confirm with the good practice of data hiding via private declaration of class data.
+We now move on to more good design principles.
+</h4>
+
+<h2>Accessors and Mutators</h2>
+
+<p>Recall above that we just made our class data members private. Users of our class now have a problem that we must solve.
+They need some way to get to the numer and denom members of the Fraction class. The solution is to write some public methods inside the
+class definition that allow outside users to access these data members.&nbsp;
+These methods are sometimes called <b>accessors</b> and <b>mutators</b> because
+they give users of the class the ability to read or modify the member data.</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/* Fraction.java  A class (data type) definition file
+   This file just defines what a Fraction is
+   This file is NOT a program
+   ** data members are PRIVATE
+   ** method members are PUBLIC
+*/
+public class Fraction
+{
+	private int numer;
+	private int denom;
+
+	// ACCESSORS
+	public int getNumer()
+	{
+		return numer;
+	}
+	public int getDenom()
+	{
+		return denom;
+	}
+	// MUTATORS
+	public void setNumer( int n )
+	{
+		numer = n;
+	}
+	public void setDenom( int d )
+	{
+		if (d!=0)
+			denom=d;
+		else
+		{
+			// error msg OR exception OR exit etc.
+		}
+	}
+
+	// DEFAULT CONSTRUCTOR - no args passed in
+	public Fraction(  )
+	{
+		numer = 0;
+		denom = 1; // don't put a ZERO here
+	}
+
+	// 1 arg CONSTRUCTOR - 1 arg passed in
+	// assume user wants whole number
+	public Fraction( int n )
+	{
+		numer = n;
+		denom = 1; // don't put a ZERO here
+	}
+
+	// FULL CONSTRUCTOR - an arg for each class data member
+	public Fraction( int n, int d )
+	{
+		numer = n;
+		denom = d;
+	}
+}// EOF</font></pre></td></tr></table>
+
+<p>Users of the class can now use these <b>get</b> and <b>set</b> methods to read and modify the members variables but
+the integrity of the class is protected because the setDenom() method guards against a
+ZERO being assigned to the denom member.
+</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">public class FractionTester
+{
+	public static void main( String args[] )
+	{
+		// use the word Fraction as if were a Java data type
+		Fraction f1 = new Fraction();  // create an object of the fraction type
+
+		f1.<b>setNumer</b>(22);
+		f1.<b>setDenom</b>(7); // if 0 were passed in it would be rejected
+
+		System.out.println( &quot;f1= &quot; + f1.<b>getNumer()</b> + &quot;/&quot; + f1.<b>getDenom()</b> );
+	} // END main
+} // EOF</font></pre></td></tr></table>
+
+<h2>Code re-use and keyword  "this"</h2>
+<p>Our class still has a big security hole. We just prevented users from putting a zero into the denominator by making our
+members private and putting a test into the setDenom() method to prevent a zero send in from getting assignmed into denom.
+Our constructor is still a security hole.  A first reaction might be to copy the test code from the setDenom() method into the
+constructor.  This violates the next principle of good class design - <b>code re-use</b>.
+<p>The code re-use principle states that it is bad programming to rewrite the same code in multiple places - if it's possible
+to just put it in one place and call it from the other places.  Also, in designing a class it is strongly recommended that
+member variables get modified in only one place - that member's <b>setXXX()</b> method. In the case of our full constructor
+we accomplish this by calling setNumer() and setDenom() instead of direct assignment.
+</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">
+public class Fraction
+{
+	...
+	...
+	// FULL CONSTRUCTOR
+	public Fraction( int n, int d )
+	{
+		setNumer( n );
+		setDenom( d ); // setDenom() catches ZEROs
+	}
+	...
+	...
+}// EOF</font></pre></td></tr></table>
+
+<p>Our full constructor is now re-using code already written in the set methods of the class.
+We now have to do the same in our other constructors. We do this by simply having our other
+constructors call our full constructor.  Here is where the keyword <b>this</b> comes in.
+<p>
+
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">// SEVERAL METHODS DELETED FOR BREVITY (CODE WILL NOT COMPILE)
+public class Fraction
+{
+	private int numer;
+	private int denom;
+
+	// ACCESSORS...
+	// MUTATORS ...
+
+	// DEFAULT CONSTRUCTOR - no args passed in
+	public Fraction(  )
+	{
+		this( 0, 1 ); // <b>this</b> means call a fellow constructor
+	}
+
+	// 1 arg CONSTRUCTOR - 1 arg passed in
+	// assume user wants whole number
+	public Fraction( int n )
+	{
+		this( n, 1 ); // <b>this</b> means call a fellow constructor
+
+	}
+
+	// FULL CONSTRUCTOR - an arg for each class data member
+	public Fraction( int n, int d )
+	{
+		setNumer(n);
+		setDenom(d);
+	}
+
+	...
+	...
+}// EOF</font></pre></td></tr></table>
+
+<p>In the above re-writes of the default and 1 arg constructors, notice we use the keyword
+<b>this</b> to call a fellow constructor of the class. Keyword this is actually a reference
+to the object of this class type that is executing this code. We will talk more about this later.
+</p>
+
+<h2>toString() method</h2>
+
+<p>Our simple Fraction lacks one item of convenience that polite class designers put in for the users of the class.
+The toString() method is automatically invoked by the runtime if a user of the class tries to print a
+reference variable:
+</p>
+
+<pre>
+	<b>System.out.println(&quot;f1= &quot; + f1 ); // outputs a memory addr something like: &quot;@5341593&quot;  </b>
+</pre>
+
+<p>
+Without a toString() method present in our Fraction class, the above print statement would output
+a number. That number would be the address in memory where the Fraction object's data was stored.
+This makes perfect sense since f1 is a reference variable - which means it simply contains
+the address of WHERE the data is, NOT the data itself.
+</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">// SEVERAL MeTHODS DELETED FOR BREVITY (CODE WILL NOT COMPILE)
+public class Fraction
+{
+	private int numer;
+	private int denom;
+
+	// ACCESSORS...
+	// MUTATORS...
+	// CONSTRUCTORS...
+
+	public String toString()
+	{
+		return numer + &quot;/&quot; + denom;
+	}
+	...
+	...
+}// EOF</font></pre></td></tr></table>
+
+<p>In main we can now print out the reference variable and let the runtime
+automatically call the .toString() of our object for us.
+</p>
+
+<pre>
+	<b>Fraction f1 = new Fraction(22,7);
+	System.out.println(&quot;f1= &quot; + f1 ); // outputs: &quot;22/7&quot;</b>
+</pre>
+
+<hr>
+
+<h2>Here is our Fraction class thus far</h2>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">/* Fraction.java  A class (data type) definition file
+   This file just defines what a Fraction is
+   This file is NOT a program
+   ** data members are PRIVATE
+   ** method members are PUBLIC
+*/
+public class Fraction
+{
+	private int numer;
+	private int denom;
+
+	// ACCESSORS
+	public int getNumer()
+	{
+		return numer;
+	}
+	public int getDenom()
+	{
+		return denom;
+	}
+	// MUTATORS
+	public void setNumer( int n )
+	{
+		numer = n;
+	}
+	public void setDenom( int d )
+	{
+		if (d!=0)
+			denom=d;
+		else
+		{
+			// error msg OR exception OR exit etc.
+		}
+	}
+
+	// DEFAULT CONSTRUCTOR - no args passed in
+	public Fraction(  )
+	{
+		this( 0, 1 ); // <b>this</b> means call a fellow constructor
+	}
+
+	// 1 arg CONSTRUCTOR - 1 arg passed in
+	// assume user wants whole number
+	public Fraction( int n )
+	{
+		this( n, 1 ); // <b>this</b> means call a fellow constructor
+
+	}
+
+	// FULL CONSTRUCTOR - an arg for each class data member
+	public Fraction( int n, int d )
+	{
+		setNumer(n);
+		setDenom(d);
+	}
+
+}// EOF</font></pre></td></tr></table>
+
+
+<h2>Passing objects into class methods</h2>
+<p>So far, all the values passed into our class methods have been primitives
+as Strings. We start with passing in other objects of our own type.
+</p>
+<h3>The Copy Constructor</h3>
+<p>Let's go back to our FractionTester program and show yet another form of construction, know as
+<b>copy construction</b>.
+</p>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">public class FractionTester
+{
+	public static void main( String args[] )
+	{
+		// use the word Fraction as if were a Java data type
+		Fraction f1 = new Fraction(22,7);  // use full C'Tor
+
+		// now create f2 to be exact duplicate of f1 via copy C'Tor
+		// pass in an already initialied object to copy from
+
+		Fraction f2 = new Fraction( f1 );  // use <i>copy</i> C'Tor
+
+		System.out.println( &quot;f1= &quot; + f1 );
+		System.out.println( &quot;f2= &quot; + f2 );	 // f2 is identical to f1
+	} // END main
+} // EOF</font></pre></td></tr></table>
+
+<h4>The copy constructor looks like this</h4>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">// SEVERAL MeTHODS DELETED FOR BREVITY (CODE WILL NOT COMPILE)
+
+public class Fraction
+{
+	private int numer;
+	private int denom;
+
+	// ACCESSORS...
+	// MUTATORS...
+
+	// COPY CONSTRUCTOR - takes ref to some already initialied Fraction object
+	public Fraction( Fraction other )
+	{
+		this( other.numer, other.denom ); // call my full C'Tor with other Fraction's data
+	}
+
+	// DEFAULT CONSTRUCTOR - no args passed in
+	public Fraction(  )
+	{
+		numer = 0;
+		denom = 1; // don't put a ZERO here
+	}
+
+	// 1 arg CONSTRUCTOR - 1 arg passed in
+	// assume user wants whole number
+	public Fraction( int n )
+	{
+		numer = n;
+		denom = 1; // don't put a ZERO here
+	}
+
+	// FULL CONSTRUCTOR - an arg for each class data member
+	public Fraction( int n, int d )
+	{
+		numer = n;
+		denom = d;
+	}
+}// EOF</font></pre></td></tr></table>
+
+<h2>Our Fraction class&nbsp; with full compliment of Constructors</h2>
+
+<h2><a href="Fraction.java.txt"><font size=+2>Fraction.java</font></a>
+
+</h2>
+
+<table bgcolor='khaki'>
+<tr><td>
+<pre><font size="+2" face="Courier New">
+/* Fraction.java  A class (data type) definition file
+   This file just defines what a Fraction is
+   This file is NOT a program
+   ** data members are PRIVATE
+   ** method members are PUBLIC
+*/
+public class Fraction
+{
+	private int numer;
+	private int denom;
+
+	// ACCESSORS
+	public int getNumer()
+	{
+		return numer;
+	}
+	public int getDenom()
+	{
+		return denom;
+	}
+	public String toString()
+	{
+		return numer + &quot;/&quot; + denom;
+	}
+
+	// MUTATORS
+	public void setNumer( int n )
+	{
+		numer = n;
+	}
+	public void setDenom( int d )
+	{
+		if (d!=0)
+			denom=d;
+		else
+		{
+			// error msg OR exception OR exit etc.
+		}
+	}
+
+	// DEFAULT CONSTRUCTOR - no args passed in
+	public Fraction(  )
+	{
+		this( 0, 1 ); // <b>this</b> means call a fellow constructor
+	}
+
+	// 1 arg CONSTRUCTOR - 1 arg passed in
+	// assume user wants whole number
+	public Fraction( int n )
+	{
+		this( n, 1 ); // <b>this</b> means call a fellow constructor
+
+	}
+
+	// FULL CONSTRUCTOR - an arg for each class data member
+	public Fraction( int n, int d )
+	{
+		setNumer(n);
+		setDenom(d);
+	}
+
+	// COPY CONSTRUCTOR - takes ref to some already initialized Fraction object
+	public Fraction( Fraction other )
+	{
+		this( other.numer, other.denom ); // call my full C'Tor with other Fraction's data
+	}
+}// EOF
+</font></pre></td></tr></table>
+
+</body>
+</html>

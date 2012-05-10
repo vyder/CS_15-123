@@ -1,0 +1,168 @@
+<html>
+<head>
+	<title>Lab 7 F06-15200</title>
+	<style type="text/css">
+	<!--
+	body
+	{
+		margin-top: 10px;
+		margin-right: 20px;
+		margin-bottom: 10px;
+		margin-left: 10px;
+		color: #000066;
+		background-color: #FFFFFF;
+		font-family: "verdana"; serif;
+	}
+	-->
+</style>
+</head>
+
+<body>
+<p align="center"><font face="verdana" size=+1 color="green">Lab 7: the Game of
+BOGGLE&nbsp; via Recursion &amp; Backtracking + Pruning Heuristic&nbsp;
+</font><br>
+<hr>
+<h4>Due Date: Thu 20 Apr 2006&nbsp;&nbsp; by 23:59&nbsp;</h4>
+<hr>
+<font size=-1>
+<h2>Background</h2>
+<p>Lab 7 is our next encounter with backtracking ans recursion (like the swamp).  You will have 2
+weeks to write it. You will use the BST class. Recall that backtracking is a technique whereby
+an algorithm recognizes it is impossible or unnecessary to search any deeper into the search space
+from a given point. An example of this is finding your way through a maze.
+When you hit a dead end you mark that path as a dead end and don't go down that
+path any more.&nbsp;<p>You will solve a problem that would be impossible to
+solve without a good heuristic to abandon dead ends and save vast amounts
+of wasted searches (and thus vast amounts of time).<h3>The game of Boggle:</h3>
+<p>The game of Boggle is a board game that uses 16 dice arranged in a 4 x 4
+grid.&nbsp;&nbsp; Each dice is 6 sided and each side contains a letter of the
+alphabet.&nbsp; Occasionally the string &quot;Qu&quot; will appear on a dice
+face.&nbsp;&nbsp; A typical board will look like this.
+</p>
+<img src="boggle.jpg">
+<p>
+ A typical Boggle game usually starts by shaking the dice on the board thus
+ creating a new grid of letters on the game board. The object of the game is
+ for each player to form as many valid dictionary words as possible by connecting
+ adjacent letters in any direction without any cycles.&nbsp; Think of how a
+ King can mode an a chessboard - across, up ,down or diagonal.&nbsp; You can generate words by
+connecting letters in any direction as long as you don't create cycles.&nbsp;
+Thus in a 4x4 grid you could form words a long as 16 characters (well.. 17 if
+you hit a &quot;Qu&quot; dice).
+</p>
+<p>You will be surprised at home many unique strings&nbsp; you can generate from
+even a 2 x 2 grid.&nbsp;&nbsp; A 2 x 2 grid can generate 64 unique
+strings.&nbsp; A 3 x 3 can generate over 10,000 and a 4 x 4 c generates&nbsp;
+several million. A 5 x 5 generates trillions and&nbsp; larger grids are
+astronomical. There is no closed from expression to calculate the number of
+string that can be formed from an N x N grid.&nbsp;&nbsp; The only way to
+calculate that number is to actually generate all those strings with a program
+and count them as you form them.
+</p>
+<h3>A Heuristic:</h3>
+<p>In order to avoid forming all possible strings to find the good
+(dictionary)&nbsp; ones, you will need to use a heuristic to prune the search
+space.&nbsp; You must recognize that in many cases (the vast majority, in fact)
+you should not bother forming new words that start with a word you have already
+searched for but failed to find.&nbsp; The heuristic works like this:</p>
+<p>Every time you form a word from letters in the grid, you will search the
+dictionary for that word.&nbsp; Your search method (from the Tree class) will be
+modified such that every time it compares the search word to the ones in the
+dictionary, it will remember if that word was a pre-fix of any dictionary words
+it encountered in the search.&nbsp; If the search comes back false (not found)
+then this prefix (true/false) flag becomes meaningful.&nbsp;&nbsp; If a word was
+just searched for, but not found, AND it was <b>not</b> a prefix of any word it
+encountered in the dictionary, then we can conclude that no word we might ever
+form based on that word would ever be in the dictionary.</p>
+<h4>Example:</h4>
+<p>Suppose we search for the word </font><font size="4">&quot;grt&quot;</font>
+<font size=-1>
+ and the search returns false.&nbsp; Furthermore assume that at no time during the
+search , did our search word match as a prefix of any of the words compared
+to.&nbsp; The prefix flag for that search will be set to false. This means we
+should not form any more strings from the grid that begin with this search word.
+Why?&nbsp; Because our prefix flag foretells us that we won't find any words in the dictionary
+that start with that search word - so why form and search them ?</font></p>
+<p><font size=-1>If you implement the heuristic correctly your
+program will solve any size grid (even 30x30 or more ) in very short time ( less
+than a second as opposed to days or centuries!)&nbsp; because the vast majority of the
+possible strings are not prefixes of valid words and thus most of the search space is pruned
+out.&nbsp;&nbsp;&nbsp; Incidentally this heuristic is &quot;lossless&quot;. It
+is the definitive heuristic for this problem . It&nbsp; never prunes searches that could have yielded valid
+words, yet prunes a huge majority or useless searches.</p>
+<hr size="5">
+<h3>What You'll Need</h3>
+
+<p>Download the <a href="lab7.zip"><font size=+1>Lab7.zip</font></a>&nbsp;file.&nbsp;&nbsp;&nbsp; You should see the following files:
+<ul>
+	<li><b>Demo</b> folder:&nbsp; contains a demo program that lists all the
+      strings possible from a boggle board
+	<li><b>Solution-exe</b> folder : contains executable for the finished
+      program. You final solution should behave like it.
+	<li>several&nbsp; input (.txt) files containing a grid of letters to
+      represent Boggle board states.
+</ul>
+
+<hr size="5">
+<h3>Assignment</h3>
+
+
+
+<p>First Step: Write a program that does what the demo program does -
+just prints out all possible strings. Once you have this done you have accomplished the hard part.
+
+
+<p>Once your starter code can generate all possible strings like the Demo
+program, Your remaining task is to enhance that program in 3 significant ways
+to reach the final solution:<p><b>First:&nbsp;&nbsp;
+You will add 2 (TWO) BSTs to the Boggle class</b>. The first will be the dictionary (&quot;scrabble.txt&quot; again).&nbsp;
+The second tree will hold all the words from the grid that were also found in
+the Dictionary.&nbsp;&nbsp; The game of Boggle is the game of searching thru a 4Nx
+N grid of letters and finding as many legal dictionary words in it as
+possible.&nbsp;&nbsp;<p><b>Second: You must modify the Tree class:</b>&nbsp; &nbsp;
+You must add a boolean data member to your tree class. Call it <b>&quot;prefix&quot;.&nbsp;
+</b>You must set it to FALSE before each word search.&nbsp; Inside your <b>searchHelper()&nbsp;
+</b>you must compare the search word to every word in the dictionary and see if
+that search word is a prefix of the dictionary word.&nbsp; If it you ever
+encounter a comparison where the search word IS a prefix of the dictionary word
+being compared to then you set your prefix true and leave it true for the rest
+of the search.<p><b>Third:</b> <b> You will add some code to the solveHelper
+method</b>. The code you add to the solveHelper will be the pruning heuristic
+described above.&nbsp; The code that you add will examine the prefix flag after
+every search. If the search failed and the prefix was also false then you should
+not recurse deeper into the grid and thus not form any new words based on the
+current search word.&nbsp;<p>Lastly you will modify your Tree class'
+inOrderPrint() method to print the words on lines no more than 60 chars long.
+See my solution.<p>&nbsp;
+
+<hr size="5">
+<h4>Sample Output:</h4>
+
+<h4>&nbsp;&nbsp;&nbsp; Run the Demo program to understand the correct word generation
+patterns.&nbsp;</h4>
+
+<h4>&nbsp;&nbsp; &nbsp;Then run the solution exe to see the how it performs with
+the dictionary and heuristic added.&nbsp;</h4>
+
+</font><font size=-1>
+
+<hr size="10">
+<h4>Handing in your Solution</h4>
+
+Your solution should be in the form of a .zip file.&nbsp;
+
+<p><b>Your Solution zip file should contain all your source files </b><br>
+Also you must handin a readme.txt file that explains how to run your oprogram - command args etc.<br>
+You must have a paragraph in that readme file that gives your best estimate of a formula that computes
+the number of possible strings you can form from an n X n grid</p>
+In other words give me some equation like:
+<pre>
+for any N x N grid of letters you can form this many possible  words:
+
+possibleWords = 2 ^ N^N ( 2 to the power  N to the N)    ...  or something like that.
+</pre>
+
+
+<h3>Use <a href="http://handin.intro.cs.cmu.edu">HANDIN</a> to submit your zip file.</h3>
+
+</font>

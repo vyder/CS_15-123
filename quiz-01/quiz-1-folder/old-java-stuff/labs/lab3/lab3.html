@@ -1,0 +1,78 @@
+<html>
+<head>
+	<title>Lab3 S06-15200 BSTs Part I</title>
+<style type="text/css">
+<!--
+
+body
+{
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+-->
+</style>
+</head>
+
+<body>
+<h1 align="center">Lab3: Binary Search Trees</h1>
+<hr>
+<h3>Due Date: Thu 23 Feb 2006 by 11:59pm</h3>
+<hr>
+<h3>Background:</h3>
+Lab 3 requires you read a file of wrods into a Binary Search Tree (BST).
+Once it is read in we call several member methods of the Tree class to print
+ out the tree's statistics such as # nodes, leaves, levels etc.&nbsp;&nbsp;
+ You are also required to do print traversals, searches, insertions and counting
+of nodes.
+<p>
+Do not modify any  files except Tree.java. When you hand in your solution just hand in one file
+"Tree.java" and do not hand in ANY other files.</p>
+
+<h3>You must fill in the following methods in the Tree.java starter file so that ALL the method calls in Lab3.java
+call on methods that have been filled in. Notice that every public method is called from main and it hasd a private
+helper method that is called by the public method because the public method does not have access to root.</h3>
+
+<ul>
+	<li>1% public void preOrderPrint()
+	<li>1% private void preOrderPrintHelper( Node root )
+	<li>1% public void postOrderPrint()
+	<li>1% private void postOrderPrintHelper( Node root )
+	<li>15% private int countNodesHelper( Node root)
+	<li>15% private int countLeavesHelper(Node root)
+	<li>15% private int depthHelper( Node root )
+	<li>15% private boolean searchHelper( Node root, String data )
+	<li>36% private void calcLevelCounts( Node root, int[] levelCounts, int level )
+</ul>
+<hr>
+<h2>Starter code, input files and correct output listings</h2>
+<ul>
+	<li> <a href="starter-code.zip">starter-code.zip</a> Just add input files and you are ready to compile and run!
+	The Tree.java file is not completely filled out. Fill in and test one method at a time. Compare your output to the
+	correct output listings provided.
+	<li> <a href="input-files.zip">input-files.zip</a> a tiny 20 word file and a huge scrabbvle dictionary file. You
+	should draw the BST that is produced by this input and make sure that your numbers agree with my output numbers and that
+	both of ours make sense to you.
+	<li> <a href="20-words-output.txt">Correct Output</a> for the tiny  20-words.txt file
+	<li> <a href="scrabble-output.txt">Correct Output</a> for the huge scrabble.txt file
+</ul>
+<h2>WARNING: Your completed Tree.java MUST compile and execute with the GIVEN starter-code. Do not modify the other files
+to get your Tree.java to work.</h2>
+<ul>
+
+</ul>
+
+<h3>Handing in your Solution</h3>
+<p>
+Your solution should be just<b> one single unzipped file:&nbsp;&nbsp; Tree.java&nbsp;</b>
+</p>
+<p>Use the Intro Programming drop-off form to
+<a href="https://handin.intro.cs.cmu.edu"><b>Submit</b></a> your zip file
+
+
+</body>
+</html>

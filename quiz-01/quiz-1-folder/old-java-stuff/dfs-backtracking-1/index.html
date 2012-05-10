@@ -1,0 +1,120 @@
+<html>
+<head>
+<style type="text/css">
+<!--
+body
+{
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+-->
+</style>
+<title>DFS/BFS Backtracking</title>
+</head>
+<body>
+<h1 align="center">DFS/BFS Backtracking</h1>
+<hr>
+<b>Tim Hoffman</b>
+<hr>
+<ul>
+	<h3>Take questions on Lab4 & review/illustrate any of the following as needed:</h3>
+	<ul>
+		<li>REVIEW: deep copy vs shallow copy
+		<li>Copy constructor: levelOrder or PreOrder preserves equality
+		<li>REVIEW: copy C'tor of linked list class and the common error of setting queue = other.queue
+		<li>remove()
+	</ul>
+</ul>
+
+<h1>Depth First Search (DFS) vs. Breadth First Search (BFS)</h1>
+
+<ul>
+	<p>
+	Our study of Binary search trees has covered traversals.
+	Of the 4 traversals we learned, three (inOrder, preOrder & postOrder) are
+	depth first and the other (levelOrder) is breadth first.  The DFS traversals
+	go deeper into the tree with every recursive call - while the BFS traversal
+	visits all the node on the same level before descending to a deeper level.
+	</p>
+
+	<h2>Escaping from a swamp: an application of DFS</h2>
+
+	<p>
+	Let the following grid of ones and zeros represent a swamp.  The ones are
+	blocks of solid ground. The zeros are blocks of quicksand. They are laid out
+	together like the squares of a chessboard.
+	</p>
+
+<pre><font size=+2><b>
+7 2 4
+0 0 0 0 0 0 0
+0 1 0 1 0 1 0
+0 1 0 0 1 0 0
+0 0 1 0 0 1 0
+0 0 0 0 1 0 0
+0 1 1 1 0 0 0
+1 0 0 0 0 0 0
+</b></font></pre>
+
+	<p>
+	The first row contains 3 numbers that are not part of the swamp. Thee 3 numbers
+	represent the dimension of the grid, and the row/col coordinates of the insertion point.
+	You are dropped into the swamp at the insertion point (which must be a solid ground value)
+	and are asked to escape the swamp by stepping on adjacent pieces of solid ground.
+	In other words you must traverse one step at a time from the insertion point to the edge of the grid
+	and never step on a zero. Your legal moves are similar to a King on a chessboard. The king can go one
+	step in any direction including diagonal. A further restriction is that you must never step on quicksand.
+	</p>
+
+	<p>
+	Let's brainstorm a strategy for escaping the swamp. In doing so lets recognize a few common issues that arise.
+	The first is cycles. Our algorithm to find a path out must not lead us in a loop inside the swamp. Also - we
+	must be able to retreat from dead ends and never repeat our steps to them.
+	</p>
+
+	<h4>Draw grid on board and take suggestions for an escape algorithm</h4>
+
+	<p>With each suggestion identify the algorithm as DFS or BFS.</p>
+
+	<h4>Questions:</h4>
+	<ul>
+		<li>how many possible paths are there thru a grid that is NxN.
+		<li>what is the big-Oh runtime of the fastest algorithm for escape
+		<li>what programming constructs are needed to implement the algorithm<br>
+		recursion?, a queue? a stack ?, other ?
+	</ul>
+
+	<br>
+	<hr>
+	<br>
+
+	<h2>The game of Boggle: another application of DFS</h2>
+
+	<h4>Draw a Boggle board on the chalkboard and explain the rules</h4>
+	<h4>Questions:</h4>
+	<ul>
+		<li>how many possible paths (strings) are there thru a grid that is 2x2?
+		<li>how many possible paths (strings) are there thru a grid that is 3x3?
+		<li>how many possible paths (strings) are there thru a grid that is 4x4?
+		<li>how many possible paths (strings) are there thru a grid that is 5x5?
+		<li>how many possible paths (strings) are there thru a grid that is NxN?
+	</ul>
+
+	<p>There is no known closed form expression to calculate the number of paths through
+	an NxN grid.  Furthermore, there is no closed form expression to generate the i'th path (string)
+	in the grid. The only way to count the paths for each size grid is to execute an algorithm to
+	generate each path (string) and keep a running total. (Movie "Sneakers" starring Robert Redford ).
+	Best estimates of a good upper bound is the number of minimal spanning trees of the graph. However
+	we don't even have a good indicator of how close this bound is - we just  know that the number we
+	are looking for is less than the number of minimal spanning trees.
+	</p>
+
+	<h4>Brainstorm some algorithms for finding all possible words in a boggle board</a>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+SAVE_THE_WHALES;mjs;tcortine;djslater;jar;thoffman;mjackson
+GREENPEACE;mjs;jar;djslater;tcortina;adamchik
+DEMOCRACY_NOW;scottm;mjs;jar;mjackson
+NO_NUKES;thoffman;gkesden;pattis;scottm;mjs
+MADD;thoffman;scottm;djslater;adamchik
+NAMBLA;mjackson;

@@ -1,0 +1,21 @@
+#include  <stdio.h>     /* for printf definition       */
+#include  <string.h>
+#include  <stdlib.h>
+
+#define MAX_CHARS       5
+#define BUF_CAP         MAX_CHARS + 1
+
+int main() 
+{
+  int i;
+  char buffer[BUF_CAP]={'\0'}; /* first char is null char */
+  strcpy( buffer, "12345" );
+  printf("Enter your first name ");
+  fflush(stdout);
+  fgets( buffer, BUF_CAP, stdin ); 
+  printf("\n          char   ascii\n");
+  for (i=0 ; i<BUF_CAP ; ++i)
+    printf("buffer[%d]: %3c   %3d\n",i, buffer[i],buffer[i]);
+
+  return EXIT_SUCCESS;
+}

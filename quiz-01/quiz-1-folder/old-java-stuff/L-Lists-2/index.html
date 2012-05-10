@@ -1,0 +1,391 @@
+<html>
+<head>
+
+<title>S04 15200 26 Jan 2004 Lecture</title>
+
+<style type="text/css">
+<!--
+body
+{
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+	font-size: 14;
+}
+	-->
+</style>
+
+</head>
+<body bgcolor="dddccc" >
+<hr>
+<h1 align="center">Linked Lists and the Comparable Interface</h1>
+<hr>
+<b>Tim Hoffman</b>
+<hr>
+
+<h1 align="center"><font color="green">Object and Comparable</font></h1>
+
+<p>Recall our earlier discussions with a Linked List of Elements whose data field
+was an int. Remember what happened when we decided that we really wanted to store
+Object in our ListElements rather than ints. We encountered two problems.
+</p>
+
+<ol>
+	<li> We had to rewrite the ListElement <b>and</b> the LinkedList class changing every mention of the
+	<b>int data</b> field to the <b>Object data</b>.
+	<li> The LinkedList class now had no way to impose an ordering relation on the ListElements. The LinkedList
+	knew how to order integers, but once the elements contained Object - the LinkedList class had no idea
+	how to tell if one Object was less than, equal, or greater than some other Object unless we knew for
+	sure that the stored object already knew how to compare itself to any other object of its type.
+</ol>
+
+<hr>
+
+<h3>We solved #1 by having ListElement declare its data field to be type Object</h3>
+
+<h4><a href="ListElement.java">ListElement.java</a></h4>
+
+<table bgcolor="#cccddd"><tr><td>
+<pre>
+/* ListElement class definition
+
+	Defines its data field as type Object
+	This allows users of ListElement to pass ANY
+	class type into a ListElement's Constructor
+
+*/
+
+public class ListElement
+{
+  private Object data; // ANY class type can be stored
+  private ListElement next;
+
+  public ListElement( Object data, ListElement next)
+  {
+     setData( data);
+     setNext( next );
+  }
+  public void setData( Object data )
+  {
+     this.data = data;
+  }
+  public Object getData()
+  {
+     return data;
+  }
+  public void setNext( ListElement next )
+  {
+     this.next = next;
+  }
+  public ListElement getNext()
+  {
+     return next;
+  }
+}//EOF
+</pre>
+</td></tr></table>
+
+<h4>And.. likewise, LinkedList class changes all mention of int to Object</h4>
+
+<h4><a href="LinkedList.java">LinkedList.java</a></h4>
+
+<table bgcolor="#cccddd"><tr><td>
+<pre>/* LinkedList.java
+   ListElement's data type assumed to be Object
+*/
+public class LinkedList
+{
+   private ListElement head;  // pointer to a list of elements
+
+   public LinkedList()
+   {
+     head=null;
+   } // END C'TOR
+
+   public void insertAtFront( <b><i>Object</i></b> data )
+   {
+     head = new ListElement( data, head );
+   } //END INSERT AT FRONT
+
+   public void print()
+   {
+	 System.out.print( &quot;\nThe List: &quot;);
+   	 ListElement curr = head;
+   	 while (curr !=null)
+   	 {
+   	 	System.out.print( curr.getData() + &quot; &quot; );
+   	 	if (curr.getNext() !=null )
+   	 		System.out.print( &quot;--&gt; &quot; );
+   	 	else
+   	 		System.out.println();
+
+		curr = curr.getNext();   // advance to next element
+   	 }
+   } //END PRINT
+}//EOF
+</pre>
+</td></tr></table>
+
+<h3>The effect of this is significant. Watch what we can now do in main:</h3>
+
+<table bgcolor="#cccddd"><tr><td>
+<pre>
+public class LinkedListTester
+{
+  public static void main(String args[] )
+  {
+	LinkedList list = new LinkedList();
+
+	list.insertAtFront( new Point2D(5, 8) );
+	list.insertAtFront( new Fraction(22, 7)  );
+	list.insertAtFront( new String(&quot;Objects are the ancestor of all class types!&quot;) );
+
+	list.print();
+  }
+}//EOF
+</pre>
+</td></tr></table>
+
+<h4>
+We just stored diverse class types in our LinkedList! <i>(without re-writing and
+re-compiling our Element and List classes between insertions ;=)</i>
+</h4>
+
+<h4>Let's download and run the above listed program: <a href="MixingTypes.zip"><font size=+1><b>MixingTypes.zip</b></font></a></h4>
+
+<hr>
+
+<h2 align="center">But how to solve the ordering relation problem ?</h2>
+
+<p>Our MixingTypes example indeed allows us to plug in any data type as our Element's data value
+without having to rewrite our Element or List class.  It achieves generality in that sense. However, if you
+mix types in the container at the same time as we did above, it becomes impossible to define an ordering
+relation over all the data in the container. Thus it is more typical to write the container such that you
+may put in any type you want, BUT restrict yourself to only putting in one type at a time.  Doing so
+allows the list to be sortable and alows for comparison of one data element to another.
+</p>
+
+<hr>
+<h4>We solve the ordering relation problem by having our Element's data type (Student or whatever )
+be Comparable and our Element and List classes expect all data to be Comparable. </h4>
+
+<h4><a href="Comparable/Student.java">Student.java</a> <i>implements Comparable</i></h4>
+
+<table bgcolor="#cccddd"><tr><td>
+<pre>
+/* Student class definition
+
+	because Student implements the Comparable interface. The Student
+	class MUST have a method whose signature is:
+
+		public int compareTo( Object other )
+
+	The writer of the compareTo() method may however compute the return value
+	based on whatever ordering criteria she chooses.
+
+*/
+public class Student implements Comparable // we MUST write:  public int compareTo( Object other )
+{
+  private String andrewID;
+  private int year; // YYYY: expected year of grad.
+  private double gpa;
+
+  // FULL C'TOR
+  public Student( String andrewID, int year, double gpa )
+  {
+     setAndrewID( andrewID );
+     setYear( year );
+     setGpa( gpa );
+  }
+
+  // MUTATORS: (a.k.a &quot;setters&quot;)
+  public void setAndrewID(String andrewID)
+  {
+     this.andrewID= andrewID;
+  }
+  public void setYear( int year )
+  {
+     this.year= year;
+  }
+  public void setGpa( double gpa )
+  {
+     this.gpa = gpa;
+  }
+
+  // ACCESSORS: (a.k.a &quot;getters&quot;)
+
+  public String getAndrewID()
+  {
+     return andrewID;
+  }
+  public int getYear()
+  {
+     return year;
+  }
+  public double getGpa()
+  {
+     return gpa;
+  }
+
+  public String toString()
+  {
+  	return andrewID + &quot; &quot; + year + &quot; &quot; + gpa;
+  }
+
+  /* This method is required to be in this class because this class implements
+  the Comparable interface.  It is up to us however to decide what makes one student
+  less that, equal or greater than the other.
+
+  The return value is:
+  	negative number if this &lt; incoming
+  	0 if this == incoming
+  	positive if this &gt; incoming
+  */
+
+  public int compareTo( Object other )
+  {
+	  double diff = ((Student)this).gpa - ((Student)other).gpa;
+
+	  if ( diff &lt;  0.0 ) return -1;
+	  if ( diff == 0.0 ) return  0;
+	  return 1;
+  }
+}//EOF
+</pre>
+</td></tr></table>
+
+<h3>And our ListElement class becomes</h3>
+
+<h4><a href="ListElement.java">ListElement.java</a></h4>
+
+<table bgcolor="#cccddd"><tr><td>
+<pre>
+/* ListElement class definition
+
+	Defines its data field as type Comparable
+	This allows users of ListElement to pass ANY
+	class type that implements Comparable into
+	the ListElement's Constructor
+
+*/
+
+public class ListElement
+{
+  private Comparable data; // ANY class type that implements Comparable
+  private ListElement next;
+
+  public ListElement( Comparable data, ListElement next)
+  {
+     setData( data);
+     setNext( next );
+  }
+  public void setData( Comparable data )
+  {
+     this.data = data;
+  }
+  public Object getData()
+  {
+     return data;
+  }
+  public void setNext( ListElement next )
+  {
+     this.next = next;
+  }
+  public ListElement getNext()
+  {
+     return next;
+  }
+}//EOF
+</pre>
+</td></tr></table>
+
+<h3>And our LinkedList becomes</h3>
+
+<h4><a href="LinkedList.java">LinkedList.java</a></h4>
+
+<table bgcolor="#cccddd"><tr><td>
+<pre>/* Assumes any incoming data to be inserted or searched for
+etc. is of type Comparable
+*/
+public class LinkedList
+{
+   private ListElement head;  // pointer to a list of elements
+
+   public LinkedList()
+   {
+     head=null;
+   } // END C'TOR
+
+   public void insertAtFront( Comparable data )
+   {
+     head = new ListElement( data, head );
+   } //END INSERT AT FRONT
+
+   public void print()
+   {
+	 System.out.print( &quot;\nThe List: &quot;);
+   	 ListElement curr = head;
+   	 while (curr !=null)
+   	 {
+   	 	System.out.print( curr.getData() + &quot; &quot; );
+   	 	if (curr.getNext() !=null )
+   	 		System.out.print( &quot;--&gt; &quot; );
+   	 	else
+   	 		System.out.println();
+
+		curr = curr.getNext();   // advance to next element
+   	 }
+   } //END PRINT
+
+   public String findMax( )
+   {
+
+   	if (head==null)
+   	  	System.exit(0);
+
+	Comparable maxElem = head.getData();
+	ListElement tmp = head.getNext();
+	while(tmp != null)
+	{
+		if ( tmp.getData().compareTo( maxElem ) &gt; 0)
+			maxElem = tmp.getData();
+		tmp = tmp.getNext();
+	}
+
+	return maxElem.toString();
+
+   }
+}//EOF
+</pre>
+</td></tr></table>
+
+<h3>And we can now find the min or max in our list of Students</h3>
+
+<table bgcolor="#cccddd"><tr><td>
+<pre>
+public class LinkedListTester
+{
+  public static void main(String args[] )
+  {
+	LinkedList list = new LinkedList();
+
+	list.insertAtFront( new Student(&quot;tlh&quot;, 1991, 2.2) );
+	list.insertAtFront( new Student(&quot;tmick&quot;, 206, 4.0) );
+	list.insertAtFront( new Student(&quot;mtd&quot;, 2005, 3.79)  );
+	list.insertAtFront( new Student(&quot;swati&quot;, 2006, 3.85) );
+
+	list.print();
+
+	System.out.println(&quot;Class valdectorian is: &quot; + list.findMax() );
+  }
+}//EOF
+
+</pre>
+</td></tr></table>
+
+<h4>Let's download and run the above listed program: <a href="UsesComparable.zip"><font size=+1><b>UsesComparable.zip</b></font></a></h4>
+
+
+
+</body>
+</html>

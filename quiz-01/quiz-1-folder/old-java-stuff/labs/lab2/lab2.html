@@ -1,0 +1,109 @@
+<html>
+<head>
+	<title>LAB2-15200</title>
+    <style type="text/css">
+<!--
+body
+{
+	margin-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+-->
+</style>
+</head>
+
+<body>
+<h1 align="center">Lab 2: Graph Class w/Linked Lists</h1>
+<p><font size=-1>
+<i>
+This lab assignment has been borrowed (and converted to Java + modifications for
+this course) with the permission of its original
+author, <b> Mark Stehlik.&nbsp;</b></i></font>
+</p>
+<hr>
+<h4>Due Date:<b> Thu 9 Feb 2006</b> by 11:59p<font size=-1></h4>
+<br>
+</font>
+<hr>
+<font size=-1>
+<h4>Background:</h4>
+<p>This lab is a re-make of Lab1. The main tester program I will use is the same one I used to test your Leb1. You should
+rename it to Lab2 and reuse if for testing of our Lab2 version of your Graph class.
+
+
+<p>The Graph class is where you will make changes.&nbsp; You will store your
+graph in an array g[] of Edge pointers.&nbsp; An Edge object is just a small
+class that holds a destination node #, a weight value, and a pointer to the next
+Edge.&nbsp; In your Graph class you will replace your int g[][] with Edge
+g[].&nbsp;&nbsp;
+</p>
+
+<p>Each element of g[] will be a pointer to an Edge object. Thus each
+element of g[] is the head of a linked list. Each linked list headed by
+g[i] represents a list of edges leaving node i.
+</p>
+
+<p>Because the edge information is stored in linked lists, the implementation of
+the graph's Constructor, readGraphFile, AddEdge(), inDegree() and
+outDegree() and print() will change.&nbsp; When rewriting the Graph methods that
+are changing - you should refer to the Linked List demo code given in class.
+</p>
+
+
+<font size=-1>
+
+<p>All the public degree methods methods in Graph.java (<b>the ones called from main</b>)  will not change for Lab2
+. They will work <b>exactly</b> as written in Lab1.
+</p>
+
+<p>&nbsp;
+</p>
+
+<hr>
+<h4>What You'll Need</h4>
+
+<p>Download the <a href="Lab2.zip"><big>Lab2.zip</big></a> file to your
+ temp directory and unzip the files. You should see the
+following files:
+<ul>
+	<li>(folder) starter-files
+	<ul>
+		<li> Graph.java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          // you finish this shell and hand it in&nbsp;
+		<li> Edge.java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          // you finish this shell and hand it in&nbsp;
+	</ul>
+</ul>
+<hr size="5">
+<h4>Assignment</h4>
+You are to re-implement the private member functions in Graph.java. The 6
+public min max methods (and private degree ) remain the same.
+<p>
+For our input file, graphdata.txt, <b>the correct answers are: (THE SAME AS LAB 1):</b>
+<ul>
+  <li>Max Out Degree - <b>3</b>
+  <li>Min Out Degree - <b>1</b>
+  <li>Max In Degree - <b>4</b>
+  <li>Min In Degree - <b>0</b>
+  <li>Max Degree - <b>5</b>
+  <li>Min Degree - <b>2</b></li>
+</ul>
+
+<hr>
+<h4>Handing in your Solution</h4>
+Your solution should be in the form of a <b> .zip file</b>. <b>It should contain  only the following files</b>:
+<ul>
+	<li>Graph.java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // YOUR solution file  with your <b>modified</b>&nbsp; methods&nbsp;
+	<li>Edge.java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+</ul>
+
+<h2>Use the <a href="http://handin.intro.cs.cmu.edu"><big>Handin</big></a> System
+to submit your zip file.</h2>
+

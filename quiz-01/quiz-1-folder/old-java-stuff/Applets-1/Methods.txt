@@ -1,0 +1,39 @@
+/***************************************************
+/      demo of rect method in graphics object
+/**************************************************/
+import java.awt.*;
+import java.applet.*;
+
+public class Methods extends Applet
+{
+	public void paint( Graphics g )
+	{
+		int startX = 100, stopX = 300,
+		    startY = 75, stopY = 350, numLines=10;
+	
+		g.drawString( "Calling method DrawSomeLines(..)", 25, 25);
+		
+		// these lines calls takes 2 pairs of coords.
+		// the first is the  start point:  100,25
+		// the 2nd pair is the end point: 172, 25
+	
+	    // drawSomeLines is a method I just made up  in this applet!
+
+		drawSomeLines( g, startX, startY, stopX, stopY, numLines );
+
+	}
+	
+	public void drawSomeLines( Graphics g, int x1, int y1, int x2, int y2, int numL )
+	{
+		// drawLines takes 2 pairs of coords.
+		// the first is the  start point: x,y
+		// the 2nd pair is the end point: x,y
+
+		for (int i= 0 ; i < numL; ++i )
+			g.drawLine( x1 + i*10, y1 + i*(-10), x2 + i*(-20), y2 + i*10 );
+	}
+	
+	
+	
+}
+	

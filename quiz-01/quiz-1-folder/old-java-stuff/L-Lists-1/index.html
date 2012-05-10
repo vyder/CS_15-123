@@ -1,0 +1,422 @@
+<html>
+<head>
+<style type="text/css">
+<!--
+body
+{
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+-->
+</style>
+</head>
+<body>
+<h1 align="center">Linked Lists and Comparable Interface</h1>
+<hr>
+<b>Tim Hoffman</b>
+<hr>
+<h2>Self referential structures</h2>
+<ul>
+
+	<p>
+	The next data structure we explore is the linked list. A linked list is said to be a <b>self-referencing
+	or self-referential</b> data structure. Contrast this with the array type. Arrays are homogenious values
+	stored contiguously. As result of these 2 properties, an array is indexable. The expression array[i]
+	produces a reference to the it'h element of the array in constant time simply by adding <b>arr + index *
+	(# of bytes per element)</b>.
+	Recall that the name of an array (its ref variable) is the address of the first element.
+	</p>
+
+	<p>
+	A linked list's elements are <b>not stored contiguously</b>. Instead, each element contains a reference to the next
+	element in the sequence. Another difference between array and linked list is that arrays are dimensioned all at once
+	whereas linked lists are allocated incrementally. We add elements to a list only as we encounter the need to store
+	another data value in the list.  To traverse a linked list we must always start at the front of the list and step
+	one element at a time to reach the next elements.
+	</p>
+
+	<h4>Let's compare and contrast the Array and the Linked list in terms of time and space.</h4>
+	<ul>
+		<li>Which data structure (array or list) gives faster access to the i'th element in the sequence?
+		<li>What is the <b>big-O</b> cost of individual element access for lists vs arrays ?
+		<li>Which data structure is most/least likely to waste space when allocating storage for elements?
+		<li>Why?
+		<li>Why can't we index to a list element?
+	</ul>
+
+	<h4>Defining a ListElement class</h4>
+
+	Linked lists consist of individual list elements - sometimes called Node or Element. Each individual element contains
+	a data value and also a reference variable (often named the <b>link</b> or <b>next</b>) that points to the next element
+	in the sequence. This the ordering sequence in determined by the links in each element.
+
+	<p>The coding for a linked list must begin at the bottom. We start with the ListElement class.</p>
+
+	<h4><a href="ListElement.java" target=external">ListElement.java</a></h4>
+
+	<table bgcolor="cccdd"><tr><td>
+<pre>
+public class ListElement
+{
+  private Object data;
+  private ListElement next;
+
+  public ListElement()
+  {
+    this( null, null );
+  }
+
+  public ListElement(Object data)
+  {
+    this( data, null );
+  }
+
+  public ListElement(Object data, ListElement next)
+  {
+    setData( data );
+    setNext( next );
+  }
+
+  public Object getData()
+  {
+    return data;
+  }
+
+  public ListElement getNext()
+  {
+    return next;
+  }
+
+  public void setData(Object data)
+  {
+     this.data = data;
+  }
+
+  public void setNext(ListElement next)
+  {
+    this.next = next;
+  }
+} //EOF
+</pre></td></tr></table>
+
+	<p>
+		Note we have a full compliment of constructors, accessors and mutators and we follow the
+		good practices of funneling consturction to the full consturctor and calling the setters
+		from the full constructor. 	The type of data that we are storing is type Object. This means
+		that we can store objects of any class type in our ListElement - we are not restricted to
+		any oner type of object to store except primatives (which are not objects anyway).
+		We can even mix and match types within the list - however this can be confusing.
+	</p>
+
+	<h4>Defining a LinkedList class</h4>
+
+	<p>
+	The LinkedList class manages the list. It keeps track of the front of the list via a member typically
+	called list, front or head. It also contains methods to modify the list - such as searching for,
+	adding or removing elements.
+	</p>
+
+	<p>Lets write the skeleton of this class together - then we can look at the finished version. The first
+	member we need is a reference to the front of the list. We shall call this member <b>head</b>. The compiler
+	initializes it to null whihch is what we want since initially the list is empty. Minimally we need two
+	methods to test our class. We need a method to add elements to the list, and a method to print the list
+	so we can see if our other method is working
+	</p>
+
+	<h4>** Intructor will start the LinkedList class definition with student participation.</h4>
+
+	<p>Here is a skeleton of our class with just a head member and the 2 methods needed for minimal testing</p>
+
+	<h4> <a href="LinkedList.java">LinkedList.java</a> </h4>
+
+	<table bgcolor="cccdd"><tr><td>
+<pre>
+public class LinkedList
+{
+	private ListElement head;  // pointer to the front (first) element of the list
+
+	public LinkedList()
+	{
+		head = null; // compiler does this anyway. just for emphasis
+	}
+
+	//-------------------------------------------------------------
+
+	// inserts new elem at front of list - pushing old elements back one place
+
+	public void insertAtFront(Object data)
+	{
+		ListElement e = new ListElement();
+		e.setData( data );
+		e.setNext( head );
+		head = e;
+	}
+
+	// we use toString as our print
+
+	public String toString()
+	{
+		String res = new String();
+
+		for (ListElement curr = head; curr != null; curr = curr.getNext())
+		{
+			res += curr.getData().toString();
+			if (curr.getNext() != null)
+				res += " --&gt; ";
+		}
+		res += "\n";
+
+		return res;
+	}
+}
+</pre></td></tr></table>
+
+	<p>And now we need a LinkedList tester program that declares a list, inserts values and
+	prints the list after inserting values.
+	</p>
+
+	<h4> <a href="ListTester.java">ListTester.java</a> </h4>
+
+	<table bgcolor="cccdd"><tr><td>
+<pre>
+public class ListTester
+{
+	public static void main( String args )
+	{
+		LinkedList myList = new LinkedList();
+
+		myList.insertAtFront("foo");
+		myList.insertAtFront("bar");
+		myList.insertAtFront("baz");
+		myList.insertAtFront("bag");
+		myList.insertAtFront("gorp");
+
+	System.out.println( myList ); // invokes toString
+	}
+}
+</pre></td></tr></table>
+
+	<p>Note that the elems get printned in reverse order of their original insertion. The
+	insert-at-front operation reverses input order. Lets look at the insertAtFront operation
+	in detail with some diagrams.  The operations we must perform are as follows:
+
+	<ol>
+		<li>create a new list element
+		<li>initialize it's data value and make <b>next</b> point at the first element in the list
+		<li>make head point at the new list element
+	</ol>
+
+<pre><font color="maroon" size="+1"><b>
+// Assume list looks like:  [head]----&gt;["foo" / null]
+
+ListElement e = new ListElement();  // [e]----&gt; [null, null]
+
+e.setData( "bar" ); // [e]----&gt; ["bar", null]
+
+e.setNext( head );  // [e]----&gt; ["bar", -&gt;]----&gt;  ["foo", -&gt;]   &lt;----[head]
+
+head = e;           // [head]----&gt; ["bar",-&gt;]----&gt; ["foo",null]
+</b></font></pre>
+
+	<p>
+	Look at the insertAtFront method in the ListElement class definition again. Can you write
+	that entire operation in one line of code ?
+	</p>
+
+
+	<h4>Answer: Yes! use the ListElement's full constructor as follows:</h4>
+	<ul>
+		<li> <b>head = new ListElement( data, head );</b>
+	</ul>
+
+	<p>Let's examine this single statement in detail and see what makes it work. An assignment statement evaluates
+	from right to left, storing the value of the expression on the right, into the variable on the left of the = sign.
+	It works because we copy head's pointer into our new elem's next field before overwriting head to point to
+	the new elem. Thus our new elem points at the old front of the list and head points at the new elem.<p>
+
+	<p>So..we can re-write our ListElement's full constructor as follows:
+
+<pre><b><font size="+1" color="maroon">
+// inserts new elem at front of list - pushing old elements back one place
+
+public void insertAtFront(Object data)
+{
+	head = new ListElement( data, head );
+}
+</font ></pre></b>
+
+	<p>Let's brainstorm some other member methods
+	and write them together. We will re-run and test each new member individually</p>
+
+	<ul>
+		<li>public ListElement search( Object key ); // returns null or pointer to elem where data == key
+		<li>public void insertAtBack( Object data ); // inserts at back of list - preserves order
+		<li>public boolean isEmpty(); // returns true if list is empty
+		<li>public void remove( Object key ); // removes matching elem if found
+	</ul>
+
+	<p><i>..........Write the above methods with student participation............</i></p>
+
+
+
+	<! -------------------------------- FINISHED LIST CLASS FOLDER ----------------->
+
+	<hr color="green">
+	<hr color="green">
+		<p>
+			Now lets look at our finished LinkedList class and ask some questions.
+		</p>
+
+	<h4><a href="Finished-List-Class/LinkedList.java" target=external">LinkedList.java</a> (finshed version)</h4>
+
+	<table bgcolor="cccdd"><tr><td>
+<pre>
+public class LinkedList
+{
+	private ListElement head;  // pointer to the front (first) element of the list
+
+	public LinkedList()
+	{
+		head = null; // compiler does this anyway. just for emphasis
+	}
+
+	//-------------------------------------------------------------
+	// method that attach ListElements to our list
+
+	public void insertAtFront(Object data)
+	{
+		head = new ListElement(data,head);
+	}
+
+	public void insertAtEnd(Object data)
+	{
+		if (head == null)
+			head = new ListElement(data);
+		else
+		{
+			ListElement curr = head;
+			while (curr.getNext() != null)
+				curr = curr.getNext();
+			curr.setNext(new ListElement(data));
+		}
+	}
+
+	public Object find(Object key)
+	{
+		for (ListElement curr = head; curr != null; curr = curr.getNext())
+		{
+			if (curr.getData().equals(key))
+				return curr.getData();
+		}
+		return null;
+	}
+
+	public boolean remove(Object key)
+	{
+		if (head == null)// empty list
+			return false;
+
+		if (head.getData().equals(key))// ListElement to be deleted is first ListElement
+		{
+			head = head.getNext();
+			return true;
+		}
+
+		for (ListElement curr = head; curr.getNext() != null; curr = curr.getNext())
+		{
+			if (curr.getNext().getData().equals(key))
+			{
+				curr.setNext(curr.getNext().getNext());
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public String toString()
+	{String res = new String();
+
+		for (ListElement curr = head; curr != null; curr = curr.getNext())
+		{
+			res += curr.getData().toString();
+			if (curr.getNext() != null)
+				res += " --&gt; ";
+		}
+		res += "\n";
+
+		return res;
+	}
+}
+</pre></td></tr></table>
+
+	<hr>
+	<h3>Defining an ordering realation on our list collection</h3>
+
+	<ul>
+		<li>How could I sort my list ?
+		<li>What if my data type is not String ?
+		<li>How can I define an ordering relation on the list data?
+		<li>What tools does Java give us to do this?
+	</ul>
+
+	<p>It is the second issue that throws a monkey in the wrench. If we know that we would always be storing Strings
+	it would be no big deal since we could use the isEqual() method built into all Strings for searches, and we could use
+	compareTo() to determine lexical ordering.  It is often the case that the object stored in the data field is a class that
+	we have written - and as yet there is no ordering relation defined on it.  If we want to be able to search and sort our
+	list collection we must define the ordering relation and write a compareTo() method that orders this oject to another
+	of same type passed in.  We will do so with the Comparable interface. Using the Comparable interface is the standard Java way
+	to define the ordering on the collection and give all clients of the code the ability to search and sort.
+	</p>
+
+	<p>In order to do this we must have a user written class to serve as the data type in our list elements. It is in this class
+	that must implement the Comparable interface and implement the required method of that interface - the compareTo() method.
+	Let's look at a finished example of such class then explain it.</p>
+
+	<h4> <a href="Comparable-List-Class/Student.java">Student.java</a> </h4>
+
+	<P>Notice the following: </p>
+	<ul>
+		<li> class' name now has <b>implements Comparable</b> after it
+		<li> we have written the comapreTo() method (required by the Comparable Interface)
+		<li> the signature of this method is <b>public int compareTo( Object other )</b>
+		<li> compareTo() orders this object in relation to another as less than, equal or greater then
+	</ul>
+
+	<p>There is one rather tricky peice of syntax in the compareTo() method. Notice the cast to Student on the
+	incoming <b>other</b> parameter. Other points to the other object being passed in for comparison. The cast
+	is required because the incoming <b>other</b> is prototytped as Object - not Student. The Object class does
+	not have any data members like gpa or ssn or whatever. Therefore we cannot try to reference the .gpa field
+	of a thing that is an Object - even though we know that's what we really passed in. Instead we must
+	cast the incoming <b>other</b> as Student and then we can use the dot notation to directly access the gpa
+	field for our comparison to this.gpa.  We still prototype our other as Object so that ANY class that implements
+	comparable can be passed. Remember that hte Object class is the root of all classes. Via polymorhism any class
+	type can be passed in to an Object parameter - but not vica versa.
+
+	We must keep this incoming other object a generic Object type because the clients of our code are unconcerned about
+	the type of object stored in the data field of the ListElement. The only thing they care about is that whatever
+	the type is - it implements the Comparable interface. Therefore the ListElement class must be changed to store
+	Comparable -not- Object, as the data type. As for the main program or other clients, then can sort and search
+	on/for any data types they wish as long as those class types implement comparable. Likewise the LinkedList
+	class must be changed to take Comparable rather than Object in its search, insert, remove etc. methods.
+	</p>
+
+	<h4>Quiz:
+	<p>
+		<li>If I decide that I want my list to store class type foo.  What requirements are there on the class foo
+		and what other files if any(ListElement, LinkedList, ListTester ) must be modified and how ?
+	</p>
+
+	<h4>Here is the <a href="Comparable-List-Class">directory</a> of the LinkedList class that uses Comparables
+	such as the Student class type.</h4>
+
+</ul> <! -- END outermost /UL -->
+
+
+</body>
+</html>

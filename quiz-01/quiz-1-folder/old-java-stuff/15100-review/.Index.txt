@@ -1,0 +1,7 @@
+WAR-FTPD 1.67-05 3
+Aug-25.html 0666 hoffman Guest 0 0 (null)
+blockScope.ppt 0666 hoffman Guest 0 0 (null)
+booleans.ppt 0666 hoffman Guest 0 0 (null)
+KeyboardIO.java.txt 0666 hoffman Guest 0 0 (null)
+varsOperators.ppt 0666 hoffman Guest 0 0 (null)
+whileLoops.ppt 0666 hoffman Guest 0 0 (null)

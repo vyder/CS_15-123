@@ -1,0 +1,84 @@
+<html>
+<head>
+	<title>F02-15200 Sections C,D</title>
+	<style type="text/css">
+	<!--
+	body
+	{
+		margin-top: 10px;
+		margin-right: 20px;
+		margin-bottom: 10px;
+		margin-left: 10px;
+		color: #000066;
+		background-color: #FFFFFF;
+		font-family: "verdana"; serif;
+	}
+	-->
+</style>
+</head>
+<body>
+
+<h1 align="center">Lab 1 Help File</h1>
+<hr color="green">
+<p>
+The Graph class  <a href="Graph.txt">Graph.java</a> as given to you, has a constructor that takes the input file
+name, and the following methods:&nbsp;
+<ul>
+	<li>readGraphFile(..) // loads the matrix
+	<li>addEdge(..)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // adds
+      weight at src, dest
+	<li>print(..)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // prints a table form dump of the matrix
+</ul>
+You are also given a trivial tester program <a href="TrivialGraphTester.txt">TrivialGraphTester.java</a> that reads a graph
+input file <a href="graphdata.txt">graphdata.txt</a> into the graph matrix then prints the matrix
+out in rough table format.<h4>Your first order of business is to study these 2 files then&nbsp;
+compile, execute and observe their output until you thoroughly understand them.</h4>
+
+<h3>Enhancements you are to&nbsp; make to above class definition</h3>
+<ul>
+	<li>Add try catch everywhere needed (start in readGraphFile) so that you can remove all <i><b>throws IOException</b></i> clauses everywhere
+</ul>
+<h3>Methods you are to add to the  Graph class</h3>
+Add the following <b>private</b> new methods to the Graph class.
+<ol>
+	<li>private boolean hasEdge( int src, int dest )  // T/F edge here ?
+	<li>private int inDegree( int node )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // in degree of single node
+	<li>private int outDegree( int node )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // out degree of single node
+	<li>private int degree( int node )&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // degree of a single node (= in+out)
+</ol>
+
+Then to add the following <b>public</b> new methods to the Graph class.
+<ul>
+	<li>public int maxInDegree()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<li>public int maxOutDegree()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<li>public int maxDegree()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<li>public int minInDegree()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<li>public int minOutDegree()&nbsp;&nbsp;&nbsp;&nbsp;
+	<li>public int minDegree()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</ul>
+
+<b><u>A word about efficiency and OOP:</u></b>&nbsp;&nbsp;&nbsp; I will be deducting points (small penalty) if you are grossly inefficient in how you write your methods.
+I will also deduct (a bit more of a penalty for this ) if you write code to
+do something that could have been done using the member functions already given
+to you.&nbsp; Think about every calculation you do and ask: &quot;Is there
+something already written for me that will do this?&quot; Being able to recognize and use <b>existing</b> code to do a task is a
+fundamental OOP skill. I will continue to place a premium on in.
+<p><b><font color="#CC0000">Don't store results of previous computations in
+arrays or data structures - just call the primitives in a loop to compute your
+mins , maxes etc.</font></b></p>
+<hr>
+
+<p>As you add the above methods you should use the Lab1.java (finished Driver
+file) to test your methods -- or you can add calls to the trivial driver as you
+add each&nbsp; method to your Graph.class file. Or - you could stub out ( write empty but
+compiling versions of ) all the methods right away and put some trivial code in each
+so your solution will execute with my final driver file Lab1.java. Either way
+--&nbsp; test your solution incrementally - test each new methods as you write
+it.</p>
+
+</body>
+</html>

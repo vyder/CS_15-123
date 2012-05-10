@@ -1,0 +1,390 @@
+<html>
+<head>
+
+
+
+<style type="text/css">
+		<!--
+		body
+		{
+			color: #000066;
+			background-color: #FFFFFF;
+			font-family: "verdana"; serif;
+		}
+		-->
+</style>
+
+</head>
+<body bgcolor="dddccc" >
+
+<h1 align="center"><font color="green">Exceptions</font></h1>
+<hr>
+<b>Tim Hoffman</b>
+<hr>
+<p>
+Exceptions are events triggered by the Java runtime when an error occurs in your program.
+The Java runtime is always monitoring the execution of your program and is able to detect
+error conditions such as:
+</p>
+
+<ul>
+	<li>trying to call <i><b>Integer.parseInt( "fubar" );</b></i> (parseInt can't convert "fubar" to an int)
+	<li>trying to open a disk file that is not there: <i><b>FileReader = new
+      FileReader( "non_existent_file.txt" );</b></i>
+	<li>trying to declare or index an array with a bad index:   <i><b>int arr = new int[ -1 ];</b></i>
+	<li>trying to allocate more memory than is available: <i><b>int arr = new int[ 999999999 ];</b></i>
+</ul>
+
+<h3>un-checked exceptions</h3>
+<p>
+If the programmer does not use the try/catch mechanism to handle exceptions herself, the runtime will react as follows when it
+detects an <b>Exception</b> condition. Execution stops right at the exception expression and control immediately returns control
+to the method that called the method where the exception occurred. If that calling method is not handling the exception,
+then control keeps going back up the call chain until either some method handles the exception or until control finally returns
+to the command line to the environment that invoked the program.
+</p>
+<p>The following demo illustrates an un-checked exception. An un-checked exception need not be caught or thrown. We will
+see soon what it means for an exception to need to be caught or thrown
+</p>
+
+<h2><a href="ExceptionsDemo1.java.txt"><font size=+2>ExceptionsDemo1.java</font></a></h2>
+<table bgcolor='khaki'><tr><td><pre><font size="+2" face="Courier New">
+/*
+	ExceptionsDemo1.java
+
+	- illustrates unchecked exception
+		* Integer.parseInt()
+		* works same with Double.parseDouble() and the other wrapper classes
+*/
+
+import java.io.*;
+
+public class ExceptionsDemo1
+{
+	public static void main( String args[] )
+	{
+		System.out.println(&quot;calling foo1()&quot;);
+		foo1();
+		System.out.println(&quot;back from foo1()&quot;);
+		System.out.println(&quot;returning from main()&quot;);
+	} //END main
+
+	public static void foo1()
+	{
+		System.out.println(&quot;In foo1()&quot;);
+		System.out.println(&quot;calling foo2()&quot;);
+		foo2();
+		System.out.println(&quot;back from foo2()&quot;);
+		System.out.println(&quot;returning from foo1()&quot;);
+	}
+
+	public static void foo2()
+	{
+		System.out.println(&quot;In foo2()&quot;);
+
+		int i;
+		double d;
+		String s;
+
+		s = &quot;1234&quot;;
+		i = Integer.parseInt( s );
+		System.out.println(&quot;You entered int: &quot; + i );
+
+		s = &quot;fubar&quot;;
+		i = Integer.parseInt( s ); // this will throw a &quot;NumberFormatException&quot;
+		System.out.println(&quot;You entered int: &quot; + i );
+
+		System.out.println(&quot;returning from foo2()&quot;);
+	}
+} //EOF
+</font></pre></td></tr></table>
+
+<h4>Output of the above program</h4>
+<p>
+Notice that neither main(), foo1() or foo2() completes. As soon as the exception triggers, control returns
+from foo2() to foo1(). As soon as control returned to foo1() at the call to foo2(), the runtime saw that
+foo1() was not handline the exception either. Control then returned to main() at the call to foo1(). Again,
+main() was not handling the exception either so control returned to main's caller - the command line.
+</p>
+
+<table bgcolor='black'>
+<tr><td>
+<pre><font color='white' size="+2" face="Courier New">
+calling foo1()
+In foo1()
+calling foo2()
+In foo2()
+You entered int: 1234
+Exception in thread &quot;main&quot; java.lang.NumberFormatException: For input string: &quot;fubar&quot;
+        at java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)
+        at java.lang.Integer.parseInt(Integer.java:426)
+        at java.lang.Integer.parseInt(Integer.java:476)
+        at ExceptionsDemo1.foo2(ExceptionsDemo1.java:47)
+        at ExceptionsDemo1.foo1(ExceptionsDemo1.java:28)
+        at ExceptionsDemo1.main(ExceptionsDemo1.java:17)
+Press any key to continue . . .
+</font></pre></td></tr></table>
+
+<h3>checked exceptions</h3>
+
+<h2><a href="ExceptionsDemo2.java.txt"><font size=+2>ExceptionsDemo2.java</font></a>
+</h2>
+<table bgcolor='khaki'><tr><td>
+<pre><font size="+2" face="Courier New">
+/*
+	ExceptionsDemo2.java
+
+	- illustrates a checked exception
+		* FileReader() C'Tor throws IOException
+		* IOException is a checked exception
+		* checked exceptions must either be
+		  - handled with try/catch
+		  - or be advertised with a throws IOException clause in the
+		    signature of the enclosing method
+*/
+
+import java.io.*;
+
+public class ExceptionsDemo2
+{
+	public static void main( String args[] ) throws IOException
+	{
+		// the following statement could throw a checked exception
+		// since it is a checked exception we must &quot;advertise&quot;
+		// the fact that we are not handling this exception in our code.
+		// Instead we &quot;throw&quot; the Exception. Thus the clause
+		// &quot;throws IOException&quot; after the main method's signature.
+
+		FileReader fr = new FileReader( &quot;input.txt&quot; ); // FileReader's C'Tor throws IOException
+		BufferedReader infile = new BufferedReader( fr );
+
+		String line = infile.readLine(); // read entire line from infile - upto newline
+		System.out.println(&quot;First line of input file:\n&quot; + line );
+
+	} //END main
+} //EOF
+</font></pre></td></tr></table>
+
+<p>
+If we remove the <b>throws IOException</b> from the above program and recomplie it, the compiler will give the following errors.
+</p>
+
+<table bgcolor='black'><tr><td><pre><font color='white' size="+2" face="Courier New">
+C:\Temp\ExceptionsDemo2.java:25: unreported exception java.io.FileNotFoundException;
+	must be caught or declared to be thrown
+		FileReader fr = new FileReader( &quot;input.txt&quot; ); // FileReader's C'Tor throws IOException
+                                ^
+C:\TempExceptionsDemo2.java:28: unreported exception java.io.IOException;
+	must be caught or declared to be thrown
+		String line = infile.readLine(); // readLine() throws IOException too
+                                    ^
+2 errors
+</font></pre></td></tr></table>
+
+<p>Note the compiler cites 2 methods  <b>FileReader()</b> C'Tor and <b>readLine()</b> that require the programmer
+to either catch them or declare them to be thrown. In the working version of the above program, we declared them to be
+thrown by putting the throws IOException after the enclosing method's signature.
+</p>
+<h4>We now show you how to catch your exceptions</h4>
+
+<p>We start with an un-checked exception before revisiting our checked exception example</p>
+
+
+<h2><a href="ExceptionsDemo3.java.txt"><font size=+2>ExceptionsDemo3.java</font></a></h2>
+<table bgcolor='khaki'><tr><td><pre><font size="+2" face="Courier New">
+/*
+	ExceptionsDemo3.java
+
+	- illustrates unchecked exception
+		* Integer.parseInt()
+		* works same with Double.parseDouble() and the other wrapper classes
+
+	- handles un-checked exception via try/catch statement
+*/
+
+import java.io.*;
+
+public class ExceptionsDemo3
+{
+	public static void main( String args[] )
+	{
+		System.out.println(&quot;calling foo1()&quot;);
+
+		try
+		{
+			foo1();
+			System.out.println(&quot;In try block right after call to foo1()&quot;);
+		}
+		catch (NumberFormatException ioe )
+		{
+			System.out.println(&quot;Caught this Exception from call to foo1(): &quot; + ioe );
+		}
+
+		System.out.println(&quot;back from foo1()&quot;);
+		System.out.println(&quot;returning from main()&quot;);
+	} //END main
+
+	public static void foo1()
+	{
+		System.out.println(&quot;In foo1()&quot;);
+		System.out.println(&quot;calling foo2()&quot;);
+		foo2();
+		System.out.println(&quot;back from foo2()&quot;);
+		System.out.println(&quot;returning from foo1()&quot;);
+	}
+
+
+	public static void foo2()
+	{
+		System.out.println(&quot;In foo2()&quot;);
+
+		int i;
+		double d;
+		String s;
+
+		s = &quot;1234&quot;;
+		i = Integer.parseInt( s );
+		System.out.println(&quot;You entered int: &quot; + i );
+
+		s = &quot;fubar&quot;;
+		i = Integer.parseInt( s ); // this will throw a &quot;NumberFormatException&quot;
+		System.out.println(&quot;You entered int: &quot; + i );
+
+		System.out.println(&quot;returning from foo2()&quot;);
+	}
+} //EOF
+</font></pre></td></tr></table>
+
+<h4>Output of the above program</h4>
+<p>
+Notice that neither main(), foo1() or foo2() completes. As soon as the exception triggers, control returns
+from foo2() to foo1(). As soon as control returned to foo1() at the call to foo2(), the runtime saw that
+foo1() was not handline the exception either. Control then returned to main() at the call to foo1(). Again,
+main() was not handling the exception either so control returned to main's caller - the command line.
+</p>
+
+<table bgcolor='black'>
+<tr><td>
+<pre><font color='white' size="+2" face="Courier New">
+calling foo1()
+In foo1()
+calling foo2()
+In foo2()
+You entered int: 1234
+Caught this Exception from call to foo1(): java.lang.NumberFormatException: For input string: &quot;fubar&quot;
+back from foo1()
+returning from main()
+Press any key to continue . . .
+</font></pre></td></tr></table>
+
+<p>
+The Exception was triggered in foo2() and control immediately returned to foo1(). Since foo1() was not
+handling the exception control returned to main() where foo1() was called. Since the call to foo(1() was
+enclosed in a try block, control did not return to the command line. Instead, control jumped into the catch block.
+The catch block looks a lot like a method body and behaves similarly. Notice that the print statement right after
+the call to foo1() never executes. That's because whenever an Exception is triggered in a try block, no further code
+is executed in the try block. Control jumps immediately to the catch block just as if that catch block is a method
+called by the runtime. In fact, the runtime passes a parameter to that catch block. It passes the exception object
+into he catch. Once inside the catch, we print out the exception info via the Exception object's toString().
+</p>
+<p>
+There is one important difference between how this catch behaves and how a normal method behaves. Once we reach the
+bottom of the catch block, we drop through and execute the next statement in main
+below the catch. Unlike a method call,
+we do NOT return to the call site to execute the next line of the try block.
+</p>
+<hr>
+<h2>Stacking catch blocks</h2>
+
+<p>Often there are multiple statements in a try blocks that could throw an Exception. We could handle it several ways.
+The most shotgun approach would be to have one catch block looking for Exception (the general case) that will catch any
+sub-type Exception that occurs.  Usually we want to know which specific type of Exception
+occurred and handle it distinctly.
+To do so we stack multiple catch blocks under the single try block. Each block should test for its
+specific Exception
+type such as NumberFormat or IOException etc. As a catch all, it is customary to put a plain Exceptions catch at the bottom
+just in case we get an unexpected unchecked exception. It is important to put the
+catch all Exception at the bottom,
+other wise the compiler will see you are catching the general before the specific and will give you a compilation error.
+</p>
+
+ <h2><a href="ExceptionsDemo4.java.txt"><font size=+2>ExceptionsDemo4.java</font></a></h2>
+<table bgcolor='khaki'><tr><td><pre><font size="+2" face="Courier New">
+/*
+	ExceptionsDemo4.java
+
+	- illustrates Stacking catch blocks
+	- Stream objects
+*/
+import java.io.*;
+
+public class ExceptionsDemo4
+{
+	public static void main( String args[] )
+	{
+
+		// we declare our stream outside the try block
+		// other wise they become local vars
+		// we also have to initialize since possible exception
+		// will abort assignment statement and compiler will know the
+		// vars might not get initialized, and refuse to compile code
+
+		BufferedReader infile = null;
+		FileReader fr = null;
+
+		try
+		{
+			infile =  new BufferedReader( new FileReader( &quot;input.txt&quot; ) );
+		}
+		catch (IOException ioe)
+		{
+			System.out.println(&quot;Caught Exception: &quot; + ioe );
+		}
+
+		// NOTE THE MULTIPLE CATCH BLOCKS : ONLY 1 CAN EXECUTE
+		// THE FIRST EXCPTION DETECTED WILL JUMP TO ITS MATCHING BLOCK.
+		// THE EXCEPTION CLASS IS THE GENERAL CASE AND WILL CATCH ANY EXCEPTION
+		// THAT DOES NOT HAVE  A SPECIFIC MATCHING BLOCK.
+		// ALWAYS PUT THE PLAIN EXCEPTION CASE LAST AS A CATCH ALL.
+		// IF YOU PUT IT ANYWHERE ELSE THEN SPECIFIC EXCEPTIONS WILL GO INTO THE
+		// GENERAL EXCEPTION BLOCK BEFORE GETTING TO MATCH ON THEIR SPECIFIC CASES.
+
+		System.out.println(&quot;calling foo1()&quot;);
+		try
+		{
+			String line = infile.readLine();
+			System.out.println(&quot;1st line of infile was: &quot; + line );
+			int num = Integer.parseInt( line );
+			System.out.println(&quot;the int conversion: &quot; + num );
+		}
+		catch ( NumberFormatException nfe ) // a specific Exception
+		{
+			System.out.println(&quot;Caught NumberFormatException: &quot; + nfe );
+		}
+		catch( IOException ioe ) // a specific Exception
+		{
+			System.out.println(&quot;Caught IOException: &quot; + ioe );
+		}
+		catch (Exception e ) // catch-all  Exception is the most general Exception type
+		{
+			System.out.println(&quot;Caught General Exception: &quot; + e );
+		}
+
+		System.out.println(&quot;returning from main()&quot;);
+	} //END main
+} //EOF
+</font></pre></td></tr></table>
+
+<h4>Output of the above program</h4>
+
+<table bgcolor='black'><tr><td><pre><font color='white' size="+2" face="Courier New">
+calling foo1()
+1st line of infile was: Hello World
+Caught NumberFormatException: java.lang.NumberFormatException: For input string: &quot;Hello World&quot;
+returning from main()
+Press any key to continue . . .
+</font></pre></td></tr></table>
+
+
+</body>
+</html>

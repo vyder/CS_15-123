@@ -1,0 +1,175 @@
+<html>
+<head>
+<title>15-200 Fall '05 </title>
+<style type="text/css">
+<!--
+body
+{
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+-->
+</style>
+</head>
+<body bgcolor ="ffffcc">
+<h1>Weighted, Directed Graphs & Adjacency Matrices</h1>
+<hr color="green">
+
+A graph may be thought of as a set of nodes and edges. Many authors call the nodes vertices.
+For our purposes the terms are interchangeable and we will use nodes because it's shorter.
+In a weighted, directed graph, the nodes and the edges may carry a label or some information.
+Often the nodes will carry a label and the edges will carry a value (<b><i>weight</i></b> or cost).<br>
+In a directed graph an edge has <b><i>direction</i></b>. It goes <b>from</b>
+one node <b>to</b> another node.<br><br> In the graph example below, the weighted edges
+(representing distance)
+go from one city to another city. The edges have <b><i>direction</i></b><br><br>
+
+<img align="center" src="weightedgraph1.jpg" >
+<br><br>
+<p>Such a graph <i><b>G</b></i> can be represented via an <b>adjacency matrix</b>. In such a matrix
+the row and column names are the names of the nodes.  The value at each G[row][col]
+position represent the cost or weight of the edge between the two nodes.
+If there is no edge between two nodes then an impossibly large value such as
+infinity ( oo ) or a large constant is stored to represent the fact that
+no edge exists between the 2 nodes. Also note a weight of 0 between any
+node to itself.
+</p>
+The adjacency Matrix for the above example would thus be:
+<pre>
+City #         0   1   2   3   4   5   6   7
+--------------------------------------------
+0 Pendeleton   0   oo  oo  4   oo  oo  oo  8
+1 Pensicola    oo  0   oo  5   oo  oo  oo  oo
+2 Peoria       oo  oo  0   oo  oo  5   oo  3
+3 Phoenix      oo  oo  4   0   oo  10  oo  3
+4 Pierre       2   oo  oo  oo  0   oo  oo  oo
+5 Pittsburgh   oo  4   oo  oo  oo  0   oo  oo
+6 Princeton    oo  oo  oo  oo  oo  2   0   oo
+7 Pueblo       oo  oo  oo  oo  3   oo  oo  0
+</pre>
+<hr>
+<h3>Filling an adjacency Matrix from an input file</h3>
+<p>
+Your 1st assignment will require you to read a text file <i>graph.txt</i> into a
+matrix that represents the adjacency matrix of a graph. The adjacency
+matrix input file for lab 1 looks like this: This format is called 'sparse'
+format - since it only list values for existing edges. Here&nbsp; are the
+contents of <i>graph.txt </i>which you will use in Lab2.
+</p>
+<pre>
+8
+0 1 10
+0 6 2
+1 2 31
+2 1 22
+3 5 11
+4 0 9
+4 1 56
+4 3 13
+5 2 25
+5 6 15
+6 1 6
+6 7 22
+7 0 12
+7 5 1
+</pre>
+<p>
+The first number in the file represents how many nodes the graph has. The remaining
+lines are triplets of the form (source-node, dest-node, edge-weight).
+In the above input file, the second line of the file reads as follows:
+<pre>0 1 10
+There is an edge from node 0 to node 1 and the weight of the edge is 10.</pre>
+The third line of input reads as follows:
+<pre>0 6 2
+There is an edge from node 0 to node 6 and the weight of the edge is 2.</pre>
+and so on for every remaining triplet line in the input file.
+<p>
+From this input file is obvious what is to be done. We must dimension a
+8 x 8 matrix and for every triplet (source, dest, weight ) we read in,&nbsp; we
+will&nbsp; store<pre>
+G[source][dest] = weight  // where G is some 2D array indexed with [][] braces
+</pre>
+<p>
+<hr><h2>Properties of directed graphs</h2>
+<p>A nodes of a directed graph has certain properties as a result of it's edges having
+<i><b>direction</b></i>. For a directed graph, we can define the following
+terms:
+<ul>
+  <li>out-degree - the number of edges <i>leaving</i> the vertex
+  <li>in-degree - the number of edges <i>entering</i> the vertex
+  <li>degree - the number of edges <i>entering and leaving</i> the vertex</li>
+</ul>
+Your lab1 assignment will be to write a graph class to containing a 2D array to
+store the connection data and to implement amoung others) the above 3&nbsp; member
+methods. After doing so and testing your implementation, you are to implement
+the <b>following</b> client functions in the Lab1.java (driver) file to exercise
+the 3 above member functions:
+<ul>
+  <li>Max Out Degree - the maximal number of edges leaving any single vertex
+  <li>Min Out Degree - the minimal number of edges leaving any single vertex
+  <li>Max In Degree - the maximal number of edges entering any single vertex
+  <li>Min In Degree - the minimal number of edges entering any single vertex
+  <li>Max Degree - the maximal number of edges entering/leaving any single
+    vertex
+  <li>Min Degree - the minimal number of edges entering/leaving any single
+    vertex</li>
+</ul>
+For the input file graph.txt --&nbsp; the correct answers are
+<ul>
+  <li>Max Out Degree - 3
+  <li>Min Out Degree - 1
+  <li>Max In Degree - 4
+  <li>Min In Degree - 0
+  <li>Max Degree - 5
+  <li>Min Degree - 2</li>
+</ul>
+<hr>
+<h3>
+In class exercise: <font size="2">( I'll ask for help from you then draw the
+answer on the big screen)</font></h3>
+<ul>
+	<li>Draw and fill in the 2D array that represents the above graph file (sparse format).
+	<li>Describe an algorithm for computing the in-degree, out-degree and degree
+      of a given node
+	<li>Describe an algorithm for computing the min and max&nbsp; in/out/degree
+      of the graph?
+</ul>
+
+<h3>
+
+Concepts Review:</h3>
+<ul>
+	<li> <a href="Matrices.txt">2D array of int</a> a.k.a. <i><b>the Matrix</b></i>
+</ul>
+<h3>
+New application of 2D arrays: A Graph Class</h3>
+We want to write a Graph class to represent a graph&nbsp;
+<ul>
+	<li>What are the data members of a Graph class?
+		<ul>
+			<li>a Matrix of ints representing cost/weight for that edge
+			<li>Counters for how many edges etc.
+		</ul>
+	<li>What should the Constructor do?
+	   <ul>
+	   		<li>Initialize the number of roaws and columns
+	   		<li>Initialize each element to the NO_EDGE value (use some constant)
+	   </ul>
+	<li>What other methods are need to represent our graph concept?
+		<ul>
+			<li>addEdge( scr, dest, weight) // puts a weight value there
+			<li>removeEdge( src, dest ) // pit a NO_EDGE val there
+  			<li>hasEdge( src, dest ) // T/F is there an edge here ?
+			<li>readEdgeFile( fileName )  // read in a sparse format graph input file
+			<li>print() // dumps a 2x2 text table (Matrix) of the edges
+			<li>others ?
+		</ul>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<HTML>
+<HEAD>
+<TITLE>Recursion + Stack to find paths out of a maze</TITLE></HEAD>
+<style type="text/css">
+<!--
+body
+{
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "comic sans ms"; serif;
+}
+-->
+</style>
+<BODY>
+<h1 align="center">Graph Traversals - escaping a maze</h1>
+<hr>
+
+<pre>
+The maze we are escaping from will be represented by a square grid of 1s and 0s. The 1s represent
+a step on a path and the 0s represent a wall. Lab5 is an example of such a representation where the
+grid is a swamp. The 1s are solid ground and the 0s are quicksand. For this illustration we assume
+a square grid (the swamp) and the coordinates of the initial starting point. Our task is to discover
+and print all the paths out of the swamp from our origin within.
+
+Here is our (maze) swamp
+
+      0 1 2 3 4
+     ----------
+  0 : 0 0 1 0 1
+  1 : 0 1 0 1 0
+  2 : 0 0 1 1 0
+  3 : 0 1 0 1 0
+  4 : 0 1 0 0 1
+
+The input file for this swamp would look like this:
+
+5 2 2
+0 0 1 0 1
+0 1 0 1 0
+0 0 1 1 0
+0 1 0 1 0
+0 1 0 0 1
+
+The first line contains a 5 to represent the square dimension of the grid - 5x5. The 2 and 2
+represent the starting coordinate where me must escape from. row 2 column 2.
+
+Here is some psuedo code that illustrates the algorithm we will employ to find and print all the paths
+out of the swamp from our point of origin.
+
+We start at origin (2,2)
+
+Our algorithm will use a single stack to record each path we take through the grid. Our first operation is to PUSH the origin (2,2) onto the stack.
+
+STACK:
+[2][2] &lt;-- stack_top
+
+We now begin our orderly search from our current origin (top of stack) for a neighbor with a 1.
+Of course our search always begins with a base case test. Is the coordinate on the top of the stack
+and escape step (i.e. at the edge of the grid). If not we then begin an orderly scan of our neighbors.
+Our search ordering is arbitrary so we will examine our neighbors in the following order
+(clockwise starting North) N, NE, E, SE, S, SW, W, NW. We only PUSH a neighbor on top the stack if
+the neighbor is a "1" and the neighbor is not already in the stack. This second condition avoids cycles.
+
+PUSH NE [1][3] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [1][3] &lt;-- stack_top
+
+PUSH NE [0][4] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [1][3] [0][4] &lt;-- stack_top  (ESCAPED ! - PRINT/POP/RETURN)
+
+We have a solution. [0][4] is on the edge of the grid so we reverse print the stack and <b>POP</b> back to [1][3]
+then  return from our recursion to resume our clockwise scan with our E neighbor
+
+STACK:
+[2][2] [1][3] &lt;-- stack_top
+
+PUSH S [2][3] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [1][3] [2][3] &lt;-- stack_top
+
+PUSH S [3][3] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [1][3] [2][3] [3][3] &lt;-- stack_top
+
+PUSH SE [4][4] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [1][3] [2][3] [3][3] [4][4] &lt;-- stack_top (ESCAPED! - PRINT/POP/RETURN)
+
+We have a solution. [0][4] is on the edge of the grid so we reverse print the stack and POP back to [3][3]
+then return from our recursion to resume our clockwise scan with our S neighbor
+
+STACK:
+[2][2] [1][3] [2][3] [3][3] &lt;-- stack_top
+
+Since we have no other eligible neighbors around [3][3] we POP back to [2][3]
+then return from our recursive call to resume our clockwise scan with our SW neighbor.
+
+STACK:
+[2][2] [1][3] [2][3] &lt;-- stack_top
+
+Since we have no other eligible neighbors around [2][3] we POP back to [1][3]
+then return from our recursion to resume our clockwise scan with our SW neighbor
+
+STACK:
+[2][2] [1][3] &lt;-- stack_top
+
+PUSH NW [0][2]  followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [1][3] [0][2] &lt;-- stack_top (ESCAPED! - PRINT/POP/RETURN)
+
+We have a solution. [0][2]is on the edge of the grid so we reverse print the stack,
+pop back to [1][3] then return from our recursion to resume our clockwise scan
+
+STACK:
+[2][2] [1][3] &lt;-- stack_top
+
+Since there are no more neighbors to scan from this origin we POP back to [2][2]
+then return from our recursion to resume our clockwise scan with our E neighbor
+
+STACK:
+[2][2] &lt;-- stack_top
+
+PUSH E [2][3] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [2][3] &lt;-- stack_top
+
+PUSH N [1][3] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [2][3] [1][3] &lt;-- stack_top
+
+PUSH NW [0][4] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [2][3] [1][3] &lt;-- stack_top
+
+We have a solution. [0][4] is on the edge of the grid so we reverse print the stack and POP back to [1][3]
+then from our recursion to and resume our clockwise scan with our E neighbor.
+
+STACK:
+[2][2] [2][3] [1][3] &lt;-- stack_top
+
+Since we have no other eligible neighbors around [3][3] we POP back to [2][3]
+then return from our recursive call to resume our clockwise scan with our NE neighbor
+
+STACK:
+[2][2] [2][3] &lt;-- stack_top
+
+PUSH S [3][3] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [2][3] [3][3] &lt;-- stack_top
+
+
+PUSH SW [4][4] followed by a recursive call (top is now our curr origin)
+
+STACK:
+[2][2] [2][3] [3][3] [4][4] &lt;-- stack_top
+We have a solution. [4][4] is on the edge of the grid so we reverse print the stack and POP back to [3][3]
+then from our recursion to and resume our clockwise scan with our S neighbor.
+</pre>
+
+<h3>Remainder of trace is left to the student!.</h3>
+
+</body>
+</html>

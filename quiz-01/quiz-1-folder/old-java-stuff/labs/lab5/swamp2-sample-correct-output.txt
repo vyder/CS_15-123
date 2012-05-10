@@ -1,0 +1,17 @@
+
+Searching for escape paths from swamp2.txt
+9X9 Origin: (4,3)
+0 1 0 0 0 0 0 0 0
+0 1 0 0 1 0 0 0 0
+0 1 0 0 0 0 0 0 0
+0 0 1 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0
+0 0 0 1 0 0 0 0 0
+0 0 0 1 0 0 0 0 0
+0 0 0 1 0 0 0 0 0
+0 0 0 1 0 0 0 0 0
+
+PATH FOUND: (4,3) --> (5,3) --> (6,3) --> (7,3) --> (8,3) --> FREEDOM
+PATH FOUND: (4,3) --> (3,2) --> (2,1) --> (1,1) --> (0,1) --> FREEDOM
+
+Found 2 escape paths from (4,3) in swamp2.txt

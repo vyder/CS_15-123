@@ -1,0 +1,2 @@
+I have read and understood the handin policy for M09 15-123 Effective Programming in C and UNIX. I agree to abide 
+by its terms.

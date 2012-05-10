@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>15-121 Spring '02</title>
+<body bgcolor="ffffcc">
+<h1>Intro to Linked Lists</h1>
+<hr color = "green">
+<p>We introduce a simple ListElement class and then build a LinkedList class on
+top of it. :
+</p>
+<table bgcolor="white"><tr><td>
+<pre><b>// This ListElement type is used by Stack, Queue and Priority Queue</b>
+public class ListElement
+{
+  private int data;
+  private ListElement next;
+  
+  public ListElement( int data, ListElement next)
+  {
+     setData( data); 
+     setNext( next ); 
+  }
+  public void setData(  int data )
+  {
+     this.data = data; // this.data is the member field, data is the incoming arg
+  }
+  public int getData()
+  {
+     return data; // no need to put &quot;this.&quot; in front of data since there is no other 'data' in here
+  }
+  public void setNext(  ListElement next )
+  {
+     this.next = next; // this.next is the member field, next is the incoming
+  }
+  public ListElement getNext()
+  {
+     return next; // no need to put &quot;this.&quot; in front of next since there is no other 'next' in here
+  }
+}//EOF</pre>
+</td></tr></table>
+<hr>
+<h2>1st Linked List Operation: insertAtFront( int Data )</h2>
+
+Assume we have a LinkedList class that uses the above ListElement class.&nbsp; We
+recently learned how easy it is to
+add elements to the list if we keep it simple by always inserting the latest element to the front of the list.
+<p>This methods is our <b>insertAtFront </b>method</p>
+<table bgcolor="white"><tr><td>
+<pre>public class LinkedList
+{
+   private ListElement head;  // pointer to a list of elements
+   
+   public LinkedList()
+   {
+     head=null;
+   }
+
+   insertAtFront( int data )
+   {
+   		head = new ListElement( data, head );   		
+   }
+}//EOF</pre>
+</td></tr></table>
+Let's illustrate the insert at head method by starting out assuming a null head pointer in our class
+
+<pre>
+ head
+[null]
+</pre>
+Now let's make a call to<b> insertAtHead( 7 );</b>
+<p>
+we will trace the effect of the assignment statement from right to left</a>
+<pre>
+head = new ListElement( 7, head);
+</pre>
+The righthand side causes the following:
+<pre>
+             [7,null]    a list element is created in memory having the value 7 
+                         and the value null ( since head is null)
+</pre>
+now trace the left hand side of the assignment<pre>
+  head
+  [  ]-----&gt; [7,null]   head now points to the new element because the <b>new</b> keyword
+                        produced the new element's address, which gets copied into head
+</pre>
+What makes this piece of code work is that assignments operate right to left.  Thus.. we copy 
+the value of head (null) into the new element's next field <b>before</b> we copy the new element's 
+address into head.
+<p>
+Now let's insert one more element into the list and trace it's effect graphically again<p>
+insertAtFront( 33 );&nbsp;&nbsp; // which executes the <b>assignment statement:</b>&nbsp;
+<i>head = new ListElement( data, head );</i><p>trace the effect of the right
+hand side of the assignment
+statement:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<i>new ListElement( data, head );</i>&nbsp;&nbsp;
+<pre>
+     [33, ]----&gt; [7,null]    a list element is created in memory having the value 33 
+                             and the address of the element containing 7 
+                            (since head had 7's address)
+</pre>
+now trace the left hand side of the assignment:&nbsp;&nbsp;&nbsp;<i> head
+=&nbsp;</i>
+<pre>
+    head
+    [  ]-----&gt; [33, ]----&gt; [7,null]    head now points to the new element because 
+                                        the new keyword produced the new elemen'ts address 
+                                        which gets copied into head
+</pre>
+
+
+<p>Again.. what makes this piece of code work is that assignments operate right to left.  Thus.. we copy 
+the value of head <i>(this time pointing to [7,null])</i> into the new element's next field <b>before</b> we copy the new element's 
+address into head.</p>
+
+
+</body>
+</html>

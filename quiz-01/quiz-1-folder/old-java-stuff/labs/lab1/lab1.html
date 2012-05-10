@@ -1,0 +1,131 @@
+<html>
+<head>
+	<title>Lab 1: 15200 S06 </title>
+
+<style type="text/css">
+<!--
+body
+{
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: #000066;
+	background-color: #FFFFFF;
+	font-family: "verdana"; serif;
+}
+-->
+</style>
+</head>
+
+<body>
+<p align="center">
+<h1 align="center">Lab 1: Working with the Graph Class</h1>
+<hr>
+<h4>Due Date: Thu 31 Jan 2006 by 11:59pm</h4>
+<hr>
+
+<h4>Background:</h4>
+
+<p>
+This lab should be a refresher on arrays (2D), implementing member functions inside a given class, and then using those
+member functions in a client program to perform certain actions. You will also review how to catch
+Exceptions.&nbsp; Once you're done, you will use the Intro-CS Assignment Dropoff form to hand in your finished program.
+</p>
+<p>
+This Lab assignment was borrowed and modified as needed with permission from it's original author
+<a href="http://www.cs.cmu.edu/~mjs">Mark Stehlik</a><br>You can find Mark's original presentation of this content
+in the links to his S-01 15111, and F-01 15113 courses on his home page.
+</p>
+<hr size="5">
+<h4>What You'll Need</h4>
+<p>Download the <a href="lab1.zip"><big>Lab1.zip</big></a> file to your
+ temp directory and unzip the files. You should see the
+following files:
+<ul>
+	<li>(folder) starter-files
+	<ul>
+		<li> Graph.java - // you write ALL your code here and hand this one in
+		<li> TrivialGraphTester.java&nbsp; // just for you to use as-is to test
+          the given starter Graph.java -- do NOT hand it in
+		<li> Lab1.java - the real Tester program for your finished Graph.java file (same as in solution folder)
+	</ul>
+	<li>(folder) solution-demo
+	<ul>
+		<li>Graph.class - my Graph class solution (compiled - not source code)
+		<li>Lab1.java -  compile and execute this file. It will use my solution Graph.class file so you can see
+			how the solution should behave and what its output is. I will test your solution file  with this program.
+		<li>graphdata.txt - enter this filename on the command line
+	</ul>
+</ul>
+<hr size="5">
+<h4>Assignment</h4>
+You are to implement all of the several member functions in Graph.java.
+We have discussed them in class already. For your review we defined the following
+terms and properties of a directed graph:
+<p>The <i>degree</i> of a vertex is the number of edges incident to that
+vertex.  For a directed graph, we can define the following terms:
+<ul>
+	<li>outDegree - the number of edges <i>leaving</i> the vertex
+	<li>inDegree - the number of edges <i>entering</i> the vertex
+	<li>degree - the number of edges <i>entering and leaving</i>
+	 the vertex
+</ul>
+
+You are to declare and implement private member functions for each of the above <b>and</b>&nbsp;
+private method<p>&nbsp;&nbsp;&nbsp; boolean hasEdge( int src, int dest)&nbsp;&nbsp;
+--&nbsp;&nbsp; T/F whether
+there is an edge from src node to dest node</p>
+<p>
+After doing so and testing your implementation, you are to implement the
+following 7 public methods in your Graph.java file to exercise the 4 private member
+functions above,</p>
+<ul>
+	<li> maxOutDegree&nbsp; - the maximal number of edges leaving any
+	single vertex
+	<li> minOutDegree&nbsp; - the minimal number of edges leaving any
+	single vertex
+	<li> maxInDegree&nbsp; - the maximal number of edges entering any
+	single vertex
+	<li> minInDegree&nbsp; - the minimal number of edges entering any
+	single vertex
+	<li> maxDegree&nbsp; - the maximal number of edges entering/leaving any
+	single vertex
+	<li> minDegree&nbsp; - the minimal number of edges entering/leaving any
+	single vertex
+	<li>removeEdge - puts a NO_EDGE value into the matrix or throws an Exception if bad values were passed in
+</ul>
+For our input file, graphdata.txt, <b>the correct answers are:</b>
+<ul>
+  <li>maxOutDegree - <b>3</b>
+  <li>minOutDegree - <b>1</b>
+  <li>maxInDegree - <b>4</b>
+  <li>minInDegree - <b>0</b>
+  <li>maxDegree - <b>5</b>
+  <li>minDegree - <b>2</b></li>
+</ul>
+<h2>Here is a <a href="lab1help.html" target="external">help file</a> that gives more details on how to complete the asignment</h2>
+<hr>
+<h4>To run my solution executable at the DOS prompt using the JDK (<i>java</i> command)</h4>
+You must first compile the given Lab1.java and put the resulting&nbsp;
+Lab1.class file in the same dir
+as <b> my</b> Graph.class <b> solution</b> file. Then at the DOS prompt type
+<font face="courrier" size=+1><pre><b>C:\TEMP\solution&gt;</b> java  Lab1  graphdata.txt</pre></font>
+and observe the output. Compare my solution behavior and output to yours as you test your solution.
+<p><b>ALSO: You can compile and execute on the MAC command line using the
+Terminal Window. See the link on our course website menu bar.&nbsp;</b>
+<hr>
+<h4>Handing in your Solution</h4>
+Your solution should be in the form of a .zip file. It should contain exactly and only the following files:
+<ul>
+	<li>Graph.java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // YOUR solution file  with your new methods added
+	<li>readme.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      // tells me what I need to know to compile and run your program
+</ul>
+
+<hr>
+<p>Use the Intro Programming&nbsp;&nbsp; <a href="http://handin.intro.cs.cmu.edu"><big>HANDIN</big></a>&nbsp;&nbsp;
+link to submit your zip file.
+</p>
+

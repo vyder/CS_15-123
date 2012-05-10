@@ -1,0 +1,5 @@
+name;Fred;Bob;Mary
+verb;throws;eats;chases;breaks
+article;a;the;this
+adj;big;red;small;blue
+do;wagon;ball;hot-dog

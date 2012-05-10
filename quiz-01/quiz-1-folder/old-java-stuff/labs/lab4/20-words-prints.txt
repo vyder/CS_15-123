@@ -1,0 +1,32 @@
+
+Reading: 20-words.txt into t1
+Each '*' == 1000 words inserted into Tree...
+
+
+Done. MyTree read and built in 0.0 sec.
+
+
+Pre Order print of t1:
+lighted groundworks forthrights carboys arbitrament ailurophiles autobahns curtail 
+conductivity detractive immanentisms jalop preformatting virginalist reapplication 
+preschedules scanter unreasoning thumbscrews unfeminine
+
+In Order print of t1:
+ailurophiles arbitrament autobahns carboys conductivity curtail detractive forthrights 
+groundworks immanentisms jalop lighted preformatting preschedules reapplication scanter 
+thumbscrews unfeminine unreasoning virginalist
+
+
+Post Order print of t1:
+ailurophiles autobahns arbitrament conductivity detractive curtail carboys forthrights
+jalop immanentisms groundworks preschedules unfeminine thumbscrews unreasoning scanter 
+reapplication virginalist preformatting lighted
+
+
+Level Order print of t1:
+lighted groundworks preformatting forthrights immanentisms virginalist carboys jalop 
+reapplication arbitrament curtail preschedules scanter ailurophiles autobahns conductivity 
+detractive unreasoning thumbscrews unfeminine
+
+
+Press any key to continue . . .
